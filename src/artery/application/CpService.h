@@ -116,7 +116,7 @@ private:
     ChannelNumber mPrimaryChannel = channel::CCH;
     const NetworkInterfaceTable* mNetworkInterfaceTable = nullptr;
     const VehicleDataProvider* mVehicleDataProvider = nullptr;
-	const traci::VehicleController* mVehicleController = nullptr;
+	const traci::Controller* mVehicleController = nullptr;
     const Timer* mTimer = nullptr;
     LocalDynamicMap* mLocalDynamicMap = nullptr;
     
@@ -172,7 +172,7 @@ private:
 
 };
 
-vanetza::asn1::Cpm createCollectivePerceptionMessage(const VehicleDataProvider& vdp, uint16_t genDeltaTime, const VehicleController& vc, std::map<int, uss_setup> us,std::map<int, uss_value> dm, std::list<object_info>& objects, omnetpp::cGroupFigure& det, omnetpp::cFigure::Point cpc);
+vanetza::asn1::Cpm createCollectivePerceptionMessage(const VehicleDataProvider& vdp, uint16_t genDeltaTime, const Controller& vc, std::map<int, uss_setup> us,std::map<int, uss_value> dm, std::list<object_info>& objects, omnetpp::cGroupFigure& det, omnetpp::cFigure::Point cpc);
 
 }  // namespace artery
 

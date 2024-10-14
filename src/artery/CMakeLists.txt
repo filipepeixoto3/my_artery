@@ -42,6 +42,7 @@ add_library(core SHARED
     application/den/TractionLoss.cc
     application/den/TrafficJamUseCase.cc
     application/den/UseCase.cc
+    application/json.hpp
     networking/AccessInterface.cc
     networking/DccEntityBase.cc
     networking/FsmDccEntity.cc
