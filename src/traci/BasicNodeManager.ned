@@ -19,5 +19,5 @@ simple BasicNodeManager like NodeManager
         string vehicleSinkModule;
         string subscriptionsModule;
         bool destroyVehiclesOnCrash = default(false);
-        bool ignorePersons;
+        bool ignorePersons = default(true);
 }

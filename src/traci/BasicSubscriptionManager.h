@@ -9,6 +9,11 @@
 
 #include "traci/Listener.h"
 #include "traci/SubscriptionManager.h"
+//add by lip
+#include "veins/base/utils/FindModule.h"
+#include "traci/Position.h"
+//end add by lip
+
 #include <omnetpp/csimplemodule.h>
 #include <omnetpp/simtime.h>
 #include <unordered_map>

@@ -14,6 +14,20 @@
 #include <memory>
 #include <string>
 
+//add by lip
+#include "artery/utility/Geometry.h"
+#include "artery/traci/Cast.h"
+#include <vanetza/units/angle.hpp>
+#include <omnetpp/ccanvas.h>
+#include <omnetpp/clistener.h>
+#include <omnetpp/csimplemodule.h>
+#include <boost/geometry/index/rtree.hpp>
+#include <unordered_map>
+#include <vanetza/units/length.hpp>
+#include <fstream>
+
+//end add by lip
+
 namespace traci
 {
 
@@ -23,9 +37,21 @@ class PersonSink;
 class VehicleCache;
 class VehicleSink;
 
+typedef struct {
+    double yaw;
+    double x;
+    double y;
+    double z;
+    double norm_sensor_angle;
+    double norm_detection_angle;
+    double sensor_dist;
+    omnetpp::cFigure::Point sensor_pos;
+} uss_setup;
+
 class BasicNodeManager : public NodeManager, public Listener, public omnetpp::cSimpleModule
 {
 public:
+    using Length = vanetza::units::Length;
     static const omnetpp::simsignal_t addNodeSignal;
     static const omnetpp::simsignal_t updateNodeSignal;
     static const omnetpp::simsignal_t removeNodeSignal;
@@ -61,7 +87,6 @@ public:
         virtual const TraCIPosition& getPosition() const = 0;
         virtual TraCIAngle getHeading() const = 0;
         virtual double getSpeed() const = 0;
-        virtual std::string getVehicle() const = 0;
     };
 
 protected:
@@ -105,6 +130,12 @@ private:
     bool m_destroy_vehicles_on_crash;
     bool m_ignore_persons;
     omnetpp::SimTime m_offset = omnetpp::SimTime::ZERO;
+    //add by lip
+    omnetpp::cCanvas* canvas = nullptr;
+    omnetpp::cGroupFigure* draw_figures = nullptr;
+    std::ofstream pos_file; //at every timestamp collects pedestrian's positions
+    
+    //end add by lip
 };
 
 } // namespace traci

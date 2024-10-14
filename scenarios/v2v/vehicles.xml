@@ -1,0 +1,4 @@
+<vehicles>
+    <vehicle type="artery.inet.Car" rate="1.0" />
+    <vehicle type="artery.inet.PlainVehicle" rate="0.0" />
+</vehicles>

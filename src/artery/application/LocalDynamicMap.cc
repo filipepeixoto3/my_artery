@@ -36,6 +36,32 @@ void LocalDynamicMap::updateAwareness(const CaObject& obj)
     }
 }
 
+//add by lip
+void LocalDynamicMap::updatePerception(const CpObject& obj)
+{
+    const vanetza::asn1::Cpm& msg = obj.asn1();
+
+    static const omnetpp::SimTime lifetime { 1100, omnetpp::SIMTIME_MS };
+    auto tai = mTimer.reconstructMilliseconds(msg->cpm.generationDeltaTime);
+    const omnetpp::SimTime expiry = mTimer.getTimeFor(tai) + lifetime;
+
+    const auto now = omnetpp::simTime();
+    if (expiry < now || expiry > now + 2 * lifetime) {
+        EV_STATICCONTEXT
+        EV_WARN << "Expiry of received CPM is out of bounds";
+        return;
+    }
+
+    PerceptionEntry entry(obj, expiry);
+    auto found = mCpMessages.find(msg->header.stationID);
+    if (found != mCpMessages.end()) {
+        found->second = std::move(entry);
+    } else {
+        mCpMessages.emplace(msg->header.stationID, std::move(entry));
+    }
+}
+//end add by lip
+
 void LocalDynamicMap::dropExpired()
 {
     const auto now = omnetpp::simTime();
@@ -46,6 +72,15 @@ void LocalDynamicMap::dropExpired()
             ++it;
         }
     }
+    //add by lip
+    for (auto it = mCpMessages.begin(); it != mCpMessages.end();) {
+        if (it->second.expiry() < now) {
+            it = mCpMessages.erase(it);
+        } else {
+            ++it;
+        }
+    }
+    //end add by lip
 }
 
 unsigned LocalDynamicMap::count(const CamPredicate& predicate) const
@@ -55,6 +90,27 @@ unsigned LocalDynamicMap::count(const CamPredicate& predicate) const
                 return predicate(map_entry.second.cam());
             });
 }
+
+//add by lip
+unsigned LocalDynamicMap::count2(const CpmPredicate& predicate) const
+{
+    return std::count_if(mCpMessages.begin(), mCpMessages.end(),
+            [&predicate](const PerceptionEntries::value_type& map_entry) {
+                return predicate(map_entry.second.cpm());
+            });
+}
+
+std::shared_ptr<const LocalDynamicMap::Cpm> LocalDynamicMap::getCpm(StationID stationId) const
+{
+    auto cpm = mCpMessages.find(stationId);
+    if (cpm != mCpMessages.end()) {
+        return cpm->second.cpmPtr();
+    }
+
+    return nullptr;
+}
+
+//end add by lip
 
 std::shared_ptr<const LocalDynamicMap::Cam> LocalDynamicMap::getCam(StationID stationId) const
 {
@@ -70,5 +126,12 @@ LocalDynamicMap::AwarenessEntry::AwarenessEntry(const CaObject& obj, omnetpp::Si
     mExpiry(t), mObject(obj)
 {
 }
+
+//add by lip
+LocalDynamicMap::PerceptionEntry::PerceptionEntry(const CpObject& obj, omnetpp::SimTime t) :
+    m2Expiry(t), m2Object(obj)
+{
+}
+//end add by lip
 
 } // namespace artery
