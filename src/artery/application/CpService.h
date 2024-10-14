@@ -116,7 +116,7 @@ private:
     ChannelNumber mPrimaryChannel = channel::CCH;
     const NetworkInterfaceTable* mNetworkInterfaceTable = nullptr;
     const VehicleDataProvider* mVehicleDataProvider = nullptr;
-	const traci::Controller* mVehicleController = nullptr;
+	const traci::VehicleController* mVehicleController = nullptr;
     const Timer* mTimer = nullptr;
     LocalDynamicMap* mLocalDynamicMap = nullptr;
     
