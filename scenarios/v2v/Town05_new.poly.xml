@@ -1,0 +1,1360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-09-10 17:31:50 by Eclipse SUMO netedit Version 1.11.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/pei4brg/tools/CARLA_0.9.12/Co-Simulation/ParkingLot-Safety/examples/net/Town05_parking.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/pei4brg/tools/CARLA_0.9.12/Co-Simulation/ParkingLot-Safety/examples/net/Town05_parking.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="true"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="/home/pei4brg/tools/CARLA_0.9.12/Co-Simulation/ParkingLot-Safety/examples/poly/Town05_new.poly.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="pa_0" lane="E24_1" startPos="0.00" endPos="1.50">
+        <space x="283.10" y="233.00" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="233.00" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="233.00" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="233.00" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="233.00" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="233.00" z="0.20" width="2.6" length="4.9" angle="90"/>
+    </parkingArea>
+    <parkingArea id="pa_1" lane="E24_1" startPos="1.00" endPos="4.00">
+        <space x="283.10" y="235.80" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="235.80" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="235.80" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="235.80" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="235.80" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="235.80" z="0.20" width="2.6" length="4.9" angle="90"/>
+    </parkingArea>
+    <parkingArea id="pa_10" lane="E1_1" startPos="25.00" endPos="28.00">
+        <space x="266.80" y="219.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="219.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="219.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="219.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="219.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="219.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_11" lane="E1_1" startPos="22.00" endPos="25.00">
+        <space x="266.80" y="221.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="221.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="221.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="221.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="221.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="221.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_12" lane="E1_1" startPos="19.00" endPos="22.00">
+        <space x="266.80" y="224.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="224.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="224.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="224.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="224.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="224.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_13" lane="E1_1" startPos="16.00" endPos="19.00">
+        <space x="266.80" y="227.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="227.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="227.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="227.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="227.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="227.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_14" lane="E1_1" startPos="13.00" endPos="16.00">
+        <space x="266.80" y="230.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="230.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="230.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="230.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="230.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="230.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_15" lane="E1_1" startPos="10.50" endPos="13.50">
+        <space x="266.80" y="233.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="233.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="233.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="233.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="233.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="233.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_16" lane="E1_1" startPos="7.50" endPos="10.00">
+        <space x="266.80" y="235.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="235.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="235.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="235.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="235.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="235.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_17" lane="E1_1" startPos="4.50" endPos="7.50">
+        <space x="266.80" y="238.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="238.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="238.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="238.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="238.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="238.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_18" lane="E1_1" startPos="1.50" endPos="4.50">
+        <space x="266.80" y="241.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="241.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="241.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="241.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="241.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="241.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_19" lane="E1_1" startPos="0.00" endPos="1.50">
+        <space x="266.80" y="244.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="244.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="244.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="244.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="244.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="266.80" y="244.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_2" lane="E24_1" startPos="4.00" endPos="7.00">
+        <space x="283.10" y="238.60" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="238.60" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="238.60" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="238.60" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="238.60" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="238.60" z="0.20" width="2.6" length="4.9" angle="90"/>
+    </parkingArea>
+    <parkingArea id="pa_20" lane="E1_1" startPos="0.00" endPos="1.50" width="2.60" length="4.90" angle="-90.00">
+        <space x="271.70" y="244.20" z="0.20"/>
+        <space x="271.70" y="244.20" z="0.20"/>
+        <space x="271.70" y="244.20" z="0.20"/>
+        <space x="271.70" y="244.20" z="0.20"/>
+        <space x="271.70" y="244.20" z="0.20"/>
+        <space x="271.70" y="244.20" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_21" lane="E1_1" startPos="1.50" endPos="4.50" width="2.60" length="4.90" angle="-90.00">
+        <space x="271.70" y="241.40" z="0.20"/>
+        <space x="271.70" y="241.40" z="0.20"/>
+        <space x="271.70" y="241.40" z="0.20"/>
+        <space x="271.70" y="241.40" z="0.20"/>
+        <space x="271.70" y="241.40" z="0.20"/>
+        <space x="271.70" y="241.40" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_22" lane="E1_1" startPos="4.50" endPos="7.50" width="2.60" length="4.90" angle="-90.00">
+        <space x="271.70" y="238.60" z="0.20"/>
+        <space x="271.70" y="238.60" z="0.20"/>
+        <space x="271.70" y="238.60" z="0.20"/>
+        <space x="271.70" y="238.60" z="0.20"/>
+        <space x="271.70" y="238.60" z="0.20"/>
+        <space x="271.70" y="238.60" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_23" lane="E1_1" startPos="7.50" endPos="10.50" width="2.60" length="4.90" angle="-90.00">
+        <space x="271.70" y="235.80" z="0.20"/>
+        <space x="271.70" y="235.80" z="0.20"/>
+        <space x="271.70" y="235.80" z="0.20"/>
+        <space x="271.70" y="235.80" z="0.20"/>
+        <space x="271.70" y="235.80" z="0.20"/>
+        <space x="271.70" y="235.80" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_24" lane="E1_1" startPos="10.50" endPos="13.00" width="2.60" length="4.90" angle="-90.00">
+        <space x="271.70" y="233.00" z="0.20"/>
+        <space x="271.70" y="233.00" z="0.20"/>
+        <space x="271.70" y="233.00" z="0.20"/>
+        <space x="271.70" y="233.00" z="0.20"/>
+        <space x="271.70" y="233.00" z="0.20"/>
+        <space x="271.70" y="233.00" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_25" lane="E1_1" startPos="13.00" endPos="16.00" width="2.60" length="4.90" angle="-90.00">
+        <space x="271.70" y="230.20" z="0.20"/>
+        <space x="271.70" y="230.20" z="0.20"/>
+        <space x="271.70" y="230.20" z="0.20"/>
+        <space x="271.70" y="230.20" z="0.20"/>
+        <space x="271.70" y="230.20" z="0.20"/>
+        <space x="271.70" y="230.20" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_26" lane="E1_1" startPos="16.00" endPos="19.00" width="2.60" length="4.90" angle="-90.00">
+        <space x="271.70" y="227.40" z="0.20"/>
+        <space x="271.70" y="227.40" z="0.20"/>
+        <space x="271.70" y="227.40" z="0.20"/>
+        <space x="271.70" y="227.40" z="0.20"/>
+        <space x="271.70" y="227.40" z="0.20"/>
+        <space x="271.70" y="227.40" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_27" lane="E1_1" startPos="19.00" endPos="22.00" width="2.60" length="4.90" angle="-90.00">
+        <space x="271.70" y="224.60" z="0.20"/>
+        <space x="271.70" y="224.60" z="0.20"/>
+        <space x="271.70" y="224.60" z="0.20"/>
+        <space x="271.70" y="224.60" z="0.20"/>
+        <space x="271.70" y="224.60" z="0.20"/>
+        <space x="271.70" y="224.60" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_28" lane="E1_1" startPos="22.00" endPos="25.00" width="2.60" length="4.90" angle="-90.00">
+        <space x="271.70" y="221.80" z="0.20"/>
+        <space x="271.70" y="221.80" z="0.20"/>
+        <space x="271.70" y="221.80" z="0.20"/>
+        <space x="271.70" y="221.80" z="0.20"/>
+        <space x="271.70" y="221.80" z="0.20"/>
+        <space x="271.70" y="221.80" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_29" lane="E1_1" startPos="25.00" endPos="28.00" width="2.60" length="4.90" angle="-90.00">
+        <space x="271.70" y="219.00" z="0.20"/>
+        <space x="271.70" y="219.00" z="0.20"/>
+        <space x="271.70" y="219.00" z="0.20"/>
+        <space x="271.70" y="219.00" z="0.20"/>
+        <space x="271.70" y="219.00" z="0.20"/>
+        <space x="271.70" y="219.00" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_3" lane="E24_1" startPos="7.00" endPos="10.00">
+        <space x="283.10" y="241.40" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="241.40" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="241.40" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="241.40" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="241.40" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="241.40" z="0.20" width="2.6" length="4.9" angle="90"/>
+    </parkingArea>
+    <parkingArea id="pa_30" lane="E0_1" startPos="25.50" endPos="27.90">
+        <space x="250.60" y="219.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="219.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_31" lane="E0_1" startPos="22.50" endPos="25.50">
+        <space x="250.60" y="221.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="221.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_32" lane="E0_1" startPos="19.50" endPos="22.50">
+        <space x="250.60" y="224.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="224.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_33" lane="E0_1" startPos="16.50" endPos="19.50">
+        <space x="250.60" y="227.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="227.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="227.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="227.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="227.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="227.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_34" lane="E0_1" startPos="13.50" endPos="16.50">
+        <space x="250.60" y="230.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="230.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="230.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="230.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="230.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="230.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_35" lane="E0_1" startPos="10.50" endPos="13.50">
+        <space x="250.60" y="233.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="233.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="233.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="233.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="233.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="233.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_36" lane="E0_1" startPos="7.50" endPos="10.50">
+        <space x="250.60" y="235.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="235.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="235.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="235.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="235.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="235.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_37" lane="E0_1" startPos="5.00" endPos="7.50">
+        <space x="250.60" y="238.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="238.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="238.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="238.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="238.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="238.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_38" lane="E0_1" startPos="2.00" endPos="5.00">
+        <space x="250.60" y="241.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="241.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="241.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="241.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="241.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="241.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_39" lane="E0_1" startPos="0.00" endPos="2.00">
+        <space x="250.60" y="244.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="244.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="244.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="244.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="244.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="250.60" y="244.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_4" lane="E24_1" startPos="10.00" endPos="12.50">
+        <space x="283.10" y="244.20" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="244.20" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="244.20" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="244.20" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="244.20" z="0.20" width="2.6" length="4.9" angle="90"/>
+        <space x="283.10" y="244.20" z="0.20" width="2.6" length="4.9" angle="90"/>
+    </parkingArea>
+    <parkingArea id="pa_40" lane="E0_1" startPos="0.00" endPos="2.00" width="2.60" length="4.90" angle="-90.00">
+        <space x="255.20" y="244.20" z="0.20"/>
+        <space x="255.20" y="244.20" z="0.20"/>
+        <space x="255.20" y="244.20" z="0.20"/>
+        <space x="255.20" y="244.20" z="0.20"/>
+        <space x="255.20" y="244.20" z="0.20"/>
+        <space x="255.20" y="244.20" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_41" lane="E0_1" startPos="2.00" endPos="5.00" width="2.60" length="4.90" angle="-90.00">
+        <space x="255.20" y="241.40" z="0.20"/>
+        <space x="255.20" y="241.40" z="0.20"/>
+        <space x="255.20" y="241.40" z="0.20"/>
+        <space x="255.20" y="241.40" z="0.20"/>
+        <space x="255.20" y="241.40" z="0.20"/>
+        <space x="255.20" y="241.40" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_42" lane="E0_1" startPos="5.00" endPos="7.50" width="2.60" length="4.90" angle="-90.00">
+        <space x="255.20" y="238.60" z="0.20"/>
+        <space x="255.20" y="238.60" z="0.20"/>
+        <space x="255.20" y="238.60" z="0.20"/>
+        <space x="255.20" y="238.60" z="0.20"/>
+        <space x="255.20" y="238.60" z="0.20"/>
+        <space x="255.20" y="238.60" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_43" lane="E0_1" startPos="7.50" endPos="10.50" width="2.60" length="4.90" angle="-90.00">
+        <space x="255.20" y="235.80" z="0.20"/>
+        <space x="255.20" y="235.80" z="0.20"/>
+        <space x="255.20" y="235.80" z="0.20"/>
+        <space x="255.20" y="235.80" z="0.20"/>
+        <space x="255.20" y="235.80" z="0.20"/>
+        <space x="255.20" y="235.80" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_44" lane="E0_1" startPos="10.50" endPos="13.50" width="2.60" length="4.90" angle="-90.00">
+        <space x="255.20" y="233.00" z="0.20"/>
+        <space x="255.20" y="233.00" z="0.20"/>
+        <space x="255.20" y="233.00" z="0.20"/>
+        <space x="255.20" y="233.00" z="0.20"/>
+        <space x="255.20" y="233.00" z="0.20"/>
+        <space x="255.20" y="233.00" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_45" lane="E0_1" startPos="13.50" endPos="16.50" width="2.60" length="4.90" angle="-90.00">
+        <space x="255.20" y="230.20" z="0.20"/>
+        <space x="255.20" y="230.20" z="0.20"/>
+        <space x="255.20" y="230.20" z="0.20"/>
+        <space x="255.20" y="230.20" z="0.20"/>
+        <space x="255.20" y="230.20" z="0.20"/>
+        <space x="255.20" y="230.20" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_46" lane="E0_1" startPos="16.50" endPos="19.50" width="2.60" length="4.90" angle="-90.00">
+        <space x="255.20" y="227.40" z="0.20"/>
+        <space x="255.20" y="227.40" z="0.20"/>
+        <space x="255.20" y="227.40" z="0.20"/>
+        <space x="255.20" y="227.40" z="0.20"/>
+        <space x="255.20" y="227.40" z="0.20"/>
+        <space x="255.20" y="227.40" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_47" lane="E0_1" startPos="19.50" endPos="22.50" width="2.60" length="4.90" angle="-90.00">
+        <space x="255.20" y="224.60" z="0.20"/>
+        <space x="255.20" y="224.60" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_48" lane="E0_1" startPos="22.50" endPos="25.50" width="2.60" length="4.90" angle="-90.00">
+        <space x="255.20" y="221.80" z="0.20"/>
+        <space x="255.20" y="221.80" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_49" lane="E0_1" startPos="25.50" endPos="27.90" width="2.60" length="4.90" angle="-90.00">
+        <space x="255.20" y="219.00" z="0.20"/>
+        <space x="255.20" y="219.00" z="0.20"/>
+    </parkingArea>
+    <parkingArea id="pa_5" lane="E28.12_1" startPos="23.50" endPos="23.70" lefthand="true">
+        <space x="283.10" y="219.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="219.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="219.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="219.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="219.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="219.00" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_50" lane="E27_1" startPos="24.00" endPos="24.50" lefthand="true">
+        <space x="238.80" y="233.00" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="233.00" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="233.00" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="233.00" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="233.00" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="233.00" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_51" lane="E27_1" startPos="24.00" endPos="24.50" lefthand="true">
+        <space x="238.80" y="235.80" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="235.80" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="235.80" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="235.80" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="235.80" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="235.80" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_52" lane="E27_1" startPos="24.00" endPos="24.50" lefthand="true">
+        <space x="238.80" y="238.60" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="238.60" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="238.60" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="238.60" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="238.60" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="238.60" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_53" lane="E27_1" startPos="24.00" endPos="24.50" lefthand="true">
+        <space x="238.80" y="241.40" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="241.40" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="241.40" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="241.40" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="241.40" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="241.40" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_54" lane="E27_1" startPos="24.00" endPos="24.50" lefthand="true">
+        <space x="238.80" y="244.20" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="244.20" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="244.20" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="244.20" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="244.20" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="244.20" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_55" lane="E27.16_1" startPos="6.00" endPos="9.00">
+        <space x="238.80" y="219.00" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="219.00" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="219.00" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="219.00" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="219.00" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="219.00" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_56" lane="E27.16_1" startPos="2.50" endPos="6.00">
+        <space x="238.80" y="221.80" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="221.80" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="221.80" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="221.80" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="221.80" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="221.80" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_57" lane="E27.16_1" startPos="1.00" endPos="2.50">
+        <space x="238.80" y="224.60" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="224.60" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="224.60" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="224.60" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="224.60" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="224.60" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_58" lane="E27.16_1" startPos="0.00" endPos="1.00">
+        <space x="238.80" y="227.40" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="227.40" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="227.40" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="227.40" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="227.40" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="227.40" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_59" lane="E27.16_1" startPos="0.00" endPos="1.00">
+        <space x="238.80" y="230.20" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="230.20" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="230.20" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="230.20" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="230.20" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+        <space x="238.80" y="230.20" z="0.20" width="2.6" length="4.9" angle="-90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_6" lane="E28.12_1" startPos="23.50" endPos="23.70" lefthand="true">
+        <space x="283.10" y="221.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="221.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="221.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="221.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="221.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="221.80" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_7" lane="E28.12_1" startPos="23.50" endPos="23.70" lefthand="true">
+        <space x="283.10" y="224.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="224.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="224.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="224.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="224.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="224.60" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_8" lane="E28.12_1" startPos="23.50" endPos="23.70" lefthand="true">
+        <space x="283.10" y="227.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="227.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="227.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="227.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="227.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="227.40" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <parkingArea id="pa_9" lane="E28.12_1" startPos="23.50" endPos="23.70" lefthand="true">
+        <space x="283.10" y="230.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="230.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="230.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="230.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="230.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+        <space x="283.10" y="230.20" z="0.20" width="2.6" length="4.9" angle="90.00"/>
+    </parkingArea>
+    <poly id="000000000" type="building" color="red" fill="1" layer="4.00" shape="345.000000,215.220001 351.500000,215.220001 351.500000,185.220001 345.000000,185.220001"/>
+    <poly id="000000001" type="building" color="red" fill="1" layer="4.00" shape="105.378775,325.173811 107.554148,325.173811 107.554148,324.045732 105.378775,324.045732"/>
+    <poly id="000000002" type="building" color="red" fill="1" layer="4.00" shape="175.265918,320.952096 179.732861,320.952096 179.732861,319.006461 175.265918,319.006461"/>
+    <poly id="000000003" type="building" color="red" fill="1" layer="4.00" shape="259.617944,269.065682 261.851416,269.065682 261.851416,267.120048 259.617944,267.120048"/>
+    <poly id="000000004" type="building" color="red" fill="1" layer="4.00" shape="186.487802,302.111134 188.721274,302.111134 188.721274,301.138317 186.487802,301.138317"/>
+    <poly id="000000005" type="building" color="red" fill="1" layer="4.00" shape="193.787805,302.111134 196.021277,302.111134 196.021277,301.138317 193.787805,301.138317"/>
+    <poly id="000000006" type="building" color="red" fill="1" layer="4.00" shape="166.387811,302.111134 168.621283,302.111134 168.621283,301.138317 166.387811,301.138317"/>
+    <poly id="000000007" type="building" color="red" fill="1" layer="4.00" shape="174.387811,302.111134 176.621283,302.111134 176.621283,301.138317 174.387811,301.138317"/>
+    <poly id="000000008" type="building" color="red" fill="1" layer="4.00" shape="181.687799,302.111134 183.921271,302.111134 183.921271,301.138317 181.687799,301.138317"/>
+    <poly id="000000009" type="building" color="red" fill="1" layer="4.00" shape="172.087808,302.111134 174.321280,302.111134 174.321280,301.138317 172.087808,301.138317"/>
+    <poly id="000000010" type="building" color="red" fill="1" layer="4.00" shape="180.087808,302.111134 182.321280,302.111134 182.321280,301.138317 180.087808,301.138317"/>
+    <poly id="000000011" type="building" color="red" fill="1" layer="4.00" shape="187.387811,302.111134 189.621283,302.111134 189.621283,301.138317 187.387811,301.138317"/>
+    <poly id="000000012" type="building" color="red" fill="1" layer="4.00" shape="178.487802,302.111134 180.721274,302.111134 180.721274,301.138317 178.487802,301.138317"/>
+    <poly id="000000013" type="building" color="red" fill="1" layer="4.00" shape="186.487802,302.111134 188.721274,302.111134 188.721274,301.138317 186.487802,301.138317"/>
+    <poly id="000000014" type="building" color="red" fill="1" layer="4.00" shape="111.233435,325.173811 113.408808,325.173811 113.408808,324.045732 111.233435,324.045732"/>
+    <poly id="000000015" type="building" color="red" fill="1" layer="4.00" shape="193.787805,302.111134 196.021277,302.111134 196.021277,301.138317 193.787805,301.138317"/>
+    <poly id="000000016" type="building" color="red" fill="1" layer="4.00" shape="166.387811,302.111134 168.621283,302.111134 168.621283,301.138317 166.387811,301.138317"/>
+    <poly id="000000017" type="building" color="red" fill="1" layer="4.00" shape="174.387811,302.111134 176.621283,302.111134 176.621283,301.138317 174.387811,301.138317"/>
+    <poly id="000000018" type="building" color="red" fill="1" layer="4.00" shape="181.687799,302.111134 183.921271,302.111134 183.921271,301.138317 181.687799,301.138317"/>
+    <poly id="000000019" type="building" color="red" fill="1" layer="4.00" shape="172.087808,302.111134 174.321280,302.111134 174.321280,301.138317 172.087808,301.138317"/>
+    <poly id="000000020" type="building" color="red" fill="1" layer="4.00" shape="180.087808,302.111134 182.321280,302.111134 182.321280,301.138317 180.087808,301.138317"/>
+    <poly id="000000021" type="building" color="red" fill="1" layer="4.00" shape="187.387811,302.111134 189.621283,302.111134 189.621283,301.138317 187.387811,301.138317"/>
+    <poly id="000000022" type="building" color="red" fill="1" layer="4.00" shape="159.482506,152.020138 171.447059,152.020138 171.447059,147.225803 159.482506,147.225803"/>
+    <poly id="000000023" type="building" color="red" fill="1" layer="4.00" shape="252.507181,269.065682 254.740652,269.065682 254.740652,267.120048 252.507181,267.120048"/>
+    <poly id="000000024" type="building" color="red" fill="1" layer="4.00" shape="108.842794,325.173811 111.018167,325.173811 111.018167,324.045732 108.842794,324.045732"/>
+    <poly id="000000025" type="building" color="red" fill="1" layer="4.00" shape="287.998132,271.964517 284.647925,271.964517 284.647925,270.018882 287.998132,270.018882"/>
+    <poly id="000000026" type="building" color="red" fill="1" layer="4.00" shape="284.594537,271.964517 281.244330,271.964517 281.244330,270.018882 284.594537,270.018882"/>
+    <poly id="000000027" type="building" color="red" fill="1" layer="4.00" shape="266.028711,269.065682 268.262182,269.065682 268.262182,267.120048 266.028711,267.120048"/>
+    <poly id="000000028" type="building" color="red" fill="1" layer="4.00" shape="269.300012,269.065682 271.533484,269.065682 271.533484,267.120048 269.300012,267.120048"/>
+    <poly id="000000029" type="building" color="red" fill="1" layer="4.00" shape="272.333643,269.065682 274.567114,269.065682 274.567114,267.120048 272.333643,267.120048"/>
+    <poly id="000000030" type="building" color="red" fill="1" layer="4.00" shape="279.639093,269.065682 281.872565,269.065682 281.872565,267.120048 279.639093,267.120048"/>
+    <poly id="000000031" type="building" color="red" fill="1" layer="4.00" shape="102.988150,325.173811 105.163523,325.173811 105.163523,324.045732 102.988150,324.045732"/>
+    <poly id="000000032" type="building" color="red" fill="1" layer="4.00" shape="268.262182,271.880258 266.028711,271.880258 266.028711,269.934623 268.262182,269.934623"/>
+    <poly id="000000033" type="building" color="red" fill="1" layer="4.00" shape="271.533484,271.880258 269.300012,271.880258 269.300012,269.934623 271.533484,269.934623"/>
+    <poly id="000000034" type="building" color="red" fill="1" layer="4.00" shape="274.567114,271.880258 272.333643,271.880258 272.333643,269.934623 274.567114,269.934623"/>
+    <poly id="000000035" type="building" color="red" fill="1" layer="4.00" shape="266.028711,257.759042 268.262182,257.759042 268.262182,255.813407 266.028711,255.813407"/>
+    <poly id="000000036" type="building" color="red" fill="1" layer="4.00" shape="269.300012,257.759042 271.533484,257.759042 271.533484,255.813407 269.300012,255.813407"/>
+    <poly id="000000037" type="building" color="red" fill="1" layer="4.00" shape="272.333643,257.759042 274.567114,257.759042 274.567114,255.813407 272.333643,255.813407"/>
+    <poly id="000000038" type="building" color="red" fill="1" layer="4.00" shape="252.840112,257.759042 255.073584,257.759042 255.073584,255.813407 252.840112,255.813407"/>
+    <poly id="000000039" type="building" color="red" fill="1" layer="4.00" shape="256.111414,257.759042 258.344885,257.759042 258.344885,255.813407 256.111414,255.813407"/>
+    <poly id="000000040" type="building" color="red" fill="1" layer="4.00" shape="259.145044,257.759042 261.378515,257.759042 261.378515,255.813407 259.145044,255.813407"/>
+    <poly id="000000041" type="building" color="red" fill="1" layer="4.00" shape="242.692102,257.759042 244.925574,257.759042 244.925574,255.813407 242.692102,255.813407"/>
+    <poly id="000000042" type="building" color="red" fill="1" layer="4.00" shape="254.819831,278.469674 258.170038,278.469674 258.170038,276.524039 254.819831,276.524039"/>
+    <poly id="000000043" type="building" color="red" fill="1" layer="4.00" shape="245.963419,257.759042 248.196890,257.759042 248.196890,255.813407 245.963419,255.813407"/>
+    <poly id="000000044" type="building" color="red" fill="1" layer="4.00" shape="248.997034,257.759042 251.230505,257.759042 251.230505,255.813407 248.997034,255.813407"/>
+    <poly id="000000045" type="building" color="red" fill="1" layer="4.00" shape="255.073584,262.570230 252.840112,262.570230 252.840112,260.624595 255.073584,260.624595"/>
+    <poly id="000000046" type="building" color="red" fill="1" layer="4.00" shape="258.344885,262.570230 256.111414,262.570230 256.111414,260.624595 258.344885,260.624595"/>
+    <poly id="000000047" type="building" color="red" fill="1" layer="4.00" shape="261.378515,262.570230 259.145044,262.570230 259.145044,260.624595 261.378515,260.624595"/>
+    <poly id="000000048" type="building" color="red" fill="1" layer="4.00" shape="244.925574,262.570230 242.692102,262.570230 242.692102,260.624595 244.925574,260.624595"/>
+    <poly id="000000049" type="building" color="red" fill="1" layer="4.00" shape="248.196890,262.570230 245.963419,262.570230 245.963419,260.624595 248.196890,260.624595"/>
+    <poly id="000000050" type="building" color="red" fill="1" layer="4.00" shape="251.230505,262.570230 248.997034,262.570230 248.997034,260.624595 251.230505,260.624595"/>
+    <poly id="000000051" type="building" color="red" fill="1" layer="4.00" shape="238.085440,262.570230 235.851969,262.570230 235.851969,260.624595 238.085440,260.624595"/>
+    <poly id="000000052" type="building" color="red" fill="1" layer="4.00" shape="170.867038,320.952096 175.333981,320.952096 175.333981,319.006461 170.867038,319.006461"/>
+    <poly id="000000053" type="building" color="red" fill="1" layer="4.00" shape="238.085440,271.929879 235.851969,271.929879 235.851969,269.984244 238.085440,269.984244"/>
+    <poly id="000000054" type="building" color="red" fill="1" layer="4.00" shape="244.694067,271.929879 242.460596,271.929879 242.460596,269.984244 244.694067,269.984244"/>
+    <poly id="000000055" type="building" color="red" fill="1" layer="4.00" shape="247.965384,271.929879 245.731912,271.929879 245.731912,269.984244 247.965384,269.984244"/>
+    <poly id="000000056" type="building" color="red" fill="1" layer="4.00" shape="266.028681,278.456979 268.262152,278.456979 268.262152,276.511344 266.028681,276.511344"/>
+    <poly id="000000057" type="building" color="red" fill="1" layer="4.00" shape="269.299982,278.456979 271.533453,278.456979 271.533453,276.511344 269.299982,276.511344"/>
+    <poly id="000000058" type="building" color="red" fill="1" layer="4.00" shape="272.333612,278.456979 274.567084,278.456979 274.567084,276.511344 272.333612,276.511344"/>
+    <poly id="000000059" type="building" color="red" fill="1" layer="4.00" shape="242.592859,278.456979 244.826330,278.456979 244.826330,276.511344 242.592859,276.511344"/>
+    <poly id="000000060" type="building" color="red" fill="1" layer="4.00" shape="325.853058,150.467126 331.436737,150.467126 331.436737,148.521491 325.853058,148.521491"/>
+    <poly id="000000061" type="building" color="red" fill="1" layer="4.00" shape="166.532520,320.952096 170.999463,320.952096 170.999463,319.006461 166.532520,319.006461"/>
+    <poly id="000000062" type="building" color="red" fill="1" layer="4.00" shape="325.853058,156.094949 331.436737,156.094949 331.436737,154.149314 325.853058,154.149314"/>
+    <poly id="000000063" type="building" color="red" fill="1" layer="4.00" shape="326.411426,160.535714 330.878369,160.535714 330.878369,158.590079 326.411426,158.590079"/>
+    <poly id="000000064" type="building" color="red" fill="1" layer="4.00" shape="326.411426,171.555902 330.878369,171.555902 330.878369,169.610267 326.411426,169.610267"/>
+    <poly id="000000065" type="building" color="red" fill="1" layer="4.00" shape="325.853058,177.460366 331.436737,177.460366 331.436737,175.514731 325.853058,175.514731"/>
+    <poly id="000000066" type="building" color="red" fill="1" layer="4.00" shape="325.853058,183.241220 331.436737,183.241220 331.436737,181.295585 325.853058,181.295585"/>
+    <poly id="000000067" type="building" color="red" fill="1" layer="4.00" shape="324.111408,224.266671 328.578351,224.266671 328.578351,222.321036 324.111408,222.321036"/>
+    <poly id="000000068" type="building" color="red" fill="1" layer="4.00" shape="324.111408,228.768929 328.578351,228.768929 328.578351,226.823295 324.111408,226.823295"/>
+    <poly id="000000069" type="building" color="red" fill="1" layer="4.00" shape="324.111408,233.393624 328.578351,233.393624 328.578351,231.447989 324.111408,231.447989"/>
+    <poly id="000000070" type="building" color="red" fill="1" layer="4.00" shape="324.111408,246.275033 328.578351,246.275033 328.578351,244.329398 324.111408,244.329398"/>
+    <poly id="000000071" type="building" color="red" fill="1" layer="4.00" shape="324.111408,250.777291 328.578351,250.777291 328.578351,248.831656 324.111408,248.831656"/>
+    <poly id="000000072" type="building" color="red" fill="1" layer="4.00" shape="324.111408,255.401986 328.578351,255.401986 328.578351,253.456351 324.111408,253.456351"/>
+    <poly id="000000073" type="building" color="red" fill="1" layer="4.00" shape="344.225585,150.267129 338.641907,150.267129 338.641907,148.321494 344.225585,148.321494"/>
+    <poly id="000000074" type="building" color="red" fill="1" layer="4.00" shape="344.225585,155.894952 338.641907,155.894952 338.641907,153.949317 344.225585,153.949317"/>
+    <poly id="000000075" type="building" color="red" fill="1" layer="4.00" shape="343.667218,160.435723 339.200275,160.435723 339.200275,158.490088 343.667218,158.490088"/>
+    <poly id="000000076" type="building" color="red" fill="1" layer="4.00" shape="344.783953,173.772637 338.083539,173.772637 338.083539,171.827003 344.783953,171.827003"/>
+    <poly id="000000077" type="building" color="red" fill="1" layer="4.00" shape="343.667218,178.158166 339.200275,178.158166 339.200275,176.212531 343.667218,176.212531"/>
+    <poly id="000000078" type="building" color="red" fill="1" layer="4.00" shape="343.667218,182.582864 339.200275,182.582864 339.200275,180.637229 343.667218,180.637229"/>
+    <poly id="000000079" type="building" color="red" fill="1" layer="4.00" shape="341.267224,224.266671 336.800281,224.266671 336.800281,222.321036 341.267224,222.321036"/>
+    <poly id="000000080" type="building" color="red" fill="1" layer="4.00" shape="341.267224,228.768945 336.800281,228.768945 336.800281,226.823310 341.267224,226.823310"/>
+    <poly id="000000081" type="building" color="red" fill="1" layer="4.00" shape="341.267224,233.393624 336.800281,233.393624 336.800281,231.447989 341.267224,231.447989"/>
+    <poly id="000000082" type="building" color="red" fill="1" layer="4.00" shape="173.628986,302.711129 178.095929,302.711129 178.095929,300.765494 173.628986,300.765494"/>
+    <poly id="000000083" type="building" color="red" fill="1" layer="4.00" shape="178.487802,302.111134 180.721274,302.111134 180.721274,301.138317 178.487802,301.138317"/>
+    <poly id="000000084" type="building" color="red" fill="1" layer="4.00" shape="341.267224,246.275033 336.800281,246.275033 336.800281,244.329398 341.267224,244.329398"/>
+    <poly id="000000085" type="building" color="red" fill="1" layer="4.00" shape="341.267224,250.777307 336.800281,250.777307 336.800281,248.831672 341.267224,248.831672"/>
+    <poly id="000000086" type="building" color="red" fill="1" layer="4.00" shape="341.267224,255.401986 336.800281,255.401986 336.800281,253.456351 341.267224,253.456351"/>
+    <poly id="000000087" type="building" color="red" fill="1" layer="4.00" shape="165.286139,136.064818 167.461512,136.064818 167.461512,134.936739 165.286139,134.936739"/>
+    <poly id="000000088" type="building" color="red" fill="1" layer="4.00" shape="165.286139,137.928557 167.461512,137.928557 167.461512,136.800478 165.286139,136.800478"/>
+    <poly id="000000089" type="building" color="red" fill="1" layer="4.00" shape="165.286139,139.683027 167.461512,139.683027 167.461512,138.554949 165.286139,138.554949"/>
+    <poly id="000000090" type="building" color="red" fill="1" layer="4.00" shape="171.853933,135.521605 174.029306,135.521605 174.029306,134.393526 171.853933,134.393526"/>
+    <poly id="000000091" type="building" color="red" fill="1" layer="4.00" shape="169.990179,135.521589 172.165552,135.521589 172.165552,134.393511 169.990179,134.393511"/>
+    <poly id="000000092" type="building" color="red" fill="1" layer="4.00" shape="167.912008,135.521605 170.087381,135.521605 170.087381,134.393526 167.912008,134.393526"/>
+    <poly id="000000093" type="building" color="red" fill="1" layer="4.00" shape="174.029306,142.425886 171.853933,142.425886 171.853933,141.297808 174.029306,141.297808"/>
+    <poly id="000000094" type="building" color="red" fill="1" layer="4.00" shape="198.983020,302.711129 203.449963,302.711129 203.449963,300.765494 198.983020,300.765494"/>
+    <poly id="000000095" type="building" color="red" fill="1" layer="4.00" shape="172.165552,142.425902 169.990179,142.425902 169.990179,141.297823 172.165552,141.297823"/>
+    <poly id="000000096" type="building" color="red" fill="1" layer="4.00" shape="170.087381,142.425886 167.912008,142.425886 167.912008,141.297808 170.087381,141.297808"/>
+    <poly id="000000097" type="building" color="red" fill="1" layer="4.00" shape="165.286139,171.006468 167.461512,171.006468 167.461512,169.878389 165.286139,169.878389"/>
+    <poly id="000000098" type="building" color="red" fill="1" layer="4.00" shape="165.286139,172.870207 167.461512,172.870207 167.461512,171.742128 165.286139,171.742128"/>
+    <poly id="000000099" type="building" color="red" fill="1" layer="4.00" shape="165.286139,174.624678 167.461512,174.624678 167.461512,173.496599 165.286139,173.496599"/>
+    <poly id="000000100" type="building" color="red" fill="1" layer="4.00" shape="171.853933,170.463240 174.029306,170.463240 174.029306,169.335161 171.853933,169.335161"/>
+    <poly id="000000101" type="building" color="red" fill="1" layer="4.00" shape="169.990179,170.463240 172.165552,170.463240 172.165552,169.335161 169.990179,169.335161"/>
+    <poly id="000000102" type="building" color="red" fill="1" layer="4.00" shape="167.912008,170.463240 170.087381,170.463240 170.087381,169.335161 167.912008,169.335161"/>
+    <poly id="000000103" type="building" color="red" fill="1" layer="4.00" shape="174.029306,177.367537 171.853933,177.367537 171.853933,176.239458 174.029306,176.239458"/>
+    <poly id="000000104" type="building" color="red" fill="1" layer="4.00" shape="172.165552,177.367552 169.990179,177.367552 169.990179,176.239473 172.165552,176.239473"/>
+    <poly id="000000105" type="building" color="red" fill="1" layer="4.00" shape="100.619040,325.173811 102.794413,325.173811 102.794413,324.045732 100.619040,324.045732"/>
+    <poly id="000000106" type="building" color="red" fill="1" layer="4.00" shape="170.087381,177.367537 167.912008,177.367537 167.912008,176.239458 170.087381,176.239458"/>
+    <poly id="000000107" type="building" color="red" fill="1" layer="4.00" shape="199.384387,77.789422 203.851330,77.789422 203.851330,75.843787 199.384387,75.843787"/>
+    <poly id="000000108" type="building" color="red" fill="1" layer="4.00" shape="199.384387,82.393319 203.851330,82.393319 203.851330,80.447684 199.384387,80.447684"/>
+    <poly id="000000109" type="building" color="red" fill="1" layer="4.00" shape="199.384387,87.180329 203.851330,87.180329 203.851330,85.234694 199.384387,85.234694"/>
+    <poly id="000000110" type="building" color="red" fill="1" layer="4.00" shape="199.384387,96.080094 203.851330,96.080094 203.851330,94.134459 199.384387,94.134459"/>
+    <poly id="000000111" type="building" color="red" fill="1" layer="4.00" shape="184.618282,97.321013 187.337498,97.321013 187.337498,96.192934 184.618282,96.192934"/>
+    <poly id="000000112" type="building" color="red" fill="1" layer="4.00" shape="181.844844,97.321013 184.564061,97.321013 184.564061,96.192934 181.844844,96.192934"/>
+    <poly id="000000113" type="building" color="red" fill="1" layer="4.00" shape="179.073696,97.321013 181.792912,97.321013 181.792912,96.192934 179.073696,96.192934"/>
+    <poly id="000000114" type="building" color="red" fill="1" layer="4.00" shape="176.356761,97.321013 179.075978,97.321013 179.075978,96.192934 176.356761,96.192934"/>
+    <poly id="000000115" type="building" color="red" fill="1" layer="4.00" shape="173.598491,97.321013 176.317708,97.321013 176.317708,96.192934 173.598491,96.192934"/>
+    <poly id="000000116" type="building" color="red" fill="1" layer="4.00" shape="200.189328,310.508292 208.613590,310.508292 208.613590,301.912729 200.189328,301.912729"/>
+    <poly id="000000117" type="building" color="red" fill="1" layer="4.00" shape="124.969348,313.329652 132.629559,313.329652 132.629559,303.483214 124.969348,303.483214"/>
+    <poly id="000000118" type="building" color="red" fill="1" layer="4.00" shape="208.587360,318.953818 200.163098,318.953818 200.163098,310.358255 208.587360,310.358255"/>
+    <poly id="000000119" type="building" color="red" fill="1" layer="4.00" shape="156.952908,318.938162 165.377170,318.938162 165.377170,310.342599 156.952908,310.342599"/>
+    <poly id="000000120" type="building" color="red" fill="1" layer="4.00" shape="163.575741,318.953818 172.000003,318.953818 172.000003,310.358255 163.575741,310.358255"/>
+    <poly id="000000121" type="building" color="red" fill="1" layer="4.00" shape="170.275738,318.941214 178.700000,318.941214 178.700000,310.345651 170.275738,310.345651"/>
+    <poly id="000000122" type="building" color="red" fill="1" layer="4.00" shape="176.975735,318.953818 185.399997,318.953818 185.399997,310.358255 176.975735,310.358255"/>
+    <poly id="000000123" type="building" color="red" fill="1" layer="4.00" shape="183.675747,318.985556 192.100009,318.985556 192.100009,310.389993 183.675747,310.389993"/>
+    <poly id="000000124" type="building" color="red" fill="1" layer="4.00" shape="132.629559,321.529664 124.969348,321.529664 124.969348,311.683227 132.629559,311.683227"/>
+    <poly id="000000125" type="building" color="red" fill="1" layer="4.00" shape="109.739223,305.999574 117.399434,305.999574 117.399434,296.153136 109.739223,296.153136"/>
+    <poly id="000000126" type="building" color="red" fill="1" layer="4.00" shape="125.599438,305.999543 117.939227,305.999543 117.939227,296.153106 125.599438,296.153106"/>
+    <poly id="000000127" type="building" color="red" fill="1" layer="4.00" shape="100.769893,306.013124 108.430104,306.013124 108.430104,296.166686 100.769893,296.166686"/>
+    <poly id="000000128" type="building" color="red" fill="1" layer="4.00" shape="117.399434,328.759797 109.739223,328.759797 109.739223,318.913360 117.399434,318.913360"/>
+    <poly id="000000129" type="building" color="red" fill="1" layer="4.00" shape="117.939227,328.759797 125.599438,328.759797 125.599438,318.913360 117.939227,318.913360"/>
+    <poly id="000000130" type="building" color="red" fill="1" layer="4.00" shape="108.399434,328.759797 100.739223,328.759797 100.739223,318.913360 108.399434,318.913360"/>
+    <poly id="000000131" type="building" color="red" fill="1" layer="4.00" shape="101.269345,313.329652 93.609134,313.329652 93.609134,303.483214 101.269345,303.483214"/>
+    <poly id="000000132" type="building" color="red" fill="1" layer="4.00" shape="93.609134,321.529664 101.269345,321.529664 101.269345,311.683227 93.609134,311.683227"/>
+    <poly id="000000133" type="building" color="red" fill="1" layer="4.00" shape="200.100003,310.565848 208.524265,310.565848 208.524265,301.970285 200.100003,301.970285"/>
+    <poly id="000000134" type="building" color="red" fill="1" layer="4.00" shape="165.400012,310.566977 156.975750,310.566977 156.975750,301.971414 165.400012,301.971414"/>
+    <poly id="000000135" type="building" color="red" fill="1" layer="4.00" shape="172.000003,310.565848 163.575741,310.565848 163.575741,301.970285 172.000003,301.970285"/>
+    <poly id="000000136" type="building" color="red" fill="1" layer="4.00" shape="178.700000,310.566977 170.275738,310.566977 170.275738,301.971414 178.700000,301.971414"/>
+    <poly id="000000137" type="building" color="red" fill="1" layer="4.00" shape="185.399997,310.565848 176.975735,310.565848 176.975735,301.970285 185.399997,301.970285"/>
+    <poly id="000000138" type="building" color="red" fill="1" layer="4.00" shape="192.100009,310.566977 183.675747,310.566977 183.675747,301.971414 192.100009,301.971414"/>
+    <poly id="000000139" type="building" color="red" fill="1" layer="4.00" shape="208.524265,318.949484 200.100003,318.949484 200.100003,310.353921 208.524265,310.353921"/>
+    <poly id="000000140" type="building" color="red" fill="1" layer="4.00" shape="156.975750,318.920096 165.400012,318.920096 165.400012,310.324533 156.975750,310.324533"/>
+    <poly id="000000141" type="building" color="red" fill="1" layer="4.00" shape="163.575741,318.917777 172.000003,318.917777 172.000003,310.322214 163.575741,310.322214"/>
+    <poly id="000000142" type="building" color="red" fill="1" layer="4.00" shape="170.275738,318.917777 178.700000,318.917777 178.700000,310.322214 170.275738,310.322214"/>
+    <poly id="000000143" type="building" color="red" fill="1" layer="4.00" shape="176.975735,318.917777 185.399997,318.917777 185.399997,310.322214 176.975735,310.322214"/>
+    <poly id="000000144" type="building" color="red" fill="1" layer="4.00" shape="183.675747,318.917777 192.100009,318.917777 192.100009,310.322214 183.675747,310.322214"/>
+    <poly id="000000145" type="building" color="red" fill="1" layer="4.00" shape="125.000003,313.343232 132.660214,313.343232 132.660214,303.496795 125.000003,303.496795"/>
+    <poly id="000000146" type="building" color="red" fill="1" layer="4.00" shape="132.660214,321.543214 125.000003,321.543214 125.000003,311.696776 132.660214,311.696776"/>
+    <poly id="000000147" type="building" color="red" fill="1" layer="4.00" shape="109.769893,306.013124 117.430104,306.013124 117.430104,296.166686 109.769893,296.166686"/>
+    <poly id="000000148" type="building" color="red" fill="1" layer="4.00" shape="125.630093,306.013124 117.969882,306.013124 117.969882,296.166686 125.630093,296.166686"/>
+    <poly id="000000149" type="building" color="red" fill="1" layer="4.00" shape="117.430104,328.773347 109.769893,328.773347 109.769893,318.926909 117.430104,318.926909"/>
+    <poly id="000000150" type="building" color="red" fill="1" layer="4.00" shape="117.969882,328.773347 125.630093,328.773347 125.630093,318.926909 117.969882,318.926909"/>
+    <poly id="000000151" type="building" color="red" fill="1" layer="4.00" shape="108.430104,328.773347 100.769893,328.773347 100.769893,318.926909 108.430104,318.926909"/>
+    <poly id="000000152" type="building" color="red" fill="1" layer="4.00" shape="101.300000,313.343232 93.639789,313.343232 93.639789,303.496795 101.300000,303.496795"/>
+    <poly id="000000153" type="building" color="red" fill="1" layer="4.00" shape="93.639789,321.543214 101.300000,321.543214 101.300000,311.696776 93.639789,311.696776"/>
+    <poly id="000000154" type="building" color="red" fill="1" layer="4.00" shape="100.869899,306.113130 108.530110,306.113130 108.530110,296.266692 100.869899,296.266692"/>
+    <poly id="000000155" type="building" color="red" fill="1" layer="4.00" shape="165.356983,310.471274 156.932721,310.471274 156.932721,301.875711 165.356983,301.875711"/>
+    <poly id="000000156" type="building" color="red" fill="1" layer="4.00" shape="172.000003,310.508292 163.575741,310.508292 163.575741,301.912729 172.000003,301.912729"/>
+    <poly id="000000157" type="building" color="red" fill="1" layer="4.00" shape="178.700000,310.471274 170.275738,310.471274 170.275738,301.875711 178.700000,301.875711"/>
+    <poly id="000000158" type="building" color="red" fill="1" layer="4.00" shape="185.399997,310.508292 176.975735,310.508292 176.975735,301.912729 185.399997,301.912729"/>
+    <poly id="000000159" type="building" color="red" fill="1" layer="4.00" shape="192.100009,310.471274 183.675747,310.471274 183.675747,301.875711 192.100009,301.875711"/>
+    <poly id="000000161" type="building" color="red" fill="1" layer="4.00" shape="167.039902,141.083527 167.289902,141.083527 167.289902,140.833527 167.039902,140.833527"/>
+    <poly id="000000162" type="building" color="red" fill="1" layer="4.00" shape="167.039902,135.856323 167.289902,135.856323 167.289902,135.606323 167.039902,135.606323"/>
+    <poly id="000000163" type="building" color="red" fill="1" layer="4.00" shape="167.039902,176.010010 167.289902,176.010010 167.289902,175.760010 167.039902,175.760010"/>
+    <poly id="000000164" type="building" color="red" fill="1" layer="4.00" shape="167.039902,170.782806 167.289902,170.782806 167.289902,170.532806 167.039902,170.532806"/>
+    <poly id="000000173" type="building" color="red" fill="1" layer="4.00" shape="184.560000,246.530000 203.560000,245.940000 203.440000,218.650000 184.930000,218.850000"/>
+    <poly id="000000176" type="building" color="red" fill="1" layer="4.00" shape="182.690961,95.083423 197.784289,95.083423 197.784289,81.939466 182.690961,81.939466"/>
+    <poly id="000000177" type="building" color="red" fill="1" layer="4.00" shape="169.343948,141.408630 174.343948,141.408630 174.343948,135.408630 169.343948,135.408630"/>
+    <poly id="000000178" type="building" color="red" fill="1" layer="4.00" shape="169.343948,176.335114 174.343948,176.335114 174.343948,170.335114 169.343948,170.335114"/>
+    <poly id="000000179" type="building" color="red" fill="1" layer="4.00" shape="318.985682,381.069969 324.889440,381.069969 324.889440,373.814796 318.985682,373.814796"/>
+    <poly id="000000180" type="building" color="red" fill="1" layer="4.00" shape="318.985682,375.173912 324.889440,375.173912 324.889440,367.918739 318.985682,367.918739"/>
+    <poly id="000000181" type="building" color="red" fill="1" layer="4.00" shape="318.985682,368.564079 324.889440,368.564079 324.889440,361.308907 318.985682,361.308907"/>
+    <poly id="000000182" type="building" color="red" fill="1" layer="4.00" shape="336.138514,362.619072 342.042272,362.619072 342.042272,355.363899 336.138514,355.363899"/>
+    <poly id="000000183" type="building" color="red" fill="1" layer="4.00" shape="336.138514,368.513359 342.042272,368.513359 342.042272,361.258186 336.138514,361.258186"/>
+    <poly id="000000184" type="building" color="red" fill="1" layer="4.00" shape="336.138514,374.828056 342.042272,374.828056 342.042272,367.572884 336.138514,367.572884"/>
+    <poly id="000000185" type="building" color="red" fill="1" layer="4.00" shape="208.488332,256.556131 211.233714,256.556131 211.233714,254.241751 208.488332,254.241751"/>
+    <poly id="000000186" type="building" color="red" fill="1" layer="4.00" shape="208.488332,267.576136 211.233714,267.576136 211.233714,265.261755 208.488332,265.261755"/>
+    <poly id="000000187" type="building" color="red" fill="1" layer="4.00" shape="159.998327,267.576136 162.743708,267.576136 162.743708,265.261755 159.998327,265.261755"/>
+    <poly id="000000188" type="building" color="red" fill="1" layer="4.00" shape="160.610464,310.062982 163.355845,310.062982 163.355845,307.748602 160.610464,307.748602"/>
+    <poly id="000000189" type="building" color="red" fill="1" layer="4.00" shape="126.786977,243.420572 129.532359,243.420572 129.532359,241.106192 126.786977,241.106192"/>
+    <poly id="000000190" type="building" color="red" fill="1" layer="4.00" shape="159.368322,256.726129 162.113703,256.726129 162.113703,254.411749 159.368322,254.411749"/>
+    <poly id="000000191" type="building" color="red" fill="1" layer="4.00" shape="126.745801,159.893939 141.839129,159.893939 141.839129,146.749982 126.745801,146.749982"/>
+    <poly id="000000192" type="building" color="red" fill="1" layer="4.00" shape="81.433492,160.050235 96.526820,160.050235 96.526820,146.906278 81.433492,146.906278"/>
+    <poly id="000000193" type="building" color="red" fill="1" layer="4.00" shape="283.765049,256.603748 288.273343,256.603748 288.273343,253.565929 283.765049,253.565929"/>
+    <poly id="000000194" type="building" color="red" fill="1" layer="4.00" shape="188.058170,329.154347 192.566464,329.154347 192.566464,326.116527 188.058170,326.116527"/>
+    <poly id="000000195" type="building" color="red" fill="1" layer="4.00" shape="332.850845,256.746038 374.357651,256.746038 374.357651,211.290735 332.850845,211.290735"/>
+    <poly id="000000196" type="building" color="red" fill="1" layer="4.00" shape="293.535843,188.546896 335.042648,188.546896 335.042648,143.091593 293.535843,143.091593"/>
+    <poly id="000000197" type="building" color="red" fill="1" layer="4.00" shape="314.117646,155.327761 314.806366,155.327761 314.806366,144.133970 314.117646,144.133970"/>
+    <poly id="000000198" type="building" color="red" fill="1" layer="4.00" shape="355.169129,182.012685 355.857849,182.012685 355.857849,166.120524 355.169129,166.120524"/>
+    <poly id="000000199" type="building" color="red" fill="1" layer="4.00" shape="353.036377,256.359370 353.725097,256.359370 353.725097,240.235784 353.036377,240.235784"/>
+    <poly id="000000200" type="building" color="red" fill="1" layer="4.00" shape="340.438996,233.342752 341.127716,233.342752 341.127716,218.005088 340.438996,218.005088"/>
+    <poly id="000000201" type="building" color="red" fill="1" layer="4.00" shape="342.545349,159.419259 343.234070,159.419259 343.234070,144.081595 342.545349,144.081595"/>
+    <poly id="000000202" type="building" color="red" fill="1" layer="4.00" shape="327.036530,182.012685 327.725250,182.012685 327.725250,166.120524 327.036530,166.120524"/>
+    <poly id="000000203" type="building" color="red" fill="1" layer="4.00" shape="324.903778,256.359374 325.592498,256.359374 325.592498,240.235780 324.903778,240.235780"/>
+    <poly id="000000204" type="building" color="red" fill="1" layer="4.00" shape="312.105744,229.229418 312.794464,229.229418 312.794464,218.035627 312.105744,218.035627"/>
+    <poly id="000000205" type="building" color="red" fill="1" layer="4.00" shape="309.446584,201.965871 328.161693,201.965871 328.161693,198.545695 309.446584,198.545695"/>
+    <poly id="000000206" type="building" color="red" fill="1" layer="4.00" shape="309.446553,183.290883 328.161662,183.290883 328.161662,179.870708 309.446553,179.870708"/>
+    <poly id="000000207" type="building" color="red" fill="1" layer="4.00" shape="353.873983,201.970342 339.317789,201.970342 339.317789,198.550166 353.873983,198.550166"/>
+    <poly id="000000208" type="building" color="red" fill="1" layer="4.00" shape="353.874014,187.445332 339.317820,187.445332 339.317820,184.025157 353.874014,184.025157"/>
+    <poly id="000000209" type="building" color="red" fill="1" layer="4.00" shape="334.046559,201.965871 352.761668,201.965871 352.761668,198.545695 334.046559,198.545695"/>
+    <poly id="000000210" type="building" color="red" fill="1" layer="4.00" shape="334.046529,183.290883 352.761638,183.290883 352.761638,179.870708 334.046529,179.870708"/>
+    <poly id="000000211" type="building" color="red" fill="1" layer="4.00" shape="329.274008,201.970326 314.717813,201.970326 314.717813,198.550151 329.274008,198.550151"/>
+    <poly id="000000212" type="building" color="red" fill="1" layer="4.00" shape="329.274008,187.445332 314.717813,187.445332 314.717813,184.025157 329.274008,184.025157"/>
+    <poly id="000000213" type="building" color="red" fill="1" layer="4.00" shape="307.989698,200.450985 326.327318,200.450985 326.327318,200.402378 307.989698,200.402378"/>
+    <poly id="000000214" type="building" color="red" fill="1" layer="4.00" shape="307.989668,181.776013 326.327288,181.776013 326.327288,181.727405 307.989668,181.727405"/>
+    <poly id="000000215" type="building" color="red" fill="1" layer="4.00" shape="355.372813,200.417477 341.110219,200.417477 341.110219,200.368869 355.372813,200.368869"/>
+    <poly id="000000216" type="building" color="red" fill="1" layer="4.00" shape="355.372813,185.892483 341.110219,185.892483 341.110219,185.843875 355.372813,185.843875"/>
+    <poly id="000000217" type="building" color="red" fill="1" layer="4.00" shape="332.589674,200.451001 350.927294,200.451001 350.927294,200.402393 332.589674,200.402393"/>
+    <poly id="000000218" type="building" color="red" fill="1" layer="4.00" shape="332.589643,181.776013 350.927263,181.776013 350.927263,181.727405 332.589643,181.727405"/>
+    <poly id="000000219" type="building" color="red" fill="1" layer="4.00" shape="330.772807,200.417477 316.510213,200.417477 316.510213,200.368869 330.772807,200.368869"/>
+    <poly id="000000220" type="building" color="red" fill="1" layer="4.00" shape="330.772837,185.892468 316.510244,185.892468 316.510244,185.843860 330.772837,185.843860"/>
+    <poly id="000000221" type="building" color="red" fill="1" layer="4.00" shape="313.044837,156.889420 316.743859,156.889420 316.743859,154.119216 313.044837,154.119216"/>
+    <poly id="000000222" type="building" color="red" fill="1" layer="4.00" shape="251.314674,277.315095 248.125207,277.315095 248.125207,274.544891 251.314674,274.544891"/>
+    <poly id="000000223" type="building" color="red" fill="1" layer="4.00" shape="241.265328,277.315095 244.454795,277.315095 244.454795,274.544891 241.265328,274.544891"/>
+    <poly id="000000224" type="building" color="red" fill="1" layer="4.00" shape="241.534675,277.315095 238.345208,277.315095 238.345208,274.544891 241.534675,274.544891"/>
+    <poly id="000000225" type="building" color="red" fill="1" layer="4.00" shape="244.774680,277.315095 241.585214,277.315095 241.585214,274.544891 244.774680,274.544891"/>
+    <poly id="000000226" type="building" color="red" fill="1" layer="4.00" shape="285.145226,273.885102 288.334693,273.885102 288.334693,271.114898 285.145226,271.114898"/>
+    <poly id="000000227" type="building" color="red" fill="1" layer="4.00" shape="310.833650,241.492890 314.533049,241.492890 314.533049,238.722686 310.833650,238.722686"/>
+    <poly id="000000228" type="building" color="red" fill="1" layer="4.00" shape="274.945214,273.885102 278.134681,273.885102 278.134681,271.114898 274.945214,271.114898"/>
+    <poly id="000000229" type="building" color="red" fill="1" layer="4.00" shape="271.274787,273.885102 268.085320,273.885102 268.085320,271.114898 271.274787,271.114898"/>
+    <poly id="000000230" type="building" color="red" fill="1" layer="4.00" shape="265.165215,273.885102 268.354682,273.885102 268.354682,271.114898 265.165215,271.114898"/>
+    <poly id="000000231" type="building" color="red" fill="1" layer="4.00" shape="261.945214,273.885102 265.134681,273.885102 265.134681,271.114898 261.945214,271.114898"/>
+    <poly id="000000232" type="building" color="red" fill="1" layer="4.00" shape="268.405206,273.885102 271.594672,273.885102 271.594672,271.114898 268.405206,271.114898"/>
+    <poly id="000000233" type="building" color="red" fill="1" layer="4.00" shape="258.325219,273.885102 261.514686,273.885102 261.514686,271.114898 258.325219,271.114898"/>
+    <poly id="000000234" type="building" color="red" fill="1" layer="4.00" shape="248.125207,273.885102 251.314674,273.885102 251.314674,271.114898 248.125207,271.114898"/>
+    <poly id="000000235" type="building" color="red" fill="1" layer="4.00" shape="244.454795,273.885102 241.265328,273.885102 241.265328,271.114898 244.454795,271.114898"/>
+    <poly id="000000236" type="building" color="red" fill="1" layer="4.00" shape="313.044837,167.448609 316.743859,167.448609 316.743859,164.678405 313.044837,164.678405"/>
+    <poly id="000000237" type="building" color="red" fill="1" layer="4.00" shape="238.345208,273.885102 241.534675,273.885102 241.534675,271.114898 238.345208,271.114898"/>
+    <poly id="000000238" type="building" color="red" fill="1" layer="4.00" shape="241.585214,273.885102 244.774680,273.885102 244.774680,271.114898 241.585214,271.114898"/>
+    <poly id="000000239" type="building" color="red" fill="1" layer="4.00" shape="288.334693,267.935090 285.145226,267.935090 285.145226,265.164886 288.334693,265.164886"/>
+    <poly id="000000240" type="building" color="red" fill="1" layer="4.00" shape="285.114692,267.935090 281.925225,267.935090 281.925225,265.164886 285.114692,265.164886"/>
+    <poly id="000000241" type="building" color="red" fill="1" layer="4.00" shape="274.625329,267.935090 277.814796,267.935090 277.814796,265.164886 274.625329,265.164886"/>
+    <poly id="000000242" type="building" color="red" fill="1" layer="4.00" shape="278.134681,267.935090 274.945214,267.935090 274.945214,265.164886 278.134681,265.164886"/>
+    <poly id="000000243" type="building" color="red" fill="1" layer="4.00" shape="268.085320,267.935090 271.274787,267.935090 271.274787,265.164886 268.085320,265.164886"/>
+    <poly id="000000244" type="building" color="red" fill="1" layer="4.00" shape="265.134681,267.935090 261.945214,267.935090 261.945214,265.164886 265.134681,265.164886"/>
+    <poly id="000000245" type="building" color="red" fill="1" layer="4.00" shape="278.134681,277.315095 274.945214,277.315095 274.945214,274.544891 278.134681,274.544891"/>
+    <poly id="000000246" type="building" color="red" fill="1" layer="4.00" shape="271.594672,267.935090 268.405206,267.935090 268.405206,265.164886 271.594672,265.164886"/>
+    <poly id="000000247" type="building" color="red" fill="1" layer="4.00" shape="261.514686,267.935090 258.325219,267.935090 258.325219,265.164886 261.514686,265.164886"/>
+    <poly id="000000248" type="building" color="red" fill="1" layer="4.00" shape="258.294685,267.935090 255.105218,267.935090 255.105218,265.164886 258.294685,265.164886"/>
+    <poly id="000000249" type="building" color="red" fill="1" layer="4.00" shape="247.805322,267.935090 250.994788,267.935090 250.994788,265.164886 247.805322,265.164886"/>
+    <poly id="000000250" type="building" color="red" fill="1" layer="4.00" shape="251.314674,267.935090 248.125207,267.935090 248.125207,265.164886 251.314674,265.164886"/>
+    <poly id="000000251" type="building" color="red" fill="1" layer="4.00" shape="241.265328,267.935090 244.454795,267.935090 244.454795,265.164886 241.265328,265.164886"/>
+    <poly id="000000252" type="building" color="red" fill="1" layer="4.00" shape="241.534675,267.935090 238.345208,267.935090 238.345208,265.164886 241.534675,265.164886"/>
+    <poly id="000000253" type="building" color="red" fill="1" layer="4.00" shape="288.334693,277.315095 285.145226,277.315095 285.145226,274.544891 288.334693,274.544891"/>
+    <poly id="000000254" type="building" color="red" fill="1" layer="4.00" shape="271.594672,277.315095 268.405206,277.315095 268.405206,274.544891 271.594672,274.544891"/>
+    <poly id="000000255" type="building" color="red" fill="1" layer="4.00" shape="244.774680,267.935090 241.585214,267.935090 241.585214,265.164886 244.774680,265.164886"/>
+    <poly id="000000256" type="building" color="red" fill="1" layer="4.00" shape="285.145226,264.505097 288.334693,264.505097 288.334693,261.734893 285.145226,261.734893"/>
+    <poly id="000000257" type="building" color="red" fill="1" layer="4.00" shape="268.085320,277.315095 271.274787,277.315095 271.274787,274.544891 268.085320,274.544891"/>
+    <poly id="000000258" type="building" color="red" fill="1" layer="4.00" shape="281.925225,264.505097 285.114692,264.505097 285.114692,261.734893 281.925225,261.734893"/>
+    <poly id="000000259" type="building" color="red" fill="1" layer="4.00" shape="277.814796,264.505097 274.625329,264.505097 274.625329,261.734893 277.814796,261.734893"/>
+    <poly id="000000260" type="building" color="red" fill="1" layer="4.00" shape="274.945214,264.505097 278.134681,264.505097 278.134681,261.734893 274.945214,261.734893"/>
+    <poly id="000000261" type="building" color="red" fill="1" layer="4.00" shape="271.274787,264.505097 268.085320,264.505097 268.085320,261.734893 271.274787,261.734893"/>
+    <poly id="000000262" type="building" color="red" fill="1" layer="4.00" shape="284.905328,267.935090 288.094794,267.935090 288.094794,265.164886 284.905328,265.164886"/>
+    <poly id="000000263" type="building" color="red" fill="1" layer="4.00" shape="288.094794,264.505097 284.905328,264.505097 284.905328,261.734893 288.094794,261.734893"/>
+    <poly id="000000264" type="building" color="red" fill="1" layer="4.00" shape="261.945214,264.505097 265.134681,264.505097 265.134681,261.734893 261.945214,261.734893"/>
+    <poly id="000000265" type="building" color="red" fill="1" layer="4.00" shape="291.804664,277.315095 288.615197,277.315095 288.615197,274.544891 291.804664,274.544891"/>
+    <poly id="000000266" type="building" color="red" fill="1" layer="4.00" shape="288.615197,273.885102 291.804664,273.885102 291.804664,271.114898 288.615197,271.114898"/>
+    <poly id="000000267" type="building" color="red" fill="1" layer="4.00" shape="268.405206,264.505097 271.594672,264.505097 271.594672,261.734893 268.405206,261.734893"/>
+    <poly id="000000268" type="building" color="red" fill="1" layer="4.00" shape="258.325219,264.505097 261.514686,264.505097 261.514686,261.734893 258.325219,261.734893"/>
+    <poly id="000000269" type="building" color="red" fill="1" layer="4.00" shape="255.105218,264.505097 258.294685,264.505097 258.294685,261.734893 255.105218,261.734893"/>
+    <poly id="000000270" type="building" color="red" fill="1" layer="4.00" shape="250.994788,264.505097 247.805322,264.505097 247.805322,261.734893 250.994788,261.734893"/>
+    <poly id="000000271" type="building" color="red" fill="1" layer="4.00" shape="248.125207,264.505097 251.314674,264.505097 251.314674,261.734893 248.125207,261.734893"/>
+    <poly id="000000272" type="building" color="red" fill="1" layer="4.00" shape="244.454795,264.505097 241.265328,264.505097 241.265328,261.734893 244.454795,261.734893"/>
+    <poly id="000000273" type="building" color="red" fill="1" layer="4.00" shape="238.345208,264.505097 241.534675,264.505097 241.534675,261.734893 238.345208,261.734893"/>
+    <poly id="000000274" type="building" color="red" fill="1" layer="4.00" shape="241.585214,264.505097 244.774680,264.505097 244.774680,261.734893 241.585214,261.734893"/>
+    <poly id="000000275" type="building" color="red" fill="1" layer="4.00" shape="288.334693,256.405091 285.145226,256.405091 285.145226,253.634887 288.334693,253.634887"/>
+    <poly id="000000276" type="building" color="red" fill="1" layer="4.00" shape="285.114692,256.405091 281.925225,256.405091 281.925225,253.634887 285.114692,253.634887"/>
+    <poly id="000000277" type="building" color="red" fill="1" layer="4.00" shape="274.625329,256.405106 277.814796,256.405106 277.814796,253.634902 274.625329,253.634902"/>
+    <poly id="000000278" type="building" color="red" fill="1" layer="4.00" shape="278.134681,256.405091 274.945214,256.405091 274.945214,253.634887 278.134681,253.634887"/>
+    <poly id="000000279" type="building" color="red" fill="1" layer="4.00" shape="268.085320,256.405106 271.274787,256.405106 271.274787,253.634902 268.085320,253.634902"/>
+    <poly id="000000280" type="building" color="red" fill="1" layer="4.00" shape="268.354682,277.315095 265.165215,277.315095 265.165215,274.544891 268.354682,274.544891"/>
+    <poly id="000000281" type="building" color="red" fill="1" layer="4.00" shape="268.354682,256.405091 265.165215,256.405091 265.165215,253.634887 268.354682,253.634887"/>
+    <poly id="000000282" type="building" color="red" fill="1" layer="4.00" shape="265.134681,256.405091 261.945214,256.405091 261.945214,253.634887 265.134681,253.634887"/>
+    <poly id="000000283" type="building" color="red" fill="1" layer="4.00" shape="271.594672,256.405091 268.405206,256.405091 268.405206,253.634887 271.594672,253.634887"/>
+    <poly id="000000284" type="building" color="red" fill="1" layer="4.00" shape="261.514686,256.405091 258.325219,256.405091 258.325219,253.634887 261.514686,253.634887"/>
+    <poly id="000000285" type="building" color="red" fill="1" layer="4.00" shape="258.294685,256.405091 255.105218,256.405091 255.105218,253.634887 258.294685,253.634887"/>
+    <poly id="000000286" type="building" color="red" fill="1" layer="4.00" shape="247.805322,256.405106 250.994788,256.405106 250.994788,253.634902 247.805322,253.634902"/>
+    <poly id="000000287" type="building" color="red" fill="1" layer="4.00" shape="251.314674,256.405091 248.125207,256.405091 248.125207,253.634887 251.314674,253.634887"/>
+    <poly id="000000288" type="building" color="red" fill="1" layer="4.00" shape="241.265328,256.405106 244.454795,256.405106 244.454795,253.634902 241.265328,253.634902"/>
+    <poly id="000000289" type="building" color="red" fill="1" layer="4.00" shape="265.134681,277.315095 261.945214,277.315095 261.945214,274.544891 265.134681,274.544891"/>
+    <poly id="000000290" type="building" color="red" fill="1" layer="4.00" shape="310.833650,230.961854 314.533049,230.961854 314.533049,228.191650 310.833650,228.191650"/>
+    <poly id="000000291" type="building" color="red" fill="1" layer="4.00" shape="261.514686,277.315095 258.325219,277.315095 258.325219,274.544891 261.514686,274.544891"/>
+    <poly id="000000292" type="building" color="red" fill="1" layer="4.00" shape="104.085007,235.869995 121.585007,235.869995 121.585007,218.369995 104.085007,218.369995"/>
+    <poly id="000000293" type="building" color="red" fill="1" layer="4.00" shape="111.999998,155.270006 143.500002,155.270006 143.500002,123.770002 111.999998,123.770002"/>
+    <poly id="000000294" type="building" color="red" fill="1" layer="4.00" shape="112.764993,276.220002 135.415000,276.220002 135.415000,253.269988 112.764993,253.269988"/>
+    <poly id="000000295" type="building" color="red" fill="1" layer="4.00" shape="111.985001,244.070007 129.485001,244.070007 129.485001,226.570007 111.985001,226.570007"/>
+    <poly id="000000296" type="building" color="red" fill="1" layer="4.00" shape="111.999998,182.470003 143.500002,182.470003 143.500002,150.969999 111.999998,150.969999"/>
+    <poly id="000000297" type="building" color="red" fill="1" layer="4.00" shape="166.856439,161.264725 168.656439,161.264725 168.656439,149.734725 166.856439,149.734725"/>
+    <poly id="000000298" type="building" color="red" fill="1" layer="4.00" shape="337.969069,262.441973 346.287584,262.441973 346.287584,255.605573 337.969069,255.605573"/>
+    <poly id="000000299" type="building" color="red" fill="1" layer="4.00" shape="337.970179,262.441999 346.287939,262.441999 346.287939,255.601702 337.970179,255.601702"/>
+    <poly id="000000300" type="building" color="red" fill="1" layer="4.00" shape="338.129960,262.361657 346.280014,262.361657 346.280014,262.264442 338.129960,262.264442"/>
+    <poly id="000000301" type="building" color="red" fill="1" layer="4.00" shape="311.099043,262.441973 319.417559,262.441973 319.417559,255.605573 311.099043,255.605573"/>
+    <poly id="000000302" type="building" color="red" fill="1" layer="4.00" shape="311.100184,262.441999 319.417943,262.441999 319.417943,255.601702 311.100184,255.601702"/>
+    <poly id="000000303" type="building" color="red" fill="1" layer="4.00" shape="311.259964,262.361657 319.410018,262.361657 319.410018,262.264442 311.259964,262.264442"/>
+    <poly id="000000304" type="building" color="red" fill="1" layer="4.00" shape="339.377673,327.808136 344.951611,327.808136 344.951611,317.023651 339.377673,317.023651"/>
+    <poly id="000000305" type="building" color="red" fill="1" layer="4.00" shape="339.346309,328.413547 344.941167,328.413547 344.941167,317.021939 339.346309,317.021939"/>
+    <poly id="000000306" type="building" color="red" fill="1" layer="4.00" shape="339.346309,328.413547 344.941167,328.413547 344.941167,317.021939 339.346309,317.021939"/>
+    <poly id="000000307" type="building" color="red" fill="1" layer="4.00" shape="339.346309,328.413547 344.941167,328.413547 344.941167,317.021939 339.346309,317.021939"/>
+    <poly id="000000308" type="building" color="red" fill="1" layer="4.00" shape="339.346278,328.413547 344.941137,328.413547 344.941137,317.021939 339.346278,317.021939"/>
+    <poly id="000000309" type="building" color="red" fill="1" layer="4.00" shape="339.608386,317.491852 345.182324,317.491852 345.182324,306.707367 339.608386,306.707367"/>
+    <poly id="000000310" type="building" color="red" fill="1" layer="4.00" shape="339.618861,317.493564 345.213719,317.493564 345.213719,306.101956 339.618861,306.101956"/>
+    <poly id="000000311" type="building" color="red" fill="1" layer="4.00" shape="339.618861,317.493564 345.213719,317.493564 345.213719,306.101956 339.618861,306.101956"/>
+    <poly id="000000312" type="building" color="red" fill="1" layer="4.00" shape="339.618861,317.493564 345.213719,317.493564 345.213719,306.101956 339.618861,306.101956"/>
+    <poly id="000000313" type="building" color="red" fill="1" layer="4.00" shape="339.618861,317.493564 345.213720,317.493564 345.213720,306.101956 339.618861,306.101956"/>
+    <poly id="000000314" type="building" color="red" fill="1" layer="4.00" shape="344.951611,317.491821 339.377673,317.491821 339.377673,306.707336 344.951611,306.707336"/>
+    <poly id="000000315" type="building" color="red" fill="1" layer="4.00" shape="344.941167,317.493534 339.346309,317.493534 339.346309,306.101925 344.941167,306.101925"/>
+    <poly id="000000316" type="building" color="red" fill="1" layer="4.00" shape="344.941167,317.493534 339.346309,317.493534 339.346309,306.101925 344.941167,306.101925"/>
+    <poly id="000000317" type="building" color="red" fill="1" layer="4.00" shape="344.941167,317.493534 339.346309,317.493534 339.346309,306.101925 344.941167,306.101925"/>
+    <poly id="000000318" type="building" color="red" fill="1" layer="4.00" shape="344.941167,317.493534 339.346308,317.493534 339.346308,306.101925 344.941167,306.101925"/>
+    <poly id="000000319" type="building" color="red" fill="1" layer="4.00" shape="334.165112,323.264618 328.591174,323.264618 328.591174,312.480133 334.165112,312.480133"/>
+    <poly id="000000320" type="building" color="red" fill="1" layer="4.00" shape="334.477422,323.547245 328.882564,323.547245 328.882564,312.155636 334.477422,312.155636"/>
+    <poly id="000000321" type="building" color="red" fill="1" layer="4.00" shape="334.477422,323.547245 328.882564,323.547245 328.882564,312.155636 334.477422,312.155636"/>
+    <poly id="000000322" type="building" color="red" fill="1" layer="4.00" shape="334.477422,323.547245 328.882564,323.547245 328.882564,312.155636 334.477422,312.155636"/>
+    <poly id="000000323" type="building" color="red" fill="1" layer="4.00" shape="334.477422,323.547245 328.882563,323.547245 328.882563,312.155636 334.477422,312.155636"/>
+    <poly id="000000324" type="building" color="red" fill="1" layer="4.00" shape="324.548389,317.491852 330.122327,317.491852 330.122327,306.707367 324.548389,306.707367"/>
+    <poly id="000000325" type="building" color="red" fill="1" layer="4.00" shape="324.558864,317.493564 330.153722,317.493564 330.153722,306.101956 324.558864,306.101956"/>
+    <poly id="000000326" type="building" color="red" fill="1" layer="4.00" shape="324.558864,317.493564 330.153722,317.493564 330.153722,306.101956 324.558864,306.101956"/>
+    <poly id="000000327" type="building" color="red" fill="1" layer="4.00" shape="324.558864,317.493564 330.153722,317.493564 330.153722,306.101956 324.558864,306.101956"/>
+    <poly id="000000328" type="building" color="red" fill="1" layer="4.00" shape="324.558863,317.493564 330.153722,317.493564 330.153722,306.101956 324.558863,306.101956"/>
+    <poly id="000000329" type="building" color="red" fill="1" layer="4.00" shape="320.004901,322.774597 325.578839,322.774597 325.578839,311.990112 320.004901,311.990112"/>
+    <poly id="000000330" type="building" color="red" fill="1" layer="4.00" shape="319.692561,323.057224 325.287419,323.057224 325.287419,311.665616 319.692561,311.665616"/>
+    <poly id="000000331" type="building" color="red" fill="1" layer="4.00" shape="319.692561,323.057224 325.287419,323.057224 325.287419,311.665616 319.692561,311.665616"/>
+    <poly id="000000332" type="building" color="red" fill="1" layer="4.00" shape="319.692561,323.057224 325.287419,323.057224 325.287419,311.665616 319.692561,311.665616"/>
+    <poly id="000000333" type="building" color="red" fill="1" layer="4.00" shape="319.692561,323.057224 325.287420,323.057224 325.287420,311.665616 319.692561,311.665616"/>
+    <poly id="000000334" type="building" color="red" fill="1" layer="4.00" shape="325.578809,323.005341 320.004871,323.005341 320.004871,312.220856 325.578809,312.220856"/>
+    <poly id="000000335" type="building" color="red" fill="1" layer="4.00" shape="325.287419,323.329807 319.692561,323.329807 319.692561,311.938199 325.287419,311.938199"/>
+    <poly id="000000336" type="building" color="red" fill="1" layer="4.00" shape="325.287419,323.329807 319.692561,323.329807 319.692561,311.938199 325.287419,311.938199"/>
+    <poly id="000000337" type="building" color="red" fill="1" layer="4.00" shape="325.287419,323.329807 319.692561,323.329807 319.692561,311.938199 325.287419,311.938199"/>
+    <poly id="000000338" type="building" color="red" fill="1" layer="4.00" shape="325.287420,323.329807 319.692561,323.329807 319.692561,311.938199 325.287420,311.938199"/>
+    <poly id="000000339" type="building" color="red" fill="1" layer="4.00" shape="349.245099,322.464630 343.671161,322.464630 343.671161,311.680145 349.245099,311.680145"/>
+    <poly id="000000340" type="building" color="red" fill="1" layer="4.00" shape="349.557408,322.747257 343.962550,322.747257 343.962550,311.355649 349.557408,311.355649"/>
+    <poly id="000000341" type="building" color="red" fill="1" layer="4.00" shape="349.557408,322.747257 343.962550,322.747257 343.962550,311.355649 349.557408,311.355649"/>
+    <poly id="000000342" type="building" color="red" fill="1" layer="4.00" shape="349.557408,322.747257 343.962550,322.747257 343.962550,311.355649 349.557408,311.355649"/>
+    <poly id="000000343" type="building" color="red" fill="1" layer="4.00" shape="349.557409,322.747257 343.962550,322.747257 343.962550,311.355649 349.557409,311.355649"/>
+    <poly id="000000344" type="building" color="red" fill="1" layer="4.00" shape="343.671191,322.695343 349.245129,322.695343 349.245129,311.910858 343.671191,311.910858"/>
+    <poly id="000000345" type="building" color="red" fill="1" layer="4.00" shape="343.962581,323.019809 349.557439,323.019809 349.557439,311.628201 343.962581,311.628201"/>
+    <poly id="000000346" type="building" color="red" fill="1" layer="4.00" shape="343.962581,323.019809 349.557439,323.019809 349.557439,311.628201 343.962581,311.628201"/>
+    <poly id="000000347" type="building" color="red" fill="1" layer="4.00" shape="343.962581,323.019809 349.557439,323.019809 349.557439,311.628201 343.962581,311.628201"/>
+    <poly id="000000348" type="building" color="red" fill="1" layer="4.00" shape="343.962580,323.019809 349.557439,323.019809 349.557439,311.628201 343.962580,311.628201"/>
+    <poly id="000000349" type="building" color="red" fill="1" layer="4.00" shape="329.891614,317.491852 324.317676,317.491852 324.317676,306.707367 329.891614,306.707367"/>
+    <poly id="000000350" type="building" color="red" fill="1" layer="4.00" shape="329.881139,317.493564 324.286281,317.493564 324.286281,306.101956 329.881139,306.101956"/>
+    <poly id="000000351" type="building" color="red" fill="1" layer="4.00" shape="329.881139,317.493564 324.286281,317.493564 324.286281,306.101956 329.881139,306.101956"/>
+    <poly id="000000352" type="building" color="red" fill="1" layer="4.00" shape="329.881139,317.493564 324.286281,317.493564 324.286281,306.101956 329.881139,306.101956"/>
+    <poly id="000000353" type="building" color="red" fill="1" layer="4.00" shape="329.881139,317.493564 324.286280,317.493564 324.286280,306.101956 329.881139,306.101956"/>
+    <poly id="000000354" type="building" color="red" fill="1" layer="4.00" shape="330.122327,327.808105 324.548389,327.808105 324.548389,317.023621 330.122327,317.023621"/>
+    <poly id="000000355" type="building" color="red" fill="1" layer="4.00" shape="330.153691,328.413517 324.558833,328.413517 324.558833,317.021908 330.153691,317.021908"/>
+    <poly id="000000356" type="building" color="red" fill="1" layer="4.00" shape="330.153691,328.413517 324.558833,328.413517 324.558833,317.021908 330.153691,317.021908"/>
+    <poly id="000000357" type="building" color="red" fill="1" layer="4.00" shape="330.153691,328.413517 324.558833,328.413517 324.558833,317.021908 330.153691,317.021908"/>
+    <poly id="000000358" type="building" color="red" fill="1" layer="4.00" shape="330.153692,328.413517 324.558833,328.413517 324.558833,317.021908 330.153692,317.021908"/>
+    <poly id="000000359" type="building" color="red" fill="1" layer="4.00" shape="324.317676,327.808105 329.891614,327.808105 329.891614,317.023621 324.317676,317.023621"/>
+    <poly id="000000360" type="building" color="red" fill="1" layer="4.00" shape="324.286281,328.413517 329.881139,328.413517 329.881139,317.021908 324.286281,317.021908"/>
+    <poly id="000000361" type="building" color="red" fill="1" layer="4.00" shape="324.286281,328.413517 329.881139,328.413517 329.881139,317.021908 324.286281,317.021908"/>
+    <poly id="000000362" type="building" color="red" fill="1" layer="4.00" shape="324.286281,328.413517 329.881139,328.413517 329.881139,317.021908 324.286281,317.021908"/>
+    <poly id="000000363" type="building" color="red" fill="1" layer="4.00" shape="324.286280,328.413517 329.881139,328.413517 329.881139,317.021908 324.286280,317.021908"/>
+    <poly id="000000364" type="building" color="red" fill="1" layer="4.00" shape="328.591205,322.035309 334.165143,322.035309 334.165143,311.250824 328.591205,311.250824"/>
+    <poly id="000000365" type="building" color="red" fill="1" layer="4.00" shape="328.882594,322.359775 334.477452,322.359775 334.477452,310.968167 328.882594,310.968167"/>
+    <poly id="000000366" type="building" color="red" fill="1" layer="4.00" shape="328.882594,322.359775 334.477452,322.359775 334.477452,310.968167 328.882594,310.968167"/>
+    <poly id="000000367" type="building" color="red" fill="1" layer="4.00" shape="328.882594,322.359775 334.477452,322.359775 334.477452,310.968167 328.882594,310.968167"/>
+    <poly id="000000368" type="building" color="red" fill="1" layer="4.00" shape="328.882594,322.359775 334.477453,322.359775 334.477453,310.968167 328.882594,310.968167"/>
+    <poly id="000000369" type="building" color="red" fill="1" layer="4.00" shape="345.182324,327.808136 339.608386,327.808136 339.608386,317.023651 345.182324,317.023651"/>
+    <poly id="000000370" type="building" color="red" fill="1" layer="4.00" shape="345.213689,328.413547 339.618831,328.413547 339.618831,317.021939 345.213689,317.021939"/>
+    <poly id="000000371" type="building" color="red" fill="1" layer="4.00" shape="345.213689,328.413547 339.618831,328.413547 339.618831,317.021939 345.213689,317.021939"/>
+    <poly id="000000372" type="building" color="red" fill="1" layer="4.00" shape="345.213689,328.413547 339.618831,328.413547 339.618831,317.021939 345.213689,317.021939"/>
+    <poly id="000000373" type="building" color="red" fill="1" layer="4.00" shape="345.213689,328.413547 339.618830,328.413547 339.618830,317.021939 345.213689,317.021939"/>
+    <poly id="000000374" type="building" color="red" fill="1" layer="4.00" shape="249.189899,144.563325 256.850110,144.563325 256.850110,134.716887 249.189899,134.716887"/>
+    <poly id="000000375" type="building" color="red" fill="1" layer="4.00" shape="240.950055,173.613236 233.289844,173.613236 233.289844,163.766799 240.950055,163.766799"/>
+    <poly id="000000376" type="building" color="red" fill="1" layer="4.00" shape="233.289829,182.643220 240.950040,182.643220 240.950040,172.796782 233.289829,172.796782"/>
+    <poly id="000000377" type="building" color="red" fill="1" layer="4.00" shape="265.460171,189.543290 257.799960,189.543290 257.799960,179.696853 265.460171,179.696853"/>
+    <poly id="000000378" type="building" color="red" fill="1" layer="4.00" shape="257.799930,175.283082 265.460141,175.283082 265.460141,165.436645 257.799930,165.436645"/>
+    <poly id="000000379" type="building" color="red" fill="1" layer="4.00" shape="256.850110,175.283097 249.189899,175.283097 249.189899,165.436660 256.850110,165.436660"/>
+    <poly id="000000380" type="building" color="red" fill="1" layer="4.00" shape="246.910037,173.613206 254.570248,173.613206 254.570248,163.766768 246.910037,163.766768"/>
+    <poly id="000000381" type="building" color="red" fill="1" layer="4.00" shape="240.119846,130.303132 247.780057,130.303132 247.780057,120.456695 240.119846,120.456695"/>
+    <poly id="000000382" type="building" color="red" fill="1" layer="4.00" shape="249.149966,189.543305 256.810178,189.543305 256.810178,179.696868 249.149966,179.696868"/>
+    <poly id="000000383" type="building" color="red" fill="1" layer="4.00" shape="233.289813,146.233262 240.950024,146.233262 240.950024,136.386825 233.289813,136.386825"/>
+    <poly id="000000384" type="building" color="red" fill="1" layer="4.00" shape="165.559796,98.582063 157.899585,98.582063 157.899585,88.735625 165.559796,88.735625"/>
+    <poly id="000000385" type="building" color="red" fill="1" layer="4.00" shape="172.159808,98.582063 179.820019,98.582063 179.820019,88.735625 172.159808,88.735625"/>
+    <poly id="000000386" type="building" color="red" fill="1" layer="4.00" shape="179.820035,89.972024 172.159824,89.972024 172.159824,80.125587 179.820035,80.125587"/>
+    <poly id="000000387" type="building" color="red" fill="1" layer="4.00" shape="173.829700,87.692170 181.489911,87.692170 181.489911,77.845733 173.829700,77.845733"/>
+    <poly id="000000388" type="building" color="red" fill="1" layer="4.00" shape="256.810055,130.303124 249.149844,130.303124 249.149844,120.456687 256.810055,120.456687"/>
+    <poly id="000000389" type="building" color="red" fill="1" layer="4.00" shape="233.289813,155.523255 240.950024,155.523255 240.950024,145.676818 233.289813,145.676818"/>
+    <poly id="000000390" type="building" color="red" fill="1" layer="4.00" shape="254.570233,155.523225 246.910022,155.523225 246.910022,145.676787 254.570233,145.676787"/>
+    <poly id="000000391" type="building" color="red" fill="1" layer="4.00" shape="233.289813,164.433259 240.950024,164.433259 240.950024,154.586822 233.289813,154.586822"/>
+    <poly id="000000392" type="building" color="red" fill="1" layer="4.00" shape="254.570233,164.433228 246.910022,164.433228 246.910022,154.586791 254.570233,154.586791"/>
+    <poly id="000000393" type="building" color="red" fill="1" layer="4.00" shape="240.949994,137.203263 233.289783,137.203263 233.289783,127.356826 240.949994,127.356826"/>
+    <poly id="000000394" type="building" color="red" fill="1" layer="4.00" shape="265.460110,144.563310 257.799899,144.563310 257.799899,134.716872 265.460110,134.716872"/>
+    <poly id="000000395" type="building" color="red" fill="1" layer="4.00" shape="198.479831,80.902040 206.140042,80.902040 206.140042,71.055602 198.479831,71.055602"/>
+    <poly id="000000396" type="building" color="red" fill="1" layer="4.00" shape="206.140012,89.932046 198.479800,89.932046 198.479800,80.085608 206.140012,80.085608"/>
+    <poly id="000000397" type="building" color="red" fill="1" layer="4.00" shape="182.549731,74.071977 190.209943,74.071977 190.209943,64.225539 182.549731,64.225539"/>
+    <poly id="000000398" type="building" color="red" fill="1" layer="4.00" shape="199.239880,74.071969 191.579669,74.071969 191.579669,64.225532 199.239880,64.225532"/>
+    <poly id="000000399" type="building" color="red" fill="1" layer="4.00" shape="257.799869,130.303094 265.460080,130.303094 265.460080,120.456656 257.799869,120.456656"/>
+    <poly id="000000400" type="building" color="red" fill="1" layer="4.00" shape="198.479800,98.582078 206.140012,98.582078 206.140012,88.735641 198.479800,88.735641"/>
+    <poly id="000000401" type="building" color="red" fill="1" layer="4.00" shape="191.879819,98.582063 184.219608,98.582063 184.219608,88.735625 191.879819,88.735625"/>
+    <poly id="000000402" type="building" color="red" fill="1" layer="4.00" shape="184.219592,89.972070 191.879803,89.972070 191.879803,80.125632 184.219592,80.125632"/>
+    <poly id="000000403" type="building" color="red" fill="1" layer="4.00" shape="190.209912,87.692178 182.549701,87.692178 182.549701,77.845740 190.209912,77.845740"/>
+    <poly id="000000404" type="building" color="red" fill="1" layer="4.00" shape="165.559781,80.902062 157.899570,80.902062 157.899570,71.055625 165.559781,71.055625"/>
+    <poly id="000000405" type="building" color="red" fill="1" layer="4.00" shape="157.899585,89.932092 165.559796,89.932092 165.559796,80.085654 157.899585,80.085654"/>
+    <poly id="000000406" type="building" color="red" fill="1" layer="4.00" shape="181.489911,74.071992 173.829700,74.071992 173.829700,64.225554 181.489911,64.225554"/>
+    <poly id="000000407" type="building" color="red" fill="1" layer="4.00" shape="164.799716,74.071931 172.459927,74.071931 172.459927,64.225493 164.799716,64.225493"/>
+    <poly id="000000408" type="building" color="red" fill="1" layer="4.00" shape="254.570233,146.233232 246.910022,146.233232 246.910022,136.386794 254.570233,136.386794"/>
+    <poly id="000000409" type="building" color="red" fill="1" layer="4.00" shape="247.780164,189.543351 240.119952,189.543351 240.119952,179.696914 247.780164,179.696914"/>
+    <poly id="000000410" type="building" color="red" fill="1" layer="4.00" shape="170.773774,166.007690 180.631499,166.007690 180.631499,158.756531 170.773774,158.756531"/>
+    <poly id="000000411" type="building" color="red" fill="1" layer="4.00" shape="170.616370,166.031239 180.763543,166.031239 180.763543,158.481700 170.616370,158.481700"/>
+    <poly id="000000412" type="building" color="red" fill="1" layer="4.00" shape="170.616370,166.031239 180.763543,166.031239 180.763543,158.481700 170.616370,158.481700"/>
+    <poly id="000000413" type="building" color="red" fill="1" layer="4.00" shape="170.616370,166.031239 180.763543,166.031239 180.763543,158.481700 170.616370,158.481700"/>
+    <poly id="000000414" type="building" color="red" fill="1" layer="4.00" shape="170.616370,166.031239 180.763543,166.031239 180.763543,158.481700 170.616370,158.481700"/>
+    <poly id="000000415" type="building" color="red" fill="1" layer="4.00" shape="170.616370,166.031239 180.763543,166.031239 180.763543,158.481700 170.616370,158.481700"/>
+    <poly id="000000416" type="building" color="red" fill="1" layer="4.00" shape="170.616370,166.031239 180.763543,166.031239 180.763543,158.481700 170.616370,158.481700"/>
+    <poly id="000000417" type="building" color="red" fill="1" layer="4.00" shape="170.616370,166.031239 180.763543,166.031239 180.763543,158.481700 170.616370,158.481700"/>
+    <poly id="000000418" type="building" color="red" fill="1" layer="4.00" shape="170.616370,166.031239 180.763543,166.031239 180.763543,158.481700 170.616370,158.481700"/>
+    <poly id="000000419" type="building" color="red" fill="1" layer="4.00" shape="170.616370,166.031239 180.763543,166.031239 180.763543,158.481700 170.616370,158.481700"/>
+    <poly id="000000420" type="building" color="red" fill="1" layer="4.00" shape="170.616370,166.031239 180.763543,166.031239 180.763543,158.481700 170.616370,158.481700"/>
+    <poly id="000000421" type="building" color="red" fill="1" layer="4.00" shape="170.616370,166.031239 180.763543,166.031239 180.763543,158.481700 170.616370,158.481700"/>
+    <poly id="000000422" type="building" color="red" fill="1" layer="4.00" shape="170.616370,166.031239 180.763543,166.031239 180.763543,158.481700 170.616370,158.481700"/>
+    <poly id="000000423" type="building" color="red" fill="1" layer="4.00" shape="170.616370,166.031239 180.763543,166.031239 180.763543,158.481700 170.616370,158.481700"/>
+    <poly id="000000424" type="building" color="red" fill="1" layer="4.00" shape="170.616370,166.031239 180.763543,166.031239 180.763543,158.481700 170.616370,158.481700"/>
+    <poly id="000000425" type="building" color="red" fill="1" layer="4.00" shape="170.616370,166.031239 180.763543,166.031239 180.763543,158.481700 170.616370,158.481700"/>
+    <poly id="000000426" type="building" color="red" fill="1" layer="4.00" shape="170.782405,166.017163 180.597508,166.017163 180.597508,158.827838 170.782405,158.827838"/>
+    <poly id="000000427" type="building" color="red" fill="1" layer="4.00" shape="178.343812,166.007674 188.201537,166.007674 188.201537,158.756516 178.343812,158.756516"/>
+    <poly id="000000428" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000429" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000430" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000431" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000432" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000433" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000434" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000435" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000436" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000437" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000438" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000439" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000440" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000441" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000442" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000443" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000444" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000445" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000446" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000447" type="building" color="red" fill="1" layer="4.00" shape="178.186393,166.031209 188.333566,166.031209 188.333566,158.481670 178.186393,158.481670"/>
+    <poly id="000000448" type="building" color="red" fill="1" layer="4.00" shape="178.352428,166.017133 188.167531,166.017133 188.167531,158.827807 178.352428,158.827807"/>
+    <poly id="000000449" type="building" color="red" fill="1" layer="4.00" shape="195.401549,151.543487 185.543824,151.543487 185.543824,144.292329 195.401549,144.292329"/>
+    <poly id="000000450" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000451" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000452" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000453" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000454" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000455" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000456" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000457" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000458" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000459" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000460" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000461" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000462" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000463" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000464" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000465" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000466" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000467" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000468" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000469" type="building" color="red" fill="1" layer="4.00" shape="195.533578,151.818333 185.386405,151.818333 185.386405,144.268794 195.533578,144.268794"/>
+    <poly id="000000470" type="building" color="red" fill="1" layer="4.00" shape="195.367543,151.472196 185.552440,151.472196 185.552440,144.282870 195.367543,144.282870"/>
+    <poly id="000000471" type="building" color="red" fill="1" layer="4.00" shape="202.981551,151.543517 193.123826,151.543517 193.123826,144.292359 202.981551,144.292359"/>
+    <poly id="000000472" type="building" color="red" fill="1" layer="4.00" shape="203.113580,151.818364 192.966407,151.818364 192.966407,144.268825 203.113580,144.268825"/>
+    <poly id="000000473" type="building" color="red" fill="1" layer="4.00" shape="203.113580,151.818364 192.966407,151.818364 192.966407,144.268825 203.113580,144.268825"/>
+    <poly id="000000474" type="building" color="red" fill="1" layer="4.00" shape="203.113580,151.818364 192.966407,151.818364 192.966407,144.268825 203.113580,144.268825"/>
+    <poly id="000000475" type="building" color="red" fill="1" layer="4.00" shape="203.113580,151.818364 192.966407,151.818364 192.966407,144.268825 203.113580,144.268825"/>
+    <poly id="000000476" type="building" color="red" fill="1" layer="4.00" shape="203.113580,151.818364 192.966407,151.818364 192.966407,144.268825 203.113580,144.268825"/>
+    <poly id="000000477" type="building" color="red" fill="1" layer="4.00" shape="203.113580,151.818364 192.966407,151.818364 192.966407,144.268825 203.113580,144.268825"/>
+    <poly id="000000478" type="building" color="red" fill="1" layer="4.00" shape="203.113580,151.818364 192.966407,151.818364 192.966407,144.268825 203.113580,144.268825"/>
+    <poly id="000000479" type="building" color="red" fill="1" layer="4.00" shape="203.113580,151.818364 192.966407,151.818364 192.966407,144.268825 203.113580,144.268825"/>
+    <poly id="000000480" type="building" color="red" fill="1" layer="4.00" shape="203.113580,151.818364 192.966407,151.818364 192.966407,144.268825 203.113580,144.268825"/>
+    <poly id="000000481" type="building" color="red" fill="1" layer="4.00" shape="203.113580,151.818364 192.966407,151.818364 192.966407,144.268825 203.113580,144.268825"/>
+    <poly id="000000482" type="building" color="red" fill="1" layer="4.00" shape="203.113580,151.818364 192.966407,151.818364 192.966407,144.268825 203.113580,144.268825"/>
+    <poly id="000000483" type="building" color="red" fill="1" layer="4.00" shape="203.113580,151.818364 192.966407,151.818364 192.966407,144.268825 203.113580,144.268825"/>
+    <poly id="000000484" type="building" color="red" fill="1" layer="4.00" shape="203.113580,151.818364 192.966407,151.818364 192.966407,144.268825 203.113580,144.268825"/>
+    <poly id="000000485" type="building" color="red" fill="1" layer="4.00" shape="203.113580,151.818364 192.966407,151.818364 192.966407,144.268825 203.113580,144.268825"/>
+    <poly id="000000486" type="building" color="red" fill="1" layer="4.00" shape="203.113580,151.818364 192.966407,151.818364 192.966407,144.268825 203.113580,144.268825"/>
+    <poly id="000000487" type="building" color="red" fill="1" layer="4.00" shape="202.947545,151.472211 193.132442,151.472211 193.132442,144.282886 202.947545,144.282886"/>
+    <poly id="000000488" type="building" color="red" fill="1" layer="4.00" shape="180.631545,151.553481 170.773820,151.553481 170.773820,144.302323 180.631545,144.302323"/>
+    <poly id="000000489" type="building" color="red" fill="1" layer="4.00" shape="180.763574,151.828313 170.616401,151.828313 170.616401,144.278774 180.763574,144.278774"/>
+    <poly id="000000490" type="building" color="red" fill="1" layer="4.00" shape="180.763574,151.828313 170.616401,151.828313 170.616401,144.278774 180.763574,144.278774"/>
+    <poly id="000000491" type="building" color="red" fill="1" layer="4.00" shape="180.763574,151.828313 170.616401,151.828313 170.616401,144.278774 180.763574,144.278774"/>
+    <poly id="000000492" type="building" color="red" fill="1" layer="4.00" shape="180.763574,151.828313 170.616401,151.828313 170.616401,144.278774 180.763574,144.278774"/>
+    <poly id="000000493" type="building" color="red" fill="1" layer="4.00" shape="180.763574,151.828313 170.616401,151.828313 170.616401,144.278774 180.763574,144.278774"/>
+    <poly id="000000494" type="building" color="red" fill="1" layer="4.00" shape="180.763574,151.828313 170.616401,151.828313 170.616401,144.278774 180.763574,144.278774"/>
+    <poly id="000000495" type="building" color="red" fill="1" layer="4.00" shape="180.763574,151.828313 170.616401,151.828313 170.616401,144.278774 180.763574,144.278774"/>
+    <poly id="000000496" type="building" color="red" fill="1" layer="4.00" shape="180.763574,151.828313 170.616401,151.828313 170.616401,144.278774 180.763574,144.278774"/>
+    <poly id="000000497" type="building" color="red" fill="1" layer="4.00" shape="180.763574,151.828313 170.616401,151.828313 170.616401,144.278774 180.763574,144.278774"/>
+    <poly id="000000498" type="building" color="red" fill="1" layer="4.00" shape="180.763574,151.828313 170.616401,151.828313 170.616401,144.278774 180.763574,144.278774"/>
+    <poly id="000000499" type="building" color="red" fill="1" layer="4.00" shape="180.763574,151.828313 170.616401,151.828313 170.616401,144.278774 180.763574,144.278774"/>
+    <poly id="000000500" type="building" color="red" fill="1" layer="4.00" shape="180.763574,151.828313 170.616401,151.828313 170.616401,144.278774 180.763574,144.278774"/>
+    <poly id="000000501" type="building" color="red" fill="1" layer="4.00" shape="180.763574,151.828313 170.616401,151.828313 170.616401,144.278774 180.763574,144.278774"/>
+    <poly id="000000502" type="building" color="red" fill="1" layer="4.00" shape="180.763574,151.828313 170.616401,151.828313 170.616401,144.278774 180.763574,144.278774"/>
+    <poly id="000000503" type="building" color="red" fill="1" layer="4.00" shape="180.763574,151.828313 170.616401,151.828313 170.616401,144.278774 180.763574,144.278774"/>
+    <poly id="000000504" type="building" color="red" fill="1" layer="4.00" shape="180.597538,151.482175 170.782436,151.482175 170.782436,144.292850 180.597538,144.292850"/>
+    <poly id="000000505" type="building" color="red" fill="1" layer="4.00" shape="188.201552,151.553497 178.343827,151.553497 178.343827,144.302338 188.201552,144.302338"/>
+    <poly id="000000506" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000507" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000508" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000509" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000510" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000511" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000512" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000513" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000514" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000515" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000516" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000517" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000518" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000519" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000520" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000521" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000522" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000523" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000524" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000525" type="building" color="red" fill="1" layer="4.00" shape="188.333596,151.828343 178.186423,151.828343 178.186423,144.278804 188.333596,144.278804"/>
+    <poly id="000000526" type="building" color="red" fill="1" layer="4.00" shape="188.167561,151.482190 178.352458,151.482190 178.352458,144.292865 188.167561,144.292865"/>
+    <poly id="000000527" type="building" color="red" fill="1" layer="4.00" shape="185.543809,132.177657 195.401534,132.177657 195.401534,124.926499 185.543809,124.926499"/>
+    <poly id="000000528" type="building" color="red" fill="1" layer="4.00" shape="185.386390,132.201192 195.533563,132.201192 195.533563,124.651653 185.386390,124.651653"/>
+    <poly id="000000529" type="building" color="red" fill="1" layer="4.00" shape="185.386390,132.201192 195.533563,132.201192 195.533563,124.651653 185.386390,124.651653"/>
+    <poly id="000000530" type="building" color="red" fill="1" layer="4.00" shape="185.386390,132.201192 195.533563,132.201192 195.533563,124.651653 185.386390,124.651653"/>
+    <poly id="000000531" type="building" color="red" fill="1" layer="4.00" shape="185.386390,132.201192 195.533563,132.201192 195.533563,124.651653 185.386390,124.651653"/>
+    <poly id="000000532" type="building" color="red" fill="1" layer="4.00" shape="185.386390,132.201192 195.533563,132.201192 195.533563,124.651653 185.386390,124.651653"/>
+    <poly id="000000533" type="building" color="red" fill="1" layer="4.00" shape="185.386390,132.201192 195.533563,132.201192 195.533563,124.651653 185.386390,124.651653"/>
+    <poly id="000000534" type="building" color="red" fill="1" layer="4.00" shape="185.386390,132.201192 195.533563,132.201192 195.533563,124.651653 185.386390,124.651653"/>
+    <poly id="000000535" type="building" color="red" fill="1" layer="4.00" shape="185.386390,132.201192 195.533563,132.201192 195.533563,124.651653 185.386390,124.651653"/>
+    <poly id="000000536" type="building" color="red" fill="1" layer="4.00" shape="185.386390,132.201192 195.533563,132.201192 195.533563,124.651653 185.386390,124.651653"/>
+    <poly id="000000537" type="building" color="red" fill="1" layer="4.00" shape="185.386390,132.201192 195.533563,132.201192 195.533563,124.651653 185.386390,124.651653"/>
+    <poly id="000000538" type="building" color="red" fill="1" layer="4.00" shape="185.386390,132.201192 195.533563,132.201192 195.533563,124.651653 185.386390,124.651653"/>
+    <poly id="000000539" type="building" color="red" fill="1" layer="4.00" shape="185.386390,132.201192 195.533563,132.201192 195.533563,124.651653 185.386390,124.651653"/>
+    <poly id="000000540" type="building" color="red" fill="1" layer="4.00" shape="185.386390,132.201192 195.533563,132.201192 195.533563,124.651653 185.386390,124.651653"/>
+    <poly id="000000541" type="building" color="red" fill="1" layer="4.00" shape="185.386390,132.201192 195.533563,132.201192 195.533563,124.651653 185.386390,124.651653"/>
+    <poly id="000000542" type="building" color="red" fill="1" layer="4.00" shape="185.386390,132.201192 195.533563,132.201192 195.533563,124.651653 185.386390,124.651653"/>
+    <poly id="000000543" type="building" color="red" fill="1" layer="4.00" shape="185.552425,132.187116 195.367527,132.187116 195.367527,124.997790 185.552425,124.997790"/>
+    <poly id="000000544" type="building" color="red" fill="1" layer="4.00" shape="193.113801,132.177642 202.971526,132.177642 202.971526,124.926484 193.113801,124.926484"/>
+    <poly id="000000545" type="building" color="red" fill="1" layer="4.00" shape="192.956382,132.201176 203.103555,132.201176 203.103555,124.651637 192.956382,124.651637"/>
+    <poly id="000000546" type="building" color="red" fill="1" layer="4.00" shape="192.956382,132.201176 203.103555,132.201176 203.103555,124.651637 192.956382,124.651637"/>
+    <poly id="000000547" type="building" color="red" fill="1" layer="4.00" shape="192.956382,132.201176 203.103555,132.201176 203.103555,124.651637 192.956382,124.651637"/>
+    <poly id="000000548" type="building" color="red" fill="1" layer="4.00" shape="192.956382,132.201176 203.103555,132.201176 203.103555,124.651637 192.956382,124.651637"/>
+    <poly id="000000549" type="building" color="red" fill="1" layer="4.00" shape="192.956382,132.201176 203.103555,132.201176 203.103555,124.651637 192.956382,124.651637"/>
+    <poly id="000000550" type="building" color="red" fill="1" layer="4.00" shape="192.956382,132.201176 203.103555,132.201176 203.103555,124.651637 192.956382,124.651637"/>
+    <poly id="000000551" type="building" color="red" fill="1" layer="4.00" shape="192.956382,132.201176 203.103555,132.201176 203.103555,124.651637 192.956382,124.651637"/>
+    <poly id="000000552" type="building" color="red" fill="1" layer="4.00" shape="192.956382,132.201176 203.103555,132.201176 203.103555,124.651637 192.956382,124.651637"/>
+    <poly id="000000553" type="building" color="red" fill="1" layer="4.00" shape="192.956382,132.201176 203.103555,132.201176 203.103555,124.651637 192.956382,124.651637"/>
+    <poly id="000000554" type="building" color="red" fill="1" layer="4.00" shape="192.956382,132.201176 203.103555,132.201176 203.103555,124.651637 192.956382,124.651637"/>
+    <poly id="000000555" type="building" color="red" fill="1" layer="4.00" shape="192.956382,132.201176 203.103555,132.201176 203.103555,124.651637 192.956382,124.651637"/>
+    <poly id="000000556" type="building" color="red" fill="1" layer="4.00" shape="192.956382,132.201176 203.103555,132.201176 203.103555,124.651637 192.956382,124.651637"/>
+    <poly id="000000557" type="building" color="red" fill="1" layer="4.00" shape="192.956382,132.201176 203.103555,132.201176 203.103555,124.651637 192.956382,124.651637"/>
+    <poly id="000000558" type="building" color="red" fill="1" layer="4.00" shape="192.956382,132.201176 203.103555,132.201176 203.103555,124.651637 192.956382,124.651637"/>
+    <poly id="000000559" type="building" color="red" fill="1" layer="4.00" shape="192.956382,132.201176 203.103555,132.201176 203.103555,124.651637 192.956382,124.651637"/>
+    <poly id="000000560" type="building" color="red" fill="1" layer="4.00" shape="193.122417,132.187116 202.937520,132.187116 202.937520,124.997790 193.122417,124.997790"/>
+    <poly id="000000561" type="building" color="red" fill="1" layer="4.00" shape="170.773774,132.177703 180.631499,132.177703 180.631499,124.926545 170.773774,124.926545"/>
+    <poly id="000000562" type="building" color="red" fill="1" layer="4.00" shape="170.616370,132.201237 180.763543,132.201237 180.763543,124.651698 170.616370,124.651698"/>
+    <poly id="000000563" type="building" color="red" fill="1" layer="4.00" shape="170.616370,132.201237 180.763543,132.201237 180.763543,124.651698 170.616370,124.651698"/>
+    <poly id="000000564" type="building" color="red" fill="1" layer="4.00" shape="170.616370,132.201237 180.763543,132.201237 180.763543,124.651698 170.616370,124.651698"/>
+    <poly id="000000565" type="building" color="red" fill="1" layer="4.00" shape="170.616370,132.201237 180.763543,132.201237 180.763543,124.651698 170.616370,124.651698"/>
+    <poly id="000000566" type="building" color="red" fill="1" layer="4.00" shape="170.616370,132.201237 180.763543,132.201237 180.763543,124.651698 170.616370,124.651698"/>
+    <poly id="000000567" type="building" color="red" fill="1" layer="4.00" shape="170.616370,132.201237 180.763543,132.201237 180.763543,124.651698 170.616370,124.651698"/>
+    <poly id="000000568" type="building" color="red" fill="1" layer="4.00" shape="170.616370,132.201237 180.763543,132.201237 180.763543,124.651698 170.616370,124.651698"/>
+    <poly id="000000569" type="building" color="red" fill="1" layer="4.00" shape="170.616370,132.201237 180.763543,132.201237 180.763543,124.651698 170.616370,124.651698"/>
+    <poly id="000000570" type="building" color="red" fill="1" layer="4.00" shape="170.616370,132.201237 180.763543,132.201237 180.763543,124.651698 170.616370,124.651698"/>
+    <poly id="000000571" type="building" color="red" fill="1" layer="4.00" shape="170.616370,132.201237 180.763543,132.201237 180.763543,124.651698 170.616370,124.651698"/>
+    <poly id="000000572" type="building" color="red" fill="1" layer="4.00" shape="170.616370,132.201237 180.763543,132.201237 180.763543,124.651698 170.616370,124.651698"/>
+    <poly id="000000573" type="building" color="red" fill="1" layer="4.00" shape="170.616370,132.201237 180.763543,132.201237 180.763543,124.651698 170.616370,124.651698"/>
+    <poly id="000000574" type="building" color="red" fill="1" layer="4.00" shape="170.616370,132.201237 180.763543,132.201237 180.763543,124.651698 170.616370,124.651698"/>
+    <poly id="000000575" type="building" color="red" fill="1" layer="4.00" shape="170.616370,132.201237 180.763543,132.201237 180.763543,124.651698 170.616370,124.651698"/>
+    <poly id="000000576" type="building" color="red" fill="1" layer="4.00" shape="170.616370,132.201237 180.763543,132.201237 180.763543,124.651698 170.616370,124.651698"/>
+    <poly id="000000577" type="building" color="red" fill="1" layer="4.00" shape="170.782405,132.187161 180.597508,132.187161 180.597508,124.997836 170.782405,124.997836"/>
+    <poly id="000000578" type="building" color="red" fill="1" layer="4.00" shape="178.343812,132.177673 188.201537,132.177673 188.201537,124.926514 178.343812,124.926514"/>
+    <poly id="000000579" type="building" color="red" fill="1" layer="4.00" shape="178.186393,132.201207 188.333566,132.201207 188.333566,124.651668 178.186393,124.651668"/>
+    <poly id="000000580" type="building" color="red" fill="1" layer="4.00" shape="178.186393,132.201207 188.333566,132.201207 188.333566,124.651668 178.186393,124.651668"/>
+    <poly id="000000581" type="building" color="red" fill="1" layer="4.00" shape="178.186393,132.201207 188.333566,132.201207 188.333566,124.651668 178.186393,124.651668"/>
+    <poly id="000000582" type="building" color="red" fill="1" layer="4.00" shape="178.186393,132.201207 188.333566,132.201207 188.333566,124.651668 178.186393,124.651668"/>
+    <poly id="000000583" type="building" color="red" fill="1" layer="4.00" shape="178.186393,132.201207 188.333566,132.201207 188.333566,124.651668 178.186393,124.651668"/>
+    <poly id="000000584" type="building" color="red" fill="1" layer="4.00" shape="178.186393,132.201207 188.333566,132.201207 188.333566,124.651668 178.186393,124.651668"/>
+    <poly id="000000585" type="building" color="red" fill="1" layer="4.00" shape="178.186393,132.201207 188.333566,132.201207 188.333566,124.651668 178.186393,124.651668"/>
+    <poly id="000000586" type="building" color="red" fill="1" layer="4.00" shape="178.186393,132.201207 188.333566,132.201207 188.333566,124.651668 178.186393,124.651668"/>
+    <poly id="000000587" type="building" color="red" fill="1" layer="4.00" shape="178.186393,132.201207 188.333566,132.201207 188.333566,124.651668 178.186393,124.651668"/>
+    <poly id="000000588" type="building" color="red" fill="1" layer="4.00" shape="178.186393,132.201207 188.333566,132.201207 188.333566,124.651668 178.186393,124.651668"/>
+    <poly id="000000589" type="building" color="red" fill="1" layer="4.00" shape="178.186393,132.201207 188.333566,132.201207 188.333566,124.651668 178.186393,124.651668"/>
+    <poly id="000000590" type="building" color="red" fill="1" layer="4.00" shape="178.186393,132.201207 188.333566,132.201207 188.333566,124.651668 178.186393,124.651668"/>
+    <poly id="000000591" type="building" color="red" fill="1" layer="4.00" shape="178.186393,132.201207 188.333566,132.201207 188.333566,124.651668 178.186393,124.651668"/>
+    <poly id="000000592" type="building" color="red" fill="1" layer="4.00" shape="178.186393,132.201207 188.333566,132.201207 188.333566,124.651668 178.186393,124.651668"/>
+    <poly id="000000593" type="building" color="red" fill="1" layer="4.00" shape="178.186393,132.201207 188.333566,132.201207 188.333566,124.651668 178.186393,124.651668"/>
+    <poly id="000000594" type="building" color="red" fill="1" layer="4.00" shape="178.352428,132.187146 188.167531,132.187146 188.167531,124.997821 178.352428,124.997821"/>
+    <poly id="000000595" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000596" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000597" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000598" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000599" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000600" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000601" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000602" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000603" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000604" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000605" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000606" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000607" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000608" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000609" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000610" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000611" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000612" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000613" type="building" color="red" fill="1" layer="4.00" shape="94.122521,82.429999 112.622519,82.429999 112.622519,63.930001 94.122521,63.930001"/>
+    <poly id="000000614" type="building" color="red" fill="1" layer="4.00" shape="92.539421,82.430000 114.205620,82.430000 114.205620,60.763802 92.539421,60.763802"/>
+    <poly id="000000615" type="building" color="red" fill="1" layer="4.00" shape="192.723817,149.207641 202.581542,149.207641 202.581542,141.956483 192.723817,141.956483"/>
+    <poly id="000000616" type="building" color="red" fill="1" layer="4.00" shape="192.566413,149.231190 202.713586,149.231190 202.713586,141.681651 192.566413,141.681651"/>
+    <poly id="000000617" type="building" color="red" fill="1" layer="4.00" shape="192.732448,149.217114 202.547551,149.217114 202.547551,142.027789 192.732448,142.027789"/>
+    <poly id="000000618" type="building" color="red" fill="1" layer="4.00" shape="192.713822,157.687652 202.571548,157.687652 202.571548,150.436494 192.713822,150.436494"/>
+    <poly id="000000619" type="building" color="red" fill="1" layer="4.00" shape="192.556403,157.711186 202.703576,157.711186 202.703576,150.161647 192.556403,150.161647"/>
+    <poly id="000000620" type="building" color="red" fill="1" layer="4.00" shape="192.722438,157.697110 202.537541,157.697110 202.537541,150.507785 192.722438,150.507785"/>
+    <poly id="000000621" type="building" color="red" fill="1" layer="4.00" shape="171.123811,149.207641 180.981536,149.207641 180.981536,141.956483 171.123811,141.956483"/>
+    <poly id="000000622" type="building" color="red" fill="1" layer="4.00" shape="170.966407,149.231190 181.113580,149.231190 181.113580,141.681651 170.966407,141.681651"/>
+    <poly id="000000623" type="building" color="red" fill="1" layer="4.00" shape="171.132442,149.217114 180.947545,149.217114 180.947545,142.027789 171.132442,142.027789"/>
+    <poly id="000000624" type="building" color="red" fill="1" layer="4.00" shape="171.113816,159.017638 180.971541,159.017638 180.971541,151.766480 171.113816,151.766480"/>
+    <poly id="000000625" type="building" color="red" fill="1" layer="4.00" shape="170.956412,159.041173 181.103585,159.041173 181.103585,151.491634 170.956412,151.491634"/>
+    <poly id="000000626" type="building" color="red" fill="1" layer="4.00" shape="171.122447,159.027097 180.937550,159.027097 180.937550,151.837771 171.122447,151.837771"/>
+    <poly id="000000627" type="building" color="red" fill="1" layer="4.00" shape="397.236158,230.091331 417.190416,230.091331 417.190416,216.890053 397.236158,216.890053"/>
+    <poly id="000000628" type="building" color="red" fill="1" layer="4.00" shape="397.236158,230.091331 417.190416,230.091331 417.190416,216.890053 397.236158,216.890053"/>
+    <poly id="000000629" type="building" color="red" fill="1" layer="4.00" shape="397.236158,230.091331 417.190416,230.091331 417.190416,216.890053 397.236158,216.890053"/>
+    <poly id="000000630" type="building" color="red" fill="1" layer="4.00" shape="397.236158,230.091331 417.190416,230.091331 417.190416,216.890053 397.236158,216.890053"/>
+    <poly id="000000631" type="building" color="red" fill="1" layer="4.00" shape="397.236158,230.091331 417.190416,230.091331 417.190416,216.890053 397.236158,216.890053"/>
+    <poly id="000000632" type="building" color="red" fill="1" layer="4.00" shape="397.236158,230.091331 417.190416,230.091331 417.190416,216.890053 397.236158,216.890053"/>
+    <poly id="000000633" type="building" color="red" fill="1" layer="4.00" shape="397.236158,230.091331 417.190416,230.091331 417.190416,216.890053 397.236158,216.890053"/>
+    <poly id="000000634" type="building" color="red" fill="1" layer="4.00" shape="396.996802,229.970080 416.991418,229.970080 416.991418,217.095899 396.996802,217.095899"/>
+    <poly id="000000635" type="building" color="red" fill="1" layer="4.00" shape="388.647413,234.282890 408.601671,234.282890 408.601671,221.081612 388.647413,221.081612"/>
+    <poly id="000000636" type="building" color="red" fill="1" layer="4.00" shape="388.647413,234.282890 408.601671,234.282890 408.601671,221.081612 388.647413,221.081612"/>
+    <poly id="000000637" type="building" color="red" fill="1" layer="4.00" shape="388.647413,234.282890 408.601671,234.282890 408.601671,221.081612 388.647413,221.081612"/>
+    <poly id="000000638" type="building" color="red" fill="1" layer="4.00" shape="388.647413,234.282890 408.601671,234.282890 408.601671,221.081612 388.647413,221.081612"/>
+    <poly id="000000639" type="building" color="red" fill="1" layer="4.00" shape="388.647413,234.282890 408.601671,234.282890 408.601671,221.081612 388.647413,221.081612"/>
+    <poly id="000000640" type="building" color="red" fill="1" layer="4.00" shape="388.647413,234.282890 408.601671,234.282890 408.601671,221.081612 388.647413,221.081612"/>
+    <poly id="000000641" type="building" color="red" fill="1" layer="4.00" shape="388.647413,234.282890 408.601671,234.282890 408.601671,221.081612 388.647413,221.081612"/>
+    <poly id="000000642" type="building" color="red" fill="1" layer="4.00" shape="388.647413,234.282890 408.601671,234.282890 408.601671,221.081612 388.647413,221.081612"/>
+    <poly id="000000643" type="building" color="red" fill="1" layer="4.00" shape="388.669501,234.338488 408.664117,234.338488 408.664117,221.464307 388.669501,221.464307"/>
+    <poly id="000000644" type="building" color="red" fill="1" layer="4.00" shape="401.175825,260.127129 421.130083,260.127129 421.130083,246.925850 401.175825,246.925850"/>
+    <poly id="000000645" type="building" color="red" fill="1" layer="4.00" shape="401.175825,260.127129 421.130083,260.127129 421.130083,246.925850 401.175825,246.925850"/>
+    <poly id="000000646" type="building" color="red" fill="1" layer="4.00" shape="401.175825,260.127129 421.130083,260.127129 421.130083,246.925850 401.175825,246.925850"/>
+    <poly id="000000647" type="building" color="red" fill="1" layer="4.00" shape="401.175825,260.127129 421.130083,260.127129 421.130083,246.925850 401.175825,246.925850"/>
+    <poly id="000000648" type="building" color="red" fill="1" layer="4.00" shape="401.175825,260.127129 421.130083,260.127129 421.130083,246.925850 401.175825,246.925850"/>
+    <poly id="000000649" type="building" color="red" fill="1" layer="4.00" shape="401.175825,260.127129 421.130083,260.127129 421.130083,246.925850 401.175825,246.925850"/>
+    <poly id="000000650" type="building" color="red" fill="1" layer="4.00" shape="401.175825,260.127129 421.130083,260.127129 421.130083,246.925850 401.175825,246.925850"/>
+    <poly id="000000651" type="building" color="red" fill="1" layer="4.00" shape="401.175825,260.127129 421.130083,260.127129 421.130083,246.925850 401.175825,246.925850"/>
+    <poly id="000000652" type="building" color="red" fill="1" layer="4.00" shape="400.936500,260.005877 420.931115,260.005877 420.931115,247.131696 400.936500,247.131696"/>
+    <poly id="000000653" type="building" color="red" fill="1" layer="4.00" shape="395.939955,300.060478 415.894213,300.060478 415.894213,286.859200 395.939955,286.859200"/>
+    <poly id="000000654" type="building" color="red" fill="1" layer="4.00" shape="395.939955,300.060478 415.894213,300.060478 415.894213,286.859200 395.939955,286.859200"/>
+    <poly id="000000655" type="building" color="red" fill="1" layer="4.00" shape="395.939955,300.060478 415.894213,300.060478 415.894213,286.859200 395.939955,286.859200"/>
+    <poly id="000000656" type="building" color="red" fill="1" layer="4.00" shape="395.939955,300.060478 415.894213,300.060478 415.894213,286.859200 395.939955,286.859200"/>
+    <poly id="000000657" type="building" color="red" fill="1" layer="4.00" shape="395.939955,300.060478 415.894213,300.060478 415.894213,286.859200 395.939955,286.859200"/>
+    <poly id="000000658" type="building" color="red" fill="1" layer="4.00" shape="395.939955,300.060478 415.894213,300.060478 415.894213,286.859200 395.939955,286.859200"/>
+    <poly id="000000659" type="building" color="red" fill="1" layer="4.00" shape="395.939955,300.060478 415.894213,300.060478 415.894213,286.859200 395.939955,286.859200"/>
+    <poly id="000000660" type="building" color="red" fill="1" layer="4.00" shape="395.939955,300.060478 415.894213,300.060478 415.894213,286.859200 395.939955,286.859200"/>
+    <poly id="000000661" type="building" color="red" fill="1" layer="4.00" shape="395.724708,299.788439 415.719323,299.788439 415.719323,286.914258 395.724708,286.914258"/>
+    <poly id="000000662" type="building" color="red" fill="1" layer="4.00" shape="386.666304,297.750664 406.620562,297.750664 406.620562,284.549385 386.666304,284.549385"/>
+    <poly id="000000663" type="building" color="red" fill="1" layer="4.00" shape="386.666304,297.750664 406.620562,297.750664 406.620562,284.549385 386.666304,284.549385"/>
+    <poly id="000000664" type="building" color="red" fill="1" layer="4.00" shape="386.666304,297.750664 406.620562,297.750664 406.620562,284.549385 386.666304,284.549385"/>
+    <poly id="000000665" type="building" color="red" fill="1" layer="4.00" shape="386.666304,297.750664 406.620562,297.750664 406.620562,284.549385 386.666304,284.549385"/>
+    <poly id="000000666" type="building" color="red" fill="1" layer="4.00" shape="386.666304,297.750664 406.620562,297.750664 406.620562,284.549385 386.666304,284.549385"/>
+    <poly id="000000667" type="building" color="red" fill="1" layer="4.00" shape="386.666304,297.750664 406.620562,297.750664 406.620562,284.549385 386.666304,284.549385"/>
+    <poly id="000000668" type="building" color="red" fill="1" layer="4.00" shape="386.666304,297.750664 406.620562,297.750664 406.620562,284.549385 386.666304,284.549385"/>
+    <poly id="000000669" type="building" color="red" fill="1" layer="4.00" shape="386.666304,297.750664 406.620562,297.750664 406.620562,284.549385 386.666304,284.549385"/>
+    <poly id="000000670" type="building" color="red" fill="1" layer="4.00" shape="386.537635,297.782183 406.532250,297.782183 406.532250,284.908002 386.537635,284.908002"/>
+    <poly id="000000671" type="building" color="red" fill="1" layer="4.00" shape="114.512597,83.080001 133.012595,83.080001 133.012595,64.580003 114.512597,64.580003"/>
+    <poly id="000000672" type="building" color="red" fill="1" layer="4.00" shape="114.512597,83.080001 133.012595,83.080001 133.012595,64.580003 114.512597,64.580003"/>
+    <poly id="000000673" type="building" color="red" fill="1" layer="4.00" shape="114.512597,83.080001 133.012595,83.080001 133.012595,64.580003 114.512597,64.580003"/>
+    <poly id="000000674" type="building" color="red" fill="1" layer="4.00" shape="114.512597,83.080001 133.012595,83.080001 133.012595,64.580003 114.512597,64.580003"/>
+    <poly id="000000675" type="building" color="red" fill="1" layer="4.00" shape="114.512597,83.080001 133.012595,83.080001 133.012595,64.580003 114.512597,64.580003"/>
+    <poly id="000000676" type="building" color="red" fill="1" layer="4.00" shape="114.512597,83.080001 133.012595,83.080001 133.012595,64.580003 114.512597,64.580003"/>
+    <poly id="000000677" type="building" color="red" fill="1" layer="4.00" shape="114.512597,83.080001 133.012595,83.080001 133.012595,64.580003 114.512597,64.580003"/>
+    <poly id="000000678" type="building" color="red" fill="1" layer="4.00" shape="114.512597,83.080001 133.012595,83.080001 133.012595,64.580003 114.512597,64.580003"/>
+    <poly id="000000679" type="building" color="red" fill="1" layer="4.00" shape="114.512597,83.080001 133.012595,83.080001 133.012595,64.580003 114.512597,64.580003"/>
+    <poly id="000000680" type="building" color="red" fill="1" layer="4.00" shape="114.512597,83.080001 133.012595,83.080001 133.012595,64.580003 114.512597,64.580003"/>
+    <poly id="000000681" type="building" color="red" fill="1" layer="4.00" shape="114.512597,83.080001 133.012595,83.080001 133.012595,64.580003 114.512597,64.580003"/>
+    <poly id="000000682" type="building" color="red" fill="1" layer="4.00" shape="114.512604,84.663101 136.178802,84.663101 136.178802,62.996902 114.512604,62.996902"/>
+    <poly id="000000683" type="building" color="red" fill="1" layer="4.00" shape="379.651258,325.601646 399.605516,325.601646 399.605516,312.400368 379.651258,312.400368"/>
+    <poly id="000000684" type="building" color="red" fill="1" layer="4.00" shape="379.651258,325.601646 399.605516,325.601646 399.605516,312.400368 379.651258,312.400368"/>
+    <poly id="000000685" type="building" color="red" fill="1" layer="4.00" shape="379.651258,325.601646 399.605516,325.601646 399.605516,312.400368 379.651258,312.400368"/>
+    <poly id="000000686" type="building" color="red" fill="1" layer="4.00" shape="379.651258,325.601646 399.605516,325.601646 399.605516,312.400368 379.651258,312.400368"/>
+    <poly id="000000687" type="building" color="red" fill="1" layer="4.00" shape="379.651258,325.601646 399.605516,325.601646 399.605516,312.400368 379.651258,312.400368"/>
+    <poly id="000000688" type="building" color="red" fill="1" layer="4.00" shape="379.651258,325.601646 399.605516,325.601646 399.605516,312.400368 379.651258,312.400368"/>
+    <poly id="000000689" type="building" color="red" fill="1" layer="4.00" shape="379.651258,325.601646 399.605516,325.601646 399.605516,312.400368 379.651258,312.400368"/>
+    <poly id="000000690" type="building" color="red" fill="1" layer="4.00" shape="379.651258,325.601646 399.605516,325.601646 399.605516,312.400368 379.651258,312.400368"/>
+    <poly id="000000691" type="building" color="red" fill="1" layer="4.00" shape="379.436011,325.329607 399.430627,325.329607 399.430627,312.455427 379.436011,312.455427"/>
+    <poly id="000000692" type="building" color="red" fill="1" layer="4.00" shape="195.401549,185.353576 185.543824,185.353576 185.543824,178.102418 195.401549,178.102418"/>
+    <poly id="000000693" type="building" color="red" fill="1" layer="4.00" shape="195.533578,185.628407 185.386405,185.628407 185.386405,178.078868 195.533578,178.078868"/>
+    <poly id="000000694" type="building" color="red" fill="1" layer="4.00" shape="195.533578,185.628407 185.386405,185.628407 185.386405,178.078868 195.533578,178.078868"/>
+    <poly id="000000695" type="building" color="red" fill="1" layer="4.00" shape="195.533578,185.628407 185.386405,185.628407 185.386405,178.078868 195.533578,178.078868"/>
+    <poly id="000000696" type="building" color="red" fill="1" layer="4.00" shape="195.533578,185.628407 185.386405,185.628407 185.386405,178.078868 195.533578,178.078868"/>
+    <poly id="000000697" type="building" color="red" fill="1" layer="4.00" shape="195.533578,185.628407 185.386405,185.628407 185.386405,178.078868 195.533578,178.078868"/>
+    <poly id="000000698" type="building" color="red" fill="1" layer="4.00" shape="195.533578,185.628407 185.386405,185.628407 185.386405,178.078868 195.533578,178.078868"/>
+    <poly id="000000699" type="building" color="red" fill="1" layer="4.00" shape="195.533578,185.628407 185.386405,185.628407 185.386405,178.078868 195.533578,178.078868"/>
+    <poly id="000000700" type="building" color="red" fill="1" layer="4.00" shape="195.533578,185.628407 185.386405,185.628407 185.386405,178.078868 195.533578,178.078868"/>
+    <poly id="000000701" type="building" color="red" fill="1" layer="4.00" shape="195.533578,185.628407 185.386405,185.628407 185.386405,178.078868 195.533578,178.078868"/>
+    <poly id="000000702" type="building" color="red" fill="1" layer="4.00" shape="195.533578,185.628407 185.386405,185.628407 185.386405,178.078868 195.533578,178.078868"/>
+    <poly id="000000703" type="building" color="red" fill="1" layer="4.00" shape="195.533578,185.628407 185.386405,185.628407 185.386405,178.078868 195.533578,178.078868"/>
+    <poly id="000000704" type="building" color="red" fill="1" layer="4.00" shape="195.533578,185.628407 185.386405,185.628407 185.386405,178.078868 195.533578,178.078868"/>
+    <poly id="000000705" type="building" color="red" fill="1" layer="4.00" shape="195.533578,185.628407 185.386405,185.628407 185.386405,178.078868 195.533578,178.078868"/>
+    <poly id="000000706" type="building" color="red" fill="1" layer="4.00" shape="195.533578,185.628407 185.386405,185.628407 185.386405,178.078868 195.533578,178.078868"/>
+    <poly id="000000707" type="building" color="red" fill="1" layer="4.00" shape="195.533578,185.628407 185.386405,185.628407 185.386405,178.078868 195.533578,178.078868"/>
+    <poly id="000000708" type="building" color="red" fill="1" layer="4.00" shape="195.367543,185.282269 185.552440,185.282269 185.552440,178.092944 195.367543,178.092944"/>
+    <poly id="000000709" type="building" color="red" fill="1" layer="4.00" shape="202.971541,185.353591 193.113816,185.353591 193.113816,178.102433 202.971541,178.102433"/>
+    <poly id="000000710" type="building" color="red" fill="1" layer="4.00" shape="203.103585,185.628438 192.956412,185.628438 192.956412,178.078899 203.103585,178.078899"/>
+    <poly id="000000711" type="building" color="red" fill="1" layer="4.00" shape="203.103585,185.628438 192.956412,185.628438 192.956412,178.078899 203.103585,178.078899"/>
+    <poly id="000000712" type="building" color="red" fill="1" layer="4.00" shape="203.103585,185.628438 192.956412,185.628438 192.956412,178.078899 203.103585,178.078899"/>
+    <poly id="000000713" type="building" color="red" fill="1" layer="4.00" shape="203.103585,185.628438 192.956412,185.628438 192.956412,178.078899 203.103585,178.078899"/>
+    <poly id="000000714" type="building" color="red" fill="1" layer="4.00" shape="203.103585,185.628438 192.956412,185.628438 192.956412,178.078899 203.103585,178.078899"/>
+    <poly id="000000715" type="building" color="red" fill="1" layer="4.00" shape="203.103585,185.628438 192.956412,185.628438 192.956412,178.078899 203.103585,178.078899"/>
+    <poly id="000000716" type="building" color="red" fill="1" layer="4.00" shape="203.103585,185.628438 192.956412,185.628438 192.956412,178.078899 203.103585,178.078899"/>
+    <poly id="000000717" type="building" color="red" fill="1" layer="4.00" shape="203.103585,185.628438 192.956412,185.628438 192.956412,178.078899 203.103585,178.078899"/>
+    <poly id="000000718" type="building" color="red" fill="1" layer="4.00" shape="203.103585,185.628438 192.956412,185.628438 192.956412,178.078899 203.103585,178.078899"/>
+    <poly id="000000719" type="building" color="red" fill="1" layer="4.00" shape="203.103585,185.628438 192.956412,185.628438 192.956412,178.078899 203.103585,178.078899"/>
+    <poly id="000000720" type="building" color="red" fill="1" layer="4.00" shape="203.103585,185.628438 192.956412,185.628438 192.956412,178.078899 203.103585,178.078899"/>
+    <poly id="000000721" type="building" color="red" fill="1" layer="4.00" shape="203.103585,185.628438 192.956412,185.628438 192.956412,178.078899 203.103585,178.078899"/>
+    <poly id="000000722" type="building" color="red" fill="1" layer="4.00" shape="203.103585,185.628438 192.956412,185.628438 192.956412,178.078899 203.103585,178.078899"/>
+    <poly id="000000723" type="building" color="red" fill="1" layer="4.00" shape="203.103585,185.628438 192.956412,185.628438 192.956412,178.078899 203.103585,178.078899"/>
+    <poly id="000000724" type="building" color="red" fill="1" layer="4.00" shape="203.103585,185.628438 192.956412,185.628438 192.956412,178.078899 203.103585,178.078899"/>
+    <poly id="000000725" type="building" color="red" fill="1" layer="4.00" shape="202.937550,185.282300 193.122447,185.282300 193.122447,178.092975 202.937550,178.092975"/>
+    <poly id="000000726" type="building" color="red" fill="1" layer="4.00" shape="180.631545,185.363555 170.773820,185.363555 170.773820,178.112397 180.631545,178.112397"/>
+    <poly id="000000727" type="building" color="red" fill="1" layer="4.00" shape="180.763574,185.638402 170.616401,185.638402 170.616401,178.088863 180.763574,178.088863"/>
+    <poly id="000000728" type="building" color="red" fill="1" layer="4.00" shape="180.763574,185.638402 170.616401,185.638402 170.616401,178.088863 180.763574,178.088863"/>
+    <poly id="000000729" type="building" color="red" fill="1" layer="4.00" shape="180.763574,185.638402 170.616401,185.638402 170.616401,178.088863 180.763574,178.088863"/>
+    <poly id="000000730" type="building" color="red" fill="1" layer="4.00" shape="180.763574,185.638402 170.616401,185.638402 170.616401,178.088863 180.763574,178.088863"/>
+    <poly id="000000731" type="building" color="red" fill="1" layer="4.00" shape="180.763574,185.638402 170.616401,185.638402 170.616401,178.088863 180.763574,178.088863"/>
+    <poly id="000000732" type="building" color="red" fill="1" layer="4.00" shape="180.763574,185.638402 170.616401,185.638402 170.616401,178.088863 180.763574,178.088863"/>
+    <poly id="000000733" type="building" color="red" fill="1" layer="4.00" shape="180.763574,185.638402 170.616401,185.638402 170.616401,178.088863 180.763574,178.088863"/>
+    <poly id="000000734" type="building" color="red" fill="1" layer="4.00" shape="180.763574,185.638402 170.616401,185.638402 170.616401,178.088863 180.763574,178.088863"/>
+    <poly id="000000735" type="building" color="red" fill="1" layer="4.00" shape="180.763574,185.638402 170.616401,185.638402 170.616401,178.088863 180.763574,178.088863"/>
+    <poly id="000000736" type="building" color="red" fill="1" layer="4.00" shape="180.763574,185.638402 170.616401,185.638402 170.616401,178.088863 180.763574,178.088863"/>
+    <poly id="000000737" type="building" color="red" fill="1" layer="4.00" shape="180.763574,185.638402 170.616401,185.638402 170.616401,178.088863 180.763574,178.088863"/>
+    <poly id="000000738" type="building" color="red" fill="1" layer="4.00" shape="180.763574,185.638402 170.616401,185.638402 170.616401,178.088863 180.763574,178.088863"/>
+    <poly id="000000739" type="building" color="red" fill="1" layer="4.00" shape="180.763574,185.638402 170.616401,185.638402 170.616401,178.088863 180.763574,178.088863"/>
+    <poly id="000000740" type="building" color="red" fill="1" layer="4.00" shape="180.763574,185.638402 170.616401,185.638402 170.616401,178.088863 180.763574,178.088863"/>
+    <poly id="000000741" type="building" color="red" fill="1" layer="4.00" shape="180.763574,185.638402 170.616401,185.638402 170.616401,178.088863 180.763574,178.088863"/>
+    <poly id="000000742" type="building" color="red" fill="1" layer="4.00" shape="180.597538,185.292249 170.782436,185.292249 170.782436,178.102923 180.597538,178.102923"/>
+    <poly id="000000743" type="building" color="red" fill="1" layer="4.00" shape="188.201552,185.363570 178.343827,185.363570 178.343827,178.112412 188.201552,178.112412"/>
+    <poly id="000000744" type="building" color="red" fill="1" layer="4.00" shape="188.333596,185.638417 178.186423,185.638417 178.186423,178.088878 188.333596,178.088878"/>
+    <poly id="000000745" type="building" color="red" fill="1" layer="4.00" shape="188.333596,185.638417 178.186423,185.638417 178.186423,178.088878 188.333596,178.088878"/>
+    <poly id="000000746" type="building" color="red" fill="1" layer="4.00" shape="188.333596,185.638417 178.186423,185.638417 178.186423,178.088878 188.333596,178.088878"/>
+    <poly id="000000747" type="building" color="red" fill="1" layer="4.00" shape="188.333596,185.638417 178.186423,185.638417 178.186423,178.088878 188.333596,178.088878"/>
+    <poly id="000000748" type="building" color="red" fill="1" layer="4.00" shape="188.333596,185.638417 178.186423,185.638417 178.186423,178.088878 188.333596,178.088878"/>
+    <poly id="000000749" type="building" color="red" fill="1" layer="4.00" shape="188.333596,185.638417 178.186423,185.638417 178.186423,178.088878 188.333596,178.088878"/>
+    <poly id="000000750" type="building" color="red" fill="1" layer="4.00" shape="188.333596,185.638417 178.186423,185.638417 178.186423,178.088878 188.333596,178.088878"/>
+    <poly id="000000751" type="building" color="red" fill="1" layer="4.00" shape="188.333596,185.638417 178.186423,185.638417 178.186423,178.088878 188.333596,178.088878"/>
+    <poly id="000000752" type="building" color="red" fill="1" layer="4.00" shape="188.333596,185.638417 178.186423,185.638417 178.186423,178.088878 188.333596,178.088878"/>
+    <poly id="000000753" type="building" color="red" fill="1" layer="4.00" shape="188.333596,185.638417 178.186423,185.638417 178.186423,178.088878 188.333596,178.088878"/>
+    <poly id="000000754" type="building" color="red" fill="1" layer="4.00" shape="188.333596,185.638417 178.186423,185.638417 178.186423,178.088878 188.333596,178.088878"/>
+    <poly id="000000755" type="building" color="red" fill="1" layer="4.00" shape="188.333596,185.638417 178.186423,185.638417 178.186423,178.088878 188.333596,178.088878"/>
+    <poly id="000000756" type="building" color="red" fill="1" layer="4.00" shape="188.333596,185.638417 178.186423,185.638417 178.186423,178.088878 188.333596,178.088878"/>
+    <poly id="000000757" type="building" color="red" fill="1" layer="4.00" shape="188.333596,185.638417 178.186423,185.638417 178.186423,178.088878 188.333596,178.088878"/>
+    <poly id="000000758" type="building" color="red" fill="1" layer="4.00" shape="188.333596,185.638417 178.186423,185.638417 178.186423,178.088878 188.333596,178.088878"/>
+    <poly id="000000759" type="building" color="red" fill="1" layer="4.00" shape="188.167561,185.292264 178.352458,185.292264 178.352458,178.102939 188.167561,178.102939"/>
+    <poly id="000000760" type="building" color="red" fill="1" layer="4.00" shape="185.543809,166.007659 195.401534,166.007659 195.401534,158.756501 185.543809,158.756501"/>
+    <poly id="000000761" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000762" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000763" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000764" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000765" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000766" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000767" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000768" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000769" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000770" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000771" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000772" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000773" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000774" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000775" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000776" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000777" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000778" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000779" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000780" type="building" color="red" fill="1" layer="4.00" shape="185.386390,166.031193 195.533563,166.031193 195.533563,158.481654 185.386390,158.481654"/>
+    <poly id="000000781" type="building" color="red" fill="1" layer="4.00" shape="185.552425,166.017118 195.367527,166.017118 195.367527,158.827792 185.552425,158.827792"/>
+    <poly id="000000782" type="building" color="red" fill="1" layer="4.00" shape="193.123796,166.007644 202.981521,166.007644 202.981521,158.756486 193.123796,158.756486"/>
+    <poly id="000000783" type="building" color="red" fill="1" layer="4.00" shape="192.966392,166.031178 203.113564,166.031178 203.113564,158.481639 192.966392,158.481639"/>
+    <poly id="000000784" type="building" color="red" fill="1" layer="4.00" shape="192.966392,166.031178 203.113564,166.031178 203.113564,158.481639 192.966392,158.481639"/>
+    <poly id="000000785" type="building" color="red" fill="1" layer="4.00" shape="192.966392,166.031178 203.113564,166.031178 203.113564,158.481639 192.966392,158.481639"/>
+    <poly id="000000786" type="building" color="red" fill="1" layer="4.00" shape="192.966392,166.031178 203.113564,166.031178 203.113564,158.481639 192.966392,158.481639"/>
+    <poly id="000000787" type="building" color="red" fill="1" layer="4.00" shape="192.966392,166.031178 203.113564,166.031178 203.113564,158.481639 192.966392,158.481639"/>
+    <poly id="000000788" type="building" color="red" fill="1" layer="4.00" shape="192.966392,166.031178 203.113564,166.031178 203.113564,158.481639 192.966392,158.481639"/>
+    <poly id="000000789" type="building" color="red" fill="1" layer="4.00" shape="192.966392,166.031178 203.113564,166.031178 203.113564,158.481639 192.966392,158.481639"/>
+    <poly id="000000790" type="building" color="red" fill="1" layer="4.00" shape="192.966392,166.031178 203.113564,166.031178 203.113564,158.481639 192.966392,158.481639"/>
+    <poly id="000000791" type="building" color="red" fill="1" layer="4.00" shape="192.966392,166.031178 203.113564,166.031178 203.113564,158.481639 192.966392,158.481639"/>
+    <poly id="000000792" type="building" color="red" fill="1" layer="4.00" shape="192.966392,166.031178 203.113564,166.031178 203.113564,158.481639 192.966392,158.481639"/>
+    <poly id="000000793" type="building" color="red" fill="1" layer="4.00" shape="192.966392,166.031178 203.113564,166.031178 203.113564,158.481639 192.966392,158.481639"/>
+    <poly id="000000794" type="building" color="red" fill="1" layer="4.00" shape="192.966392,166.031178 203.113564,166.031178 203.113564,158.481639 192.966392,158.481639"/>
+    <poly id="000000795" type="building" color="red" fill="1" layer="4.00" shape="192.966392,166.031178 203.113564,166.031178 203.113564,158.481639 192.966392,158.481639"/>
+    <poly id="000000796" type="building" color="red" fill="1" layer="4.00" shape="192.966392,166.031178 203.113564,166.031178 203.113564,158.481639 192.966392,158.481639"/>
+    <poly id="000000797" type="building" color="red" fill="1" layer="4.00" shape="192.966392,166.031178 203.113564,166.031178 203.113564,158.481639 192.966392,158.481639"/>
+    <poly id="000000798" type="building" color="red" fill="1" layer="4.00" shape="193.132427,166.017118 202.947529,166.017118 202.947529,158.827792 193.132427,158.827792"/>
+    <poly id="000000799" type="building" color="red" fill="1" layer="4.00" shape="120.922608,98.410003 139.422606,98.410003 139.422606,79.910005 120.922608,79.910005"/>
+    <poly id="000000800" type="building" color="red" fill="1" layer="4.00" shape="120.922608,98.410003 139.422606,98.410003 139.422606,79.910005 120.922608,79.910005"/>
+    <poly id="000000801" type="building" color="red" fill="1" layer="4.00" shape="120.922608,98.410003 139.422606,98.410003 139.422606,79.910005 120.922608,79.910005"/>
+    <poly id="000000802" type="building" color="red" fill="1" layer="4.00" shape="120.922608,98.410003 139.422606,98.410003 139.422606,79.910005 120.922608,79.910005"/>
+    <poly id="000000803" type="building" color="red" fill="1" layer="4.00" shape="120.922608,98.410003 139.422606,98.410003 139.422606,79.910005 120.922608,79.910005"/>
+    <poly id="000000804" type="building" color="red" fill="1" layer="4.00" shape="120.922608,98.410003 139.422606,98.410003 139.422606,79.910005 120.922608,79.910005"/>
+    <poly id="000000805" type="building" color="red" fill="1" layer="4.00" shape="120.922608,98.410003 139.422606,98.410003 139.422606,79.910005 120.922608,79.910005"/>
+    <poly id="000000806" type="building" color="red" fill="1" layer="4.00" shape="120.922608,98.410003 139.422606,98.410003 139.422606,79.910005 120.922608,79.910005"/>
+    <poly id="000000807" type="building" color="red" fill="1" layer="4.00" shape="120.922608,98.410003 139.422606,98.410003 139.422606,79.910005 120.922608,79.910005"/>
+    <poly id="000000808" type="building" color="red" fill="1" layer="4.00" shape="120.922608,98.410003 139.422606,98.410003 139.422606,79.910005 120.922608,79.910005"/>
+    <poly id="000000809" type="building" color="red" fill="1" layer="4.00" shape="120.922608,98.410003 139.422606,98.410003 139.422606,79.910005 120.922608,79.910005"/>
+    <poly id="000000810" type="building" color="red" fill="1" layer="4.00" shape="120.922608,98.410003 139.422606,98.410003 139.422606,79.910005 120.922608,79.910005"/>
+    <poly id="000000811" type="building" color="red" fill="1" layer="4.00" shape="120.922608,98.410003 139.422606,98.410003 139.422606,79.910005 120.922608,79.910005"/>
+    <poly id="000000812" type="building" color="red" fill="1" layer="4.00" shape="120.922607,99.993103 142.588806,99.993103 142.588806,78.326904 120.922607,78.326904"/>
+    <poly id="000000813" type="building" color="red" fill="1" layer="4.00" shape="433.635804,279.685992 445.390014,279.685992 445.390014,269.197064 433.635804,269.197064"/>
+    <poly id="000000814" type="building" color="red" fill="1" layer="4.00" shape="433.635804,242.184924 445.390014,242.184924 445.390014,231.695996 433.635804,231.695996"/>
+    <poly id="000000815" type="building" color="red" fill="1" layer="4.00" shape="433.635804,254.534915 445.390014,254.534915 445.390014,244.045987 433.635804,244.045987"/>
+    <poly id="000000816" type="building" color="red" fill="1" layer="4.00" shape="433.635804,178.663592 445.390014,178.663592 445.390014,168.174664 433.635804,168.174664"/>
+    <poly id="000000817" type="building" color="red" fill="1" layer="4.00" shape="433.635804,191.793674 445.390014,191.793674 445.390014,181.304746 433.635804,181.304746"/>
+    <poly id="000000818" type="building" color="red" fill="1" layer="4.00" shape="433.780549,291.907947 445.534759,291.907947 445.534759,281.419019 433.780549,281.419019"/>
+    <poly id="000000819" type="building" color="red" fill="1" layer="4.00" shape="433.635804,204.143664 445.390014,204.143664 445.390014,193.654737 433.635804,193.654737"/>
+    <poly id="000000820" type="building" color="red" fill="1" layer="4.00" shape="433.635804,216.873660 445.390014,216.873660 445.390014,206.384732 433.635804,206.384732"/>
+    <poly id="000000821" type="building" color="red" fill="1" layer="4.00" shape="431.291200,316.480639 443.045409,316.480639 443.045409,305.991712 431.291200,305.991712"/>
+    <poly id="000000822" type="building" color="red" fill="1" layer="4.00" shape="419.530946,339.224872 431.285155,339.224872 431.285155,328.735944 419.530946,328.735944"/>
+    <poly id="000000823" type="building" color="red" fill="1" layer="4.00" shape="426.756989,328.425769 438.511199,328.425769 438.511199,317.936841 426.756989,317.936841"/>
+    <poly id="000000824" type="building" color="red" fill="1" layer="4.00" shape="433.635804,128.727275 445.390014,128.727275 445.390014,118.238347 433.635804,118.238347"/>
+    <poly id="000000825" type="building" color="red" fill="1" layer="4.00" shape="400.363313,355.323901 412.117522,355.323901 412.117522,344.834973 400.363313,344.834973"/>
+    <poly id="000000826" type="building" color="red" fill="1" layer="4.00" shape="433.635804,229.054828 445.390014,229.054828 445.390014,218.565900 433.635804,218.565900"/>
+    <poly id="000000827" type="building" color="red" fill="1" layer="4.00" shape="433.635804,267.264911 445.390014,267.264911 445.390014,256.775983 433.635804,256.775983"/>
+    <poly id="000000828" type="building" color="red" fill="1" layer="4.00" shape="352.224061,367.662127 363.978271,367.662127 363.978271,357.173200 352.224061,357.173200"/>
+    <poly id="000000829" type="building" color="red" fill="1" layer="4.00" shape="428.028718,89.373515 439.782928,89.373515 439.782928,78.884587 428.028718,78.884587"/>
+    <poly id="000000830" type="building" color="red" fill="1" layer="4.00" shape="411.012544,347.933093 422.766753,347.933093 422.766753,337.444165 411.012544,337.444165"/>
+    <poly id="000000831" type="building" color="red" fill="1" layer="4.00" shape="433.635804,116.184199 445.390014,116.184199 445.390014,105.695271 433.635804,105.695271"/>
+    <poly id="000000832" type="building" color="red" fill="1" layer="4.00" shape="421.460450,78.007014 433.214660,78.007014 433.214660,67.518086 421.460450,67.518086"/>
+    <poly id="000000833" type="building" color="red" fill="1" layer="4.00" shape="388.807282,360.634997 400.561492,360.634997 400.561492,350.146070 388.807282,350.146070"/>
+    <poly id="000000834" type="building" color="red" fill="1" layer="4.00" shape="433.635804,154.207355 445.390014,154.207355 445.390014,143.718427 433.635804,143.718427"/>
+    <poly id="000000835" type="building" color="red" fill="1" layer="4.00" shape="401.195344,61.242908 412.949553,61.242908 412.949553,50.753980 401.195344,50.753980"/>
+    <poly id="000000836" type="building" color="red" fill="1" layer="4.00" shape="376.528565,363.317004 388.282775,363.317004 388.282775,352.828076 376.528565,352.828076"/>
+    <poly id="000000837" type="building" color="red" fill="1" layer="4.00" shape="412.251039,68.288829 424.005248,68.288829 424.005248,57.799901 412.251039,57.799901"/>
+    <poly id="000000838" type="building" color="red" fill="1" layer="4.00" shape="364.269868,365.541125 376.024077,365.541125 376.024077,355.052197 364.269868,355.052197"/>
+    <poly id="000000839" type="building" color="red" fill="1" layer="4.00" shape="352.396577,46.216903 364.150786,46.216903 364.150786,35.727975 352.396577,35.727975"/>
+    <poly id="000000840" type="building" color="red" fill="1" layer="4.00" shape="339.361848,45.232772 351.116057,45.232772 351.116057,34.743844 339.361848,34.743844"/>
+    <poly id="000000841" type="building" color="red" fill="1" layer="4.00" shape="389.572938,55.771899 401.327147,55.771899 401.327147,45.282971 389.572938,45.282971"/>
+    <poly id="000000842" type="building" color="red" fill="1" layer="4.00" shape="313.093415,45.623839 324.847625,45.623839 324.847625,35.134912 313.093415,35.134912"/>
+    <poly id="000000843" type="building" color="red" fill="1" layer="4.00" shape="377.272798,51.218677 389.027007,51.218677 389.027007,40.729749 377.272798,40.729749"/>
+    <poly id="000000844" type="building" color="red" fill="1" layer="4.00" shape="327.823974,77.285090 316.069764,77.285090 316.069764,66.796163 327.823974,66.796163"/>
+    <poly id="000000845" type="building" color="red" fill="1" layer="4.00" shape="433.635804,141.857364 445.390014,141.857364 445.390014,131.368436 433.635804,131.368436"/>
+    <poly id="000000846" type="building" color="red" fill="1" layer="4.00" shape="364.897767,48.173179 376.651977,48.173179 376.651977,37.684251 364.897767,37.684251"/>
+    <poly id="000000847" type="building" color="red" fill="1" layer="4.00" shape="340.548644,76.781795 328.794435,76.781795 328.794435,66.292867 340.548644,66.292867"/>
+    <poly id="000000848" type="building" color="red" fill="1" layer="4.00" shape="341.756501,101.343928 353.510711,101.343928 353.510711,90.855000 341.756501,90.855000"/>
+    <poly id="000000849" type="building" color="red" fill="1" layer="4.00" shape="353.960570,76.987491 342.206361,76.987491 342.206361,66.498563 353.960570,66.498563"/>
+    <poly id="000000850" type="building" color="red" fill="1" layer="4.00" shape="325.949159,45.297286 337.703368,45.297286 337.703368,34.808358 325.949159,34.808358"/>
+    <poly id="000000851" type="building" color="red" fill="1" layer="4.00" shape="324.003600,102.433108 312.249391,102.433108 312.249391,91.944180 324.003600,91.944180"/>
+    <poly id="000000852" type="building" color="red" fill="1" layer="4.00" shape="353.260804,106.854228 365.015014,106.854228 365.015014,96.365300 353.260804,96.365300"/>
+    <poly id="000000853" type="building" color="red" fill="1" layer="4.00" shape="315.860291,97.839839 327.614501,97.839839 327.614501,87.350911 315.860291,87.350911"/>
+    <poly id="000000854" type="building" color="red" fill="1" layer="4.00" shape="372.023072,124.472896 383.777282,124.472896 383.777282,113.983968 372.023072,113.983968"/>
+    <poly id="000000855" type="building" color="red" fill="1" layer="4.00" shape="378.804292,136.313144 390.558501,136.313144 390.558501,125.824216 378.804292,125.824216"/>
+    <poly id="000000856" type="building" color="red" fill="1" layer="4.00" shape="366.775268,78.786723 355.021058,78.786723 355.021058,68.297795 366.775268,68.297795"/>
+    <poly id="000000857" type="building" color="red" fill="1" layer="4.00" shape="329.105226,98.406932 340.859435,98.406932 340.859435,87.918004 329.105226,87.918004"/>
+    <poly id="000000858" type="building" color="red" fill="1" layer="4.00" shape="391.208617,85.611140 379.454408,85.611140 379.454408,75.122212 391.208617,75.122212"/>
+    <poly id="000000859" type="building" color="red" fill="1" layer="4.00" shape="378.479186,81.568133 366.724977,81.568133 366.724977,71.079206 378.479186,71.079206"/>
+    <poly id="000000860" type="building" color="red" fill="1" layer="4.00" shape="412.170867,104.361247 400.416657,104.361247 400.416657,93.872319 412.170867,93.872319"/>
+    <poly id="000000861" type="building" color="red" fill="1" layer="4.00" shape="324.003600,85.470256 312.249391,85.470256 312.249391,74.981328 324.003600,74.981328"/>
+    <poly id="000000862" type="building" color="red" fill="1" layer="4.00" shape="414.691253,130.441203 402.937043,130.441203 402.937043,119.952275 414.691253,119.952275"/>
+    <poly id="000000863" type="building" color="red" fill="1" layer="4.00" shape="403.158233,92.369746 391.404023,92.369746 391.404023,81.880818 403.158233,81.880818"/>
+    <poly id="000000864" type="building" color="red" fill="1" layer="4.00" shape="363.259309,114.479510 375.013518,114.479510 375.013518,103.990582 363.259309,103.990582"/>
+    <poly id="000000865" type="building" color="red" fill="1" layer="4.00" shape="414.691253,118.444339 402.937043,118.444339 402.937043,107.955411 414.691253,107.955411"/>
+    <poly id="000000866" type="building" color="red" fill="1" layer="4.00" shape="414.691253,142.350238 402.937043,142.350238 402.937043,131.861310 414.691253,131.861310"/>
+    <poly id="000000867" type="building" color="red" fill="1" layer="4.00" shape="433.635804,166.937366 445.390014,166.937366 445.390014,156.448438 433.635804,156.448438"/>
+    <poly id="000000868" type="building" color="red" fill="1" layer="4.00" shape="432.186250,102.900653 443.940459,102.900653 443.940459,92.411725 432.186250,92.411725"/>
+    <poly id="000000869" type="building" color="red" fill="1" layer="4.00" shape="433.683076,304.099505 445.437285,304.099505 445.437285,293.610578 433.683076,293.610578"/>
+</additional>
