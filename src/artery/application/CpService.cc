@@ -97,7 +97,7 @@ void CpService::initialize()
     ItsG5BaseService::initialize();
     mNetworkInterfaceTable = &getFacilities().get_const<NetworkInterfaceTable>();
     mVehicleDataProvider = &getFacilities().get_const<VehicleDataProvider>();
-    mVehicleController = &getFacilities().get_const<traci::Controller>();
+    mVehicleController = &getFacilities().get_const<traci::VehicleController>();
     mTimer = &getFacilities().get_const<Timer>();
     mLocalDynamicMap = &getFacilities().get_mutable<artery::LocalDynamicMap>();
 
@@ -242,7 +242,7 @@ void CpService::initialize()
     canvas->addFigure(detections);
     canvas->addFigure(rings);
 
-    topic = mVehicleController->getId();
+    topic = mVehicleController->getVehicleId();
 
     EV << "Entrou!" << endl;
     // Connect to ZMQ
@@ -264,7 +264,7 @@ void CpService::initialize()
 
     // remove(boost::lexical_cast<std::string>(mVehicleDataProvider->getStationId()) + "_detection_pos.txt");
     std::ostringstream oss;
-    oss << mVehicleController->getId() << "_detection_pos.txt";
+    oss << mVehicleController->getVehicleId() << "_detection_pos.txt";
     remove(oss.str().c_str());
     detection_file.open(oss.str().c_str(), std::ios_base::app);
     detection_file << "id,timestamp,x,y,confidence" << endl;
@@ -1027,7 +1027,7 @@ void CpService::fullPathToFile()
 
                 // WRITE INFO TO FILE
                 std::ostringstream oss;
-                oss << mVehicleController->getId() << "_detection_pos.txt";
+                oss << mVehicleController->getVehicleId() << "_detection_pos.txt";
                 detection_file.open(oss.str().c_str(), std::ios_base::app);
 
                 const traci::Boundary boundary{mVehicleController->getTraCI()->simulation.getNetBoundary()};
@@ -1036,7 +1036,7 @@ void CpService::fullPathToFile()
 
                 DistanceConfidence_t conf = std::round(std::sqrt(2 * std::pow(oi.depth, 2) * (1 - std::cos(PI / 12))) * 100);
 
-                detection_file << mVehicleController->getId() << "," << oi.initial_timestamp << "," 
+                detection_file << mVehicleController->getVehicleId() << "," << oi.initial_timestamp << "," 
                 << traCIPos.x << "," << traCIPos.y << "," << conf << endl;
                 detection_file.close();
 
@@ -1074,7 +1074,7 @@ void CpService::fullPathToFile()
                 oi.sensors.push_back(key);
                 // WRITE INFO TO FILE
                 std::ostringstream oss;
-                oss << mVehicleController->getId() << "_detection_pos.txt";
+                oss << mVehicleController->getVehicleId() << "_detection_pos.txt";
                 detection_file.open(oss.str().c_str(), std::ios_base::app);
                 const traci::Boundary boundary{mVehicleController->getTraCI()->simulation.getNetBoundary()};
                 artery::Position arteryPos = Position(value.detection_coords.x, value.detection_coords.y);
@@ -1082,7 +1082,7 @@ void CpService::fullPathToFile()
                 
                 DistanceConfidence_t conf = std::round(std::sqrt(2 * std::pow(oi.depth, 2) * (1 - std::cos(PI / 12))) * 100);
 
-                detection_file << mVehicleController->getId() << "," << oi.initial_timestamp << "," 
+                detection_file << mVehicleController->getVehicleId() << "," << oi.initial_timestamp << "," 
                 << traCIPos.x << "," << traCIPos.y << "," << conf << endl;
                 detection_file.close();
 
