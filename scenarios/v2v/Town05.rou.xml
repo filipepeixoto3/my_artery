@@ -4,15 +4,17 @@
         <person id="person0" type="walker.pedestrian.0001" depart="0.00">
 		<walk edges=" E1 E28.12"/>
 	</person>
-<!--	
+	
 	<person id="person1" type="walker.pedestrian.0001" depart="0.00">
                 <walk edges="E28.12 E1"/>
 	</person>
--->	
+	
+	<!--
 	<vehicle id="car0" type="vehicle.chevrolet.impala" depart="0.00"  departPos="stop">
                 <route edges="E1"/>
                 <stop parkingArea="pa_22" duration="150"/>
         </vehicle>
+		-->
 	<vehicle id="car1" type="vehicle.audi.etron" depart="0.00"  departPos="stop">
                 <route edges="E1"/>
                 <stop parkingArea="pa_12" duration="150"/>

@@ -14,6 +14,8 @@
 #include "artery/utility/Geometry.h"
 
 #include "artery/traci/MobilityBase.h"
+#include "artery/traci/Controller.h"
+#include "artery/traci/VehicleController.h"
 
 #include <boost/geometry/index/rtree.hpp>
 #include <boost/units/cmath.hpp>

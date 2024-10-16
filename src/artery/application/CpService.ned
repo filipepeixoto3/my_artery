@@ -39,6 +39,7 @@ simple CpService like ItsG5Service
 
         // length of path history
         volatile int pathHistoryLength = default(23);
-
-	int port = default(7777);  // zmq port
+	
+	string host = default("192.168.31.248");  // zmq port
+	int port = default(5555);  // zmq port
 }

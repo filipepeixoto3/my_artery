@@ -11,6 +11,7 @@
 #include "artery/application/MultiChannelPolicy.h"
 #include "artery/application/VehicleDataProvider.h"
 #include "artery/application/VehicleKinematics.h"
+#include "artery/traci/Controller.h"
 #include "artery/traci/VehicleController.h"
 #include "artery/utility/simtime_cast.h"
 #include "veins/base/utils/Coord.h"
@@ -27,6 +28,7 @@
 #include <thread>
 
 // batota!
+#include "artery/traci/VehicleController.h"
 #include "artery/traci/Cast.h"
 
 namespace artery
@@ -255,8 +257,9 @@ void CpService::initialize()
     // EV << "Will subscribe to: " << topic << endl;
     zmq_setsockopt(this->socket, ZMQ_SUBSCRIBE, topic.c_str(), topic.length());
 
+    std::string host = par("host").stringValue();
     int port = par("port").intValue();
-    std::string addr = "tcp://localhost:" + std::to_string(port);
+    std::string addr = "tcp://" + host + ":" + std::to_string(port);
     // EV << "Trying connecting to: " << addr << endl;
     this->socket.connect(addr);
 

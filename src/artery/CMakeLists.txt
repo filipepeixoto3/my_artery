@@ -90,6 +90,13 @@ target_link_libraries(core PUBLIC OmnetPP::envir)
 target_link_libraries(core PUBLIC traci)
 target_link_libraries(core PUBLIC Vanetza::vanetza)
 
+#add by lip
+find_package(PkgConfig MODULE REQUIRED)
+pkg_check_modules(ZEROMQ REQUIRED libzmq)
+target_include_directories(core PUBLIC "${ZEROMQ_INCLUDES_DIRS}")
+target_link_libraries(core PUBLIC "${ZEROMQ_LIBRARIES}")
+#end add by lip
+
 if(TARGET veins)
     message(STATUS "Enable Veins integration")
     set_property(TARGET core APPEND PROPERTY SOURCES
