@@ -629,7 +629,9 @@ void CpService::receiveFromCarla()
                     detections_map.erase(it->first);
                 }
             }
-            return;
+            // return;
+            break; 
+            // quando lê tudo, acaba
         }
         // Check if the message starts with '{' indicating a JSON message
         if (reply.to_string()[0] == '{') {
@@ -669,6 +671,9 @@ void CpService::receiveFromCarla()
             EV << "RCV_MORE=" << sndhwm << endl;
         }
     } while (true);
+    EV << "Passou aqui!" << endl;
+    // código
+
 }
 
 
@@ -781,16 +786,17 @@ void CpService::processDetections(int role_name, double initial_timestamp, uint1
 
         detections_map[role_name].speed = dist / (initial_timestamp - detections_map[role_name].last_timestamp);
 
-        EV << "PrecessDetection " << detections_map[role_name].objectID << ": " << endl
-           << "detections_map[role_name].detection_coords.x: " << detections_map[role_name].detection_coords.x << endl
-           << "detections_map[role_name].detection_coords.y: " << detections_map[role_name].detection_coords.y << endl
-           << "coord.x: " << coord.x << endl
-           << "coord.y: " << coord.y << endl
-           << "detections_map[role_name].depth: " << detections_map[role_name].depth << endl
-           << "depth: " << depth << endl
-           << "speed: " << detections_map[role_name].speed << endl
-           << "dist: " << dist << endl
-           << "time: " << initial_timestamp - detections_map[role_name].last_timestamp << endl
+        // EV << "Precess Detection " << detections_map[role_name].objectID << ": " << endl
+        EV    << "Role Name: " << role_name << endl
+        //    << "detections_map[role_name].detection_coords.x: " << detections_map[role_name].detection_coords.x << endl
+        //    << "detections_map[role_name].detection_coords.y: " << detections_map[role_name].detection_coords.y << endl
+        //    << "coord.x: " << coord.x << endl
+        //    << "coord.y: " << coord.y << endl
+        //    << "detections_map[role_name].depth: " << detections_map[role_name].depth << endl
+        //    << "depth: " << depth << endl
+        //    << "speed: " << detections_map[role_name].speed << endl
+        //    << "dist: " << dist << endl
+        //    << "time: " << initial_timestamp - detections_map[role_name].last_timestamp << endl
            << "timestamp: " << initial_timestamp << endl;
 
         // calculation of the direction of the object (https://www.youtube.com/watch?v=aUsOB24W3lk&t=303s)
@@ -800,7 +806,7 @@ void CpService::processDetections(int role_name, double initial_timestamp, uint1
         if (pq.y > 0)
             angl = angl + PI;
         detections_map[role_name].direction = angl;
-        EV << "Direction: " << angl << endl;
+        // EV << "Direction: " << angl << endl;
 
         // erase the drawings from the previous detection
         cLineFigure* line1 = detections_map[role_name].line1;

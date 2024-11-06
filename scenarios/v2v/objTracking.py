@@ -78,7 +78,7 @@ def optimal_assignment(cost_matrix):
 
 def main():
     # Load detection positions from the files (including confidence)
-    detections = pd.read_csv('car1_detection_pos.txt')
+    detections = pd.read_csv('car1_detection_pos3.txt')
     #positions = pd.read_csv('positions.txt')
     
     pred_tracks = {}   # map of predicted tracks
@@ -145,7 +145,8 @@ def main():
                     
         else:
             cost_matrix = generate_cost_matrix(pred_tracks, active_tracks, past_active_tracks, past_pred_tracks, pos)
-            min_cost_indices = np.argmin(cost_matrix, axis=1)
+            #min_cost_indices = np.argmin(cost_matrix, axis=1)
+            min_cost_indices = optimal_assignment(cost_matrix) # we calculate the otimal assignement
             """
             cost matrix:   
                           detections:
@@ -250,9 +251,9 @@ def main():
         for value in pred_tracks:
             # Plot detected points
             point_color = colors[value % len(colors)]
-            for i in range(len(detected_plot[value])):
-                x, y, timestamp = detected_plot[value][i]
-                plt.scatter(x, y, color=point_color, label=f'Update {value}', facecolor='none')
+            # for i in range(len(detected_plot[value])):
+            #     x, y, timestamp = detected_plot[value][i]
+            #     plt.scatter(x, y, color=point_color, label=f'Update {value}', facecolor='none')
                     #plt.text(x, y, f'{timestamp:.2f}', fontsize=8, ha='right', color=point_color)  # Add timestamp with the same color
                     
             # Plot updated and predicted points
