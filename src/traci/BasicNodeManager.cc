@@ -369,9 +369,28 @@ void BasicNodeManager::updatePerson(const std::string& id, PersonSink* sink)
 
         // auto currTime = m_api->simulation.getCurrentTime();
         auto currTime = omnetpp::simTime();
-        pos_file.open("positions.txt" , std::ios_base::app);
-        pos_file << id << "," << currTime << "," << traci_pos.x << "," << traci_pos.y << endl;
-        pos_file.close();
+
+
+        
+        std::vector<omnetpp::cFigure::Point> verts;
+        verts.push_back(omnetpp::cFigure::Point(269.397, 230.355)); // 169.085
+        verts.push_back(omnetpp::cFigure::Point(266.612, 230.947)); // 168.493
+        verts.push_back(omnetpp::cFigure::Point(266.612, 218.253)); // 181.187
+        verts.push_back(omnetpp::cFigure::Point(269.397, 218.845)); // 180.595
+        int i, j, c = 0;
+        int nvert = 4;
+        for (i = 0, j = nvert-1; i < nvert; j = i++) {
+            if ( ((verts[i].y>traci_pos.y) != (verts[j].y>traci_pos.y)) && (traci_pos.x < (verts[j].x-verts[i].x) * (traci_pos.y-verts[i].y) / (verts[j].y-verts[i].y) + verts[i].x) )
+                c = !c;
+        }
+
+        if(c){
+            pos_file.open("positions.txt" , std::ios_base::app);
+            pos_file << id << "," << currTime << "," << traci_pos.x << "," << traci_pos.y << endl;
+            pos_file.close();
+        }
+
+        
 
         // Draw person bounding box START
 

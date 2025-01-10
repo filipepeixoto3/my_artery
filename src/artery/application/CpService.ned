@@ -1,5 +1,3 @@
-
-
 //import artery.application.ItsG5Service;
 
 //

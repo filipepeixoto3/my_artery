@@ -8,6 +8,7 @@
 
 #include "artery/application/Asn1PacketVisitor.h"
 #include "artery/application/CpObject.h"
+#include "artery/application/KalmanFilter.h"
 #include "artery/application/MultiChannelPolicy.h"
 #include "artery/application/VehicleDataProvider.h"
 #include "artery/application/VehicleKinematics.h"
@@ -106,7 +107,7 @@ void CpService::initialize()
     // vehicle dimensions
     vehicle_length = mVehicleController->getLength().value();
     vehicle_width = mVehicleController->getWidth().value();
-    EV << "Length: " << vehicle_length << endl << "Width: " << vehicle_width << endl;
+    // EV << "Length: " << vehicle_length << endl << "Width: " << vehicle_width << endl;
     // setup dos sensores do veiculo
     uss_setups[0] = {
         -78,
@@ -246,7 +247,6 @@ void CpService::initialize()
 
     topic = mVehicleController->getVehicleId();
 
-    EV << "Entrou!" << endl;
     // Connect to ZMQ
     this->context = zmq::context_t{1};
     this->socket = zmq::socket_t{context, ZMQ_SUB};
@@ -270,17 +270,99 @@ void CpService::initialize()
     oss << mVehicleController->getVehicleId() << "_detection_pos.txt";
     remove(oss.str().c_str());
     detection_file.open(oss.str().c_str(), std::ios_base::app);
-    detection_file << "id,timestamp,x,y,confidence" << endl;
+    detection_file << "id,sensor,timestamp,x,y,active_objects" << endl;
     detection_file.close();
 }
-
 
 void CpService::trigger()
 {
     Enter_Method("trigger");
     updateEveryTimestamp();
-    receiveFromCarla();                    // checks if there is content in the socket connected to CARLA and if so the data is processed
-    checkTriggeringConditions(simTime());  // checks if coditions to create and a send a CPM are meet
+    receiveFromCarla();                     // checks if there is content in the socket connected to CARLA and if so the data is processed
+    processDetections();                    // extract objects from the detections_map
+    multiObjectTracking();                  // tracking of multiple objects and correcting their positions with kalman filter
+    checkTriggeringConditions(simTime());   // checks if coditions to create and a send a CPM are meet
+
+
+    //TESTING FASE
+    // double ang1 = uss_setups[0].norm_detection_angle-(15*PI/180);
+    // while (ang1 < -PI)
+    //     ang1 += 2 * PI;
+    // while (ang1 >= PI)
+    //     ang1 -= 2 * PI;
+    // double ang2 = uss_setups[0].norm_detection_angle+(15*PI/180);
+    // while (ang2 < -PI)
+    //     ang2 += 2 * PI;
+    // while (ang2 >= PI)
+    //     ang2 -= 2 * PI;
+    //      double ang3 = uss_setups[5].norm_detection_angle-(15*PI/180);
+    // while (ang3 < -PI)
+    //     ang3 += 2 * PI;
+    // while (ang3 >= PI)
+    //     ang3 -= 2 * PI;
+    // double ang4 = uss_setups[5].norm_detection_angle+(15*PI/180);
+    // while (ang4 < -PI)
+    //     ang4 += 2 * PI;
+    // while (ang4 >= PI)
+    //     ang4 -= 2 * PI;
+    
+    // const traci::Boundary boundary{mVehicleController->getTraCI()->simulation.getNetBoundary()};
+    // artery::Position arteryPos;
+
+    // omnetpp::cFigure::Point coord1 =
+    //     omnetpp::cFigure::Point(-cos(ang1) * 5.5, sin(ang1) * 5.5)
+    //     + cur_pos_center + uss_setups[0].sensor_pos;
+    // arteryPos = Position(coord1.x, coord1.y);
+    // traci::TraCIPosition traCIPos1 = position_cast(boundary,arteryPos);
+
+    // omnetpp::cFigure::Point coord2 =
+    //     omnetpp::cFigure::Point(-cos(ang2) * 5.5, sin(ang2) * 5.5)
+    //     + cur_pos_center + uss_setups[0].sensor_pos;
+    // arteryPos = Position(coord2.x, coord2.y);
+    // traci::TraCIPosition traCIPos2 = position_cast(boundary,arteryPos);
+
+    // omnetpp::cFigure::Point coord3 =
+    //     omnetpp::cFigure::Point(-cos(ang3) * 5.5, sin(ang3) * 5.5)
+    //     + cur_pos_center + uss_setups[5].sensor_pos;
+    // arteryPos = Position(coord3.x, coord3.y);
+    // traci::TraCIPosition traCIPos3 = position_cast(boundary,arteryPos);
+    
+    // omnetpp::cFigure::Point coord4 =
+    //     omnetpp::cFigure::Point(-cos(ang4) * 5.5, sin(ang4) * 5.5)
+    //     + cur_pos_center + uss_setups[5].sensor_pos;
+    // arteryPos = Position(coord4.x, coord4.y);
+    // traci::TraCIPosition traCIPos4 = position_cast(boundary,arteryPos);
+
+    // std::vector<traci::TraCIPosition> coords;
+    // coords.push_back(traCIPos1);
+    // coords.push_back(traCIPos2);
+    // coords.push_back(traCIPos3);
+    // coords.push_back(traCIPos4);
+
+    // omnetpp::cFigure::Point a = omnetpp::cFigure::Point(coord2.x + 0.1, coord2.y + 0.1);
+    // omnetpp::cFigure::Point b = omnetpp::cFigure::Point(coord2.x + 0.1, coord2.y - 0.1);
+    // omnetpp::cFigure::Point c = omnetpp::cFigure::Point(coord2.x - 0.1, coord2.y - 0.1);
+    // omnetpp::cFigure::Point d = omnetpp::cFigure::Point(coord2.x - 0.1, coord2.y + 0.1);
+
+    // auto cross_line1 = new cLineFigure();
+    // cross_line1->setStart(a);
+    // cross_line1->setEnd(c);
+    // cross_line1->setLineColor("GREEN");
+    // detections->addFigure(cross_line1);
+    // auto cross_line2 = new cLineFigure();
+    // cross_line2->setStart(b);
+    // cross_line2->setEnd(d);
+    // cross_line2->setLineColor("GREEN");
+    // detections->addFigure(cross_line2);
+
+
+    // for (size_t i = 0; i < coords.size(); ++i) {
+    //     EV << "Point " << i << ": ("
+    //               << coords[i].x << ", " << coords[i].y << ")\n";
+    // }
+
+    detections_map.clear();
+    objects_map.clear();
 }
 
 void CpService::indicate(const vanetza::btp::DataIndication& ind, std::unique_ptr<vanetza::UpPacket> packet)  // when a CPM is received
@@ -316,25 +398,10 @@ void CpService::indicate(const vanetza::btp::DataIndication& ind, std::unique_pt
                 sin(-((double)msg->cpm.cpmParameters.stationDataContainer->choice.originatingVehicleContainer.heading.headingValue * PI / 1800) + PI / 2) *
                     ((double)msg->cpm.cpmParameters.stationDataContainer->choice.originatingVehicleContainer.vehicleLength->vehicleLengthValue / 100) / 2);
 
-        //     Position cur_pos_center = omnetpp::cFigure::Point(
-        // pos.x - (cos((double)msg->cpm.cpmParameters.stationDataContainer->choice.originatingVehicleContainer.heading/100) *
-        // (((double)msg->cpm.cpmParameters.stationDataContainer->choice.originatingVehicleContainer.vehicleLength/100) / 2), pos.y +
-        // (sin((double)msg->cpm.cpmParameters.stationDataContainer->choice.originatingVehicleContainer.heading/100) *
-        // (((double)msg->cpm.cpmParameters.stationDataContainer->choice.originatingVehicleContainer.vehicleLength/100) / 2));
-
-        EV << "(indicate)" << endl;
-        EV << "parachoques:" << endl << "x: " << pos.x.value() << endl << "y: " << pos.y.value() << endl;
-        EV << "cur_pos_center:" << endl << "x: " << cpc.x << endl << "y: " << cpc.y << endl;
-        EV << "Vehicle_length: "
-           << ((double)msg->cpm.cpmParameters.stationDataContainer->choice.originatingVehicleContainer.vehicleLength->vehicleLengthValue / 100) << endl;
-        EV << "Vehicle_heading: " << ((double)msg->cpm.cpmParameters.stationDataContainer->choice.originatingVehicleContainer.heading.headingValue * PI / 1800)
-           << endl;
-
-
         // DRAW THE DETECTIONS RECEIVED IN THE CPM
         for (int i = 0; i < msg->cpm.cpmParameters.perceivedObjectContainer->list.count; i++) {
             PerceivedObject* object = msg->cpm.cpmParameters.perceivedObjectContainer->list.array[i];
-            EV << "xDistance:" << (double)object->xDistance.value / 100 << endl << "yDistance: " << (double)object->yDistance.value / 100 << endl;
+            // EV << "xDistance:" << (double)object->xDistance.value / 100 << endl << "yDistance: " << (double)object->yDistance.value / 100 << endl;
 
 
             // ReferencePosition_t r = getPos(libsumo::VAR_POSITION, msg->header.stationID);
@@ -351,25 +418,24 @@ void CpService::indicate(const vanetza::btp::DataIndication& ind, std::unique_pt
             cross_line1->setStart(a);
             cross_line1->setEnd(c);
             cross_line1->setLineColor("GREEN");
-            detections->addFigure(cross_line1);
+            // detections->addFigure(cross_line1);
             auto cross_line2 = new cLineFigure();
             cross_line2->setStart(b);
             cross_line2->setEnd(d);
             cross_line2->setLineColor("GREEN");
-            detections->addFigure(cross_line2);
+            // detections->addFigure(cross_line2);
         }
 
-        for (int i = 0; i < msg->cpm.cpmParameters.sensorInformationContainer->list.count; i++) {
-            SensorInformation* si = msg->cpm.cpmParameters.sensorInformationContainer->list.array[i];
-            EV << "sensorId: " << si->sensorID << endl << "type: " << si->type << endl;
-            EV << "refPointId: " << si->detectionArea.choice.vehicleSensor.refPointId << endl;
-            EV << "xSensorOffset: " << si->detectionArea.choice.vehicleSensor.xSensorOffset << endl;
-            EV << "ySensorOffset: " << si->detectionArea.choice.vehicleSensor.ySensorOffset << endl;
-            EV << "range: " << si->detectionArea.choice.vehicleSensor.vehicleSensorPropertyList.list.array[0]->range;
-            EV << "horizontalOpeningAngleStart: "
-               << si->detectionArea.choice.vehicleSensor.vehicleSensorPropertyList.list.array[0]->horizontalOpeningAngleStart;
-            EV << "horizontalOpeningAngleEnd: " << si->detectionArea.choice.vehicleSensor.vehicleSensorPropertyList.list.array[0]->horizontalOpeningAngleEnd;
-        }
+        // for (int i = 0; i < msg->cpm.cpmParameters.sensorInformationContainer->list.count; i++) {
+        //     SensorInformation* si = msg->cpm.cpmParameters.sensorInformationContainer->list.array[i];
+        //     EV << "sensorId: " << si->sensorID << endl << "type: " << si->type << endl;
+        //     EV << "refPointId: " << si->detectionArea.choice.vehicleSensor.refPointId << endl;
+        //     EV << "xSensorOffset: " << si->detectionArea.choice.vehicleSensor.xSensorOffset << endl;
+        //     EV << "ySensorOffset: " << si->detectionArea.choice.vehicleSensor.ySensorOffset << endl;
+        //     EV << "range: " << si->detectionArea.choice.vehicleSensor.vehicleSensorPropertyList.list.array[0]->range;
+        //     EV << "horizontalOpeningAngleStart: " << si->detectionArea.choice.vehicleSensor.vehicleSensorPropertyList.list.array[0]->horizontalOpeningAngleStart;
+        //     EV << "horizontalOpeningAngleEnd: " << si->detectionArea.choice.vehicleSensor.vehicleSensorPropertyList.list.array[0]->horizontalOpeningAngleEnd;
+        // }
 
         mLocalDynamicMap->updatePerception(obj);
     }
@@ -414,16 +480,13 @@ bool CpService::checkSpeedDelta() const
 }
 
 void CpService::sendCpm(const SimTime& T_now)
-{
-    std::list<object_info> objects;
-    determineObjects(objects);
-    if (objects.empty() && T_now > 1) {
+{    
+    if (tracks_map.size() == 0) {
         return;
     }
     uint16_t genDeltaTimeMod = countTaiMilliseconds(mTimer->getTimeFor(mVehicleDataProvider->updated()));
     auto cpm = createCollectivePerceptionMessage(
-        *mVehicleDataProvider, genDeltaTimeMod, *mVehicleController, uss_setups, detections_map, objects, *detections, cur_pos_center);
-    objects.clear();
+        *mVehicleDataProvider, genDeltaTimeMod, *mVehicleController, uss_setups, detections_map, tracks_map, *detections, cur_pos_center);
     mLastCpmPosition = mVehicleDataProvider->position();
     mLastCpmSpeed = mVehicleDataProvider->speed();
     mLastCpmHeading = mVehicleDataProvider->heading();
@@ -463,8 +526,8 @@ SimTime CpService::genCpmDcc()
 }
 
 vanetza::asn1::Cpm createCollectivePerceptionMessage(
-    const VehicleDataProvider& vdp, uint16_t genDeltaTime, const VehicleController& vc, std::map<int, uss_setup> us, std::map<int, uss_value> dm,
-    std::list<object_info>& objects, omnetpp::cGroupFigure& det, omnetpp::cFigure::Point cpc)
+    const VehicleDataProvider& vdp, uint16_t genDeltaTime, const VehicleController& vc, std::map<int, uss_setup> us, std::map<int, uss_value> dm, std::map<int, track_info> tm,
+    omnetpp::cGroupFigure& det, omnetpp::cFigure::Point cpc)
 {
     vanetza::asn1::Cpm message;
 
@@ -477,7 +540,7 @@ vanetza::asn1::Cpm createCollectivePerceptionMessage(
     cpm.generationDeltaTime = genDeltaTime * GenerationDeltaTime_oneMilliSec;
 
     // CPM CONTAINER -> (Station Data | Cpm Management | Sensor Information |Perceived Object | Free Space Addendum)
-    EV << "genDeltaTIme: " << genDeltaTime << endl;
+
     // Station Data Container (Done)
     cpm.cpmParameters.stationDataContainer = vanetza::asn1::allocate<StationDataContainer_t>();
     StationDataContainer_t* station = cpm.cpmParameters.stationDataContainer;
@@ -486,12 +549,10 @@ vanetza::asn1::Cpm createCollectivePerceptionMessage(
     ovc.heading.headingConfidence = HeadingConfidence_equalOrWithinOneDegree;
     ovc.heading.headingValue = round(vdp.heading(), decidegree);
     ovc.speed.speedConfidence = SpeedConfidence_equalOrWithinOneCentimeterPerSec * 3;
-    // ovc.speed.speedValue = vc.getSpeed().value();
     ovc.speed.speedValue = buildSpeedValue(vdp.speed());
     ovc.vehicleLength = new VehicleLength_t();
     ovc.vehicleLength->vehicleLengthValue = vc.getLength().value() * 100;
     ovc.vehicleLength->vehicleLengthConfidenceIndication = VehicleLengthConfidenceIndication_unavailable;
-    // ovc.vehicleWidth = (long)vc.getLength().value()*100;
 
     // Cpm Management Container (Done)
     CpmManagementContainer_t& management = cpm.cpmParameters.managementContainer;
@@ -511,89 +572,97 @@ vanetza::asn1::Cpm createCollectivePerceptionMessage(
     cpm.cpmParameters.sensorInformationContainer = vanetza::asn1::allocate<SensorInformationContainer_t>();
     SensorInformationContainer_t* sic = cpm.cpmParameters.sensorInformationContainer;
     int index = 1;
-
-    for (auto it = objects.begin(); it != objects.end(); ++it) {
-        for (int sensor : it->sensors) {
-            auto value = us[sensor];
-            auto si = vanetza::asn1::allocate<SensorInformation>();
-            si->sensorID = index;
-            index += 1;
-            si->type = SensorType_ultrasonic;
-            si->detectionArea.present = DetectionArea_PR_vehicleSensor;
-
-
-            VehicleSensor_t& vs = si->detectionArea.choice.vehicleSensor;
-            vs.xSensorOffset = (XSensorOffset_t)(value.x * 100);
-            vs.ySensorOffset = (XSensorOffset_t)(value.y * 100);
-
-            if (vs.xSensorOffset > 0) {  // dont know why ("Describes the mounting position of a sensor along the negative x-direction from Reference Point
-                                         // indicated by the refPointID")
-                vs.xSensorOffset = -vs.xSensorOffset;
-            }
-            if (vs.ySensorOffset > 0) {
-                vs.ySensorOffset = -vs.ySensorOffset;
-            }
+    auto current_time = simTime();
+    for (auto pair : tm) {
+        
+        auto key = pair.first;
+        auto value = pair.second;
+        uss_setup desired_config = us[value.sensor];
+        auto si = vanetza::asn1::allocate<SensorInformation>();
+        si->sensorID = value.sensor;
+        si->type = SensorType_ultrasonic;
+        si->detectionArea.present = DetectionArea_PR_vehicleSensor;
 
 
-            // vs.xSensorOffset = 0;
-            // vs.ySensorOffset = 0;
-            EV << "xSensorOffset(create): " << (long)(value.x * 100) << endl;
-            EV << "ySensorOffset(create): " << (long)(value.y * 100) << endl;
-            auto vsp = vanetza::asn1::allocate<VehicleSensorProperties>();
-            vsp->range = 5.5 * 10;  // 5.5
-            vsp->horizontalOpeningAngleStart = (long)((value.yaw - 30) * 10);
-            vsp->horizontalOpeningAngleEnd = ((long)(value.yaw + 30) * 10);
+        VehicleSensor_t& vs = si->detectionArea.choice.vehicleSensor;
+        vs.xSensorOffset = (XSensorOffset_t)(desired_config.x * 100);
+        vs.ySensorOffset = (XSensorOffset_t)(desired_config.y * 100);
 
-            vsp->horizontalOpeningAngleStart = 0;
-            vsp->horizontalOpeningAngleEnd = 0;
-
-            ASN_SEQUENCE_ADD(&vs.vehicleSensorPropertyList, vsp);
-            ASN_SEQUENCE_ADD(sic, si);
+        if (vs.xSensorOffset > 0) {  // dont know why ("Describes the mounting position of a sensor along the negative x-direction from Reference Point
+                                        // indicated by the refPointID")
+            vs.xSensorOffset = -vs.xSensorOffset;
         }
-    }
+        if (vs.ySensorOffset > 0) {
+            vs.ySensorOffset = -vs.ySensorOffset;
+        }
 
+        auto vsp = vanetza::asn1::allocate<VehicleSensorProperties>();
+        vsp->range = 5.5 * 10;  // 5.5
+        vsp->horizontalOpeningAngleStart = (long)((desired_config.yaw - 30) * 10);
+        vsp->horizontalOpeningAngleEnd = ((long)(desired_config.yaw + 30) * 10);
+
+        vsp->horizontalOpeningAngleStart = 0;
+        vsp->horizontalOpeningAngleEnd = 0;
+
+        ASN_SEQUENCE_ADD(&vs.vehicleSensorPropertyList, vsp);
+        ASN_SEQUENCE_ADD(sic, si);
+    }
 
     // Perceived Object Container
     cpm.cpmParameters.perceivedObjectContainer = vanetza::asn1::allocate<PerceivedObjectContainer_t>();
     NumberOfPerceivedObjects_t& perceivedObjects = cpm.cpmParameters.numberOfPerceivedObjects;
-    perceivedObjects = (long)objects.size();
+    perceivedObjects = (long)tm.size();
+    // EV << "perceivedObjects: " << perceivedObjects << endl;
 
 
-    for (auto it = objects.begin(); it != objects.end(); ++it) {
+    for (auto pair : tm) {
+        auto key = pair.first;
+        auto value = pair.second;
+        uss_setup desired_config = us[value.sensor];
+
         auto po = vanetza::asn1::allocate<PerceivedObject>();
-        po->objectID = it->objectID;
-        po->timeOfMeasurement = (long)(genDeltaTime - it->detection_delta_time);
-        EV << "timeOfMeasurement: " << po->timeOfMeasurement << endl;
-        po->xDistance.value = (it->detection_coords.x - cpc.x) * 100;
-        po->yDistance.value = (it->detection_coords.y - cpc.y) * 100;
+        po->objectID = key;
+        po->timeOfMeasurement = (long)(current_time.dbl() - value.timestamp); 
+        // po->timeOfMeasurement = 0; 
+        // EV << "timeOfMeasurement: " << po->timeOfMeasurement << endl;
+        po->xDistance.value = (value.detection_coord.x - cpc.x) * 100;
+        // EV << "xDistance: " << po->xDistance.value << endl;
+        po->yDistance.value = (value.detection_coord.y - cpc.y) * 100;
+        // EV << "yDistance: " << po->yDistance.value << endl;
 
-        DistanceConfidence_t conf = std::round(std::sqrt(2 * std::pow(it->depth, 2) * (1 - std::cos(PI / 12))) * 100);
+        DistanceConfidence_t conf = std::round(std::sqrt(2 * std::pow(dm[value.sensor].depth, 2) * (1 - std::cos(PI / 12))) * 100);
         if (conf > 100) {
             po->xDistance.confidence = DistanceConfidence_outOfRange;
             po->yDistance.confidence = DistanceConfidence_outOfRange;
         } else {
             po->xDistance.confidence = conf;
+            // EV << "xDistance.confidence: " << po->xDistance.confidence << endl;
             po->yDistance.confidence = conf;
+            // EV << "yDistance.confidence: " << po->yDistance.confidence << endl;
         }
 
-        po->xSpeed.value = (long)(it->speed * std::cos(it->direction));
+        // po->xSpeed.value = (long)(value.speed * std::cos(value.direction) * 100);
+        po->xSpeed.value = 0;
         po->xSpeed.confidence = SpeedConfidence_unavailable;
-        po->ySpeed.value = (long)(it->speed * std::sin(it->direction));
+
+        // po->ySpeed.value = (long)(value.speed * std::sin(value.direction) * 100);
+        po->ySpeed.value = 0;
         po->ySpeed.confidence = SpeedConfidence_unavailable;
-        // po->yawAngle->value = (long)(it->direction) * 1800/PI; //crasha não se bem porquê (usar round(?))
+
+        // po->yawAngle->value = (long)((value.direction) * 1800/PI); //crasha não se bem porquê (usar round(?))
         // po->yawAngle->confidence = AngleConfidence_unavailable;
 
-        // EV << "Object " << po->objectID << ": " << endl <<
-        // "xDistance:" << po->xDistance.value << endl <<
-        // "yDistance:" << po->yDistance.value << endl <<
-        // "DistanceConfidence: " << value << endl <<
-        // "xSpeed:" << po->xSpeed.value << endl <<
-        // "ySpeed:" << po->ySpeed.value << endl <<
-        // "direction: " << it->direction << endl;
+        EV << "Object " << po->objectID << ": " << endl <<
+        "xDistance:" << po->xDistance.value << endl <<
+        "yDistance:" << po->yDistance.value << endl <<
+        "DistanceConfidence: " << conf << endl <<
+        "xSpeed:" << po->xSpeed.value << endl <<
+        "ySpeed:" << po->ySpeed.value << endl <<
+        "direction: " << value.direction << endl <<
+        "timeOfMeasurement: " << po->timeOfMeasurement << endl;
 
         ASN_SEQUENCE_ADD(cpm.cpmParameters.perceivedObjectContainer, po);
     }
-
     return message;
 }
 
@@ -652,17 +721,8 @@ void CpService::receiveFromCarla()
 
                 EV << "    USS-" << sensor_id << "<" << role_name << ">" << "@" << vehicle_id << " (t=" << initial_timestamp << ")  Depth=" << depth << "m"
                    << endl;
-
-                processDetections(
-                    role_name, initial_timestamp, detection_delta_time, std::round(depth * 1000) / 1000);  // processing the received data from the USS
-
-                // } else if (message_type == "GNSS_DATA") {
-                //     double altitude = jsonResp["altitude"].get<double>();
-                //     double latitude = jsonResp["latitude"].get<double>();
-                //     double longitude = jsonResp["longitude"].get<double>();
-
-                //     EV << "    GNSS-" << sensor_id << "@" << vehicle_id << " (t=" << initial_timestamp << ")  Altitude=" << altitude << "m"
-                //        << ",  Latitude=" << latitude << "º" << ",  Longitude=" << longitude << "º" << endl;
+                if (depth <= 5.5)
+                    storeDetections(role_name, initial_timestamp, detection_delta_time, std::round(depth * 1000) / 1000);  // storing the detections in the "detections_map"
             } else {
                 EV << "    Unknown message type..." << endl;
             }
@@ -671,11 +731,9 @@ void CpService::receiveFromCarla()
             EV << "RCV_MORE=" << sndhwm << endl;
         }
     } while (true);
-    EV << "Passou aqui!" << endl;
-    // código
+
 
 }
-
 
 void CpService::updateEveryTimestamp()
 {
@@ -704,37 +762,158 @@ void CpService::updateEveryTimestamp()
     }
     for (int i = 0; i < rings->getNumFigures(); i++)
         rings->removeFigure(i);
+
+
+    auto timestamp = simTime();
+
+    // Remove tracks older than 2 seconds (100 timestamps ago)
+    for (auto pair : tracks_map) {
+        auto key = pair.first;
+        auto value = pair.second;
+        // Check if the track's timestamp is older than 1 seconds and the track is still in the active_tracks list
+        if (timestamp - value.timestamp > 1 && std::find(active_tracks.begin(), active_tracks.end(), key) != active_tracks.end()) {
+            EV << "ENTROU NO REMOVE OLD TRACKS!" << endl;
+            // Remove the track from `active_tracks`
+            active_tracks.erase(std::remove(active_tracks.begin(), active_tracks.end(), key), active_tracks.end());
+            // Check if the track is also in `past_active_tracks`
+            if (std::find(past_active_tracks.begin(), past_active_tracks.end(), key) != past_active_tracks.end()) {
+                // If the track is found, remove it from `past_active_tracks` as well
+                past_active_tracks.erase(std::remove(past_active_tracks.begin(), past_active_tracks.end(), key), past_active_tracks.end());
+            }
+        }
+    }
 }
 
-void CpService::processDetections(int role_name, double initial_timestamp, uint16_t detection_delta_time, double depth)
+void CpService::storeDetections(int role_name, double timestamp, uint16_t detection_delta_time, double depth)
 {
-
+    // pos of the detection in referance to the sensor
     omnetpp::cFigure::Point detection_pos =
         omnetpp::cFigure::Point(-cos(uss_setups[role_name].norm_detection_angle) * depth, sin(uss_setups[role_name].norm_detection_angle) * depth);
+    // exact artery coord of the detection
     omnetpp::cFigure::Point coord = cur_pos_center + uss_setups[role_name].sensor_pos + detection_pos;
+    
+    uss_setup desired_config = uss_setups[role_name];
+    
+    detections_map[role_name].depth = depth;
+    detections_map[role_name].timestamp = timestamp;
+    detections_map[role_name].detection_coord = coord;
+    detections_map[role_name].detection_delta_time = detection_delta_time;
 
+    // DRAW DETECTION
+    auto cross_line1 = new cLineFigure();
+    cross_line1->setStart(omnetpp::cFigure::Point(coord.x + 0.1, coord.y + 0.1));
+    cross_line1->setEnd(omnetpp::cFigure::Point(coord.x - 0.1, coord.y - 0.1));
+    cross_line1->setLineColor("GREEN");
+    cross_line1->setZIndex(3);
+    //detections->addFigure(cross_line1);
 
-    // calcular aqui sensor_angle detection_angle sensor_dist
+    auto cross_line2 = new cLineFigure();
+    cross_line2->setStart(omnetpp::cFigure::Point(coord.x + 0.1, coord.y - 0.1));
+    cross_line2->setEnd(omnetpp::cFigure::Point(coord.x - 0.1, coord.y + 0.1));
+    cross_line2->setLineColor("GREEN");
+    cross_line2->setZIndex(3);
+    //detections->addFigure(cross_line2);
 
-    if (detections_map.find(role_name) == detections_map.end()) {
-        // if there is no map entry it means that this detection is the first registered
-        coord = drawDetections(role_name, depth);  // draws the detection on the canvas
+    auto arc = new cArcFigure();
+    arc->setBounds(cFigure::Rectangle(cur_pos_center.x + desired_config.sensor_pos.x, cur_pos_center.y + desired_config.sensor_pos.y, 2 * depth, 2 * depth));
+    arc->setPosition(cur_pos_center + desired_config.sensor_pos, cFigure::ANCHOR_CENTER);
+    arc->setStartAngle(desired_config.norm_detection_angle - 30 * PI / 180 + PI);
+    arc->setEndAngle(desired_config.norm_detection_angle + 30 * PI / 180 + PI);
+    // detections->addFigure(arc);
 
-        if ((role_name != 6 && detections_map.find(role_name - 1) != detections_map.end()) && detections_map[role_name - 1].speed != 0.0) {
-            // if there is movement in the previous sensor that means that there is already an
-            // object being tracked  so we atribuit that object's id to the registered detection
-            detections_map[role_name].objectID = detections_map[role_name - 1].objectID;
-            detections_map[role_name].speed = detections_map[role_name - 1].speed;
-            detections_map[role_name].direction = detections_map[role_name - 1].direction;
-        } else if ((role_name != 5 && detections_map.find(role_name + 1) != detections_map.end()) && detections_map[role_name + 1].speed != 0.0) {
-            // if there is movement in the following sensor that means that there is already an
-            // object being tracked  so we atribuit that object's id to the registered detection
-            detections_map[role_name].objectID = detections_map[role_name + 1].objectID;
-            detections_map[role_name].speed = detections_map[role_name + 1].speed;
-            detections_map[role_name].direction = detections_map[role_name + 1].direction;
-        } else {
-            // if there is no detection in the adjacent sensors, that means its the
-            // first time this object has been detected so we atribuit it a new id
+    detections_map[role_name].line1 = cross_line1;
+    detections_map[role_name].line2 = cross_line2;
+    detections_map[role_name].arc = arc;
+}
+
+void CpService::processDetections(){
+    bool skip_next = false;
+
+    std::ostringstream oss;
+    const traci::Boundary boundary{mVehicleController->getTraCI()->simulation.getNetBoundary()};
+    traci::TraCIPosition traCIPos;
+    artery::Position arteryPos;
+
+    for (auto pair : detections_map){
+        if(skip_next){
+            skip_next = false;
+            continue;
+        }
+        auto key = pair.first;
+        auto value = pair.second;
+        object_info oi;
+        DistanceConfidence_t conf = std::round(std::sqrt(2 * std::pow(value.depth, 2) * (1 - std::cos(PI / 12))) * 100);
+        
+        //if (conf <= 100){
+
+        auto assign_to_map = [&](int target_key, const auto& source) {
+            oi.detection_delta_time = source.detection_delta_time;
+            oi.timestamp = source.timestamp;
+            oi.detection_coord = source.detection_coord;
+            objects_map[target_key] = oi;
+        };
+
+        if (key != 5 && detections_map.find(key + 1) != detections_map.end() && tracks_map.size() < detections_map.size()) {
+            auto& next_detection = detections_map[key + 1];
+            if(value.depth > next_detection.depth){
+                assign_to_map(key + 1, next_detection);
+            }
+            skip_next = true; // Skip processing the next key
+        }else{
+            assign_to_map(key, value);
+        }
+
+            // WRITE INFO TO FILE
+            oss.str("");            // Clear the content
+            oss.clear();            // Reset any error flags
+            oss << mVehicleController->getVehicleId() << "_detection_pos.txt";
+            detection_file.open(oss.str().c_str(), std::ios_base::app);
+            arteryPos = Position(oi.detection_coord.x, oi.detection_coord.y);
+            traCIPos = position_cast(boundary,arteryPos);
+
+            detection_file << mVehicleController->getVehicleId() << "," << oi.timestamp << "," << traCIPos.x << ","
+                            << traCIPos.y << "," << tracks_count << endl;
+                            
+            if(detection_file.is_open()){
+                EV << mVehicleController->getVehicleId() << "," << key  << "," << oi.timestamp << "," << traCIPos.x << ","
+                            << traCIPos.y << "," <<  tracks_count << endl;
+            }
+            detection_file.close();
+    }
+    // DRAW DETECTION
+    for (auto pair : objects_map){
+        auto key = pair.first;
+        auto value = pair.second;
+        uss_setup desired_config = uss_setups[key];
+
+        auto coord = value.detection_coord;
+        auto cross_line1 = new cLineFigure();
+        cross_line1->setStart(omnetpp::cFigure::Point(coord.x + 0.1, coord.y + 0.1));
+        cross_line1->setEnd(omnetpp::cFigure::Point(coord.x - 0.1, coord.y - 0.1));
+        cross_line1->setLineColor("GREEN");
+        cross_line1->setZIndex(3);
+        //detections->addFigure(cross_line1);
+
+        auto cross_line2 = new cLineFigure();
+        cross_line2->setStart(omnetpp::cFigure::Point(coord.x + 0.1, coord.y - 0.1));
+        cross_line2->setEnd(omnetpp::cFigure::Point(coord.x - 0.1, coord.y + 0.1));
+        cross_line2->setLineColor("GREEN");
+        cross_line2->setZIndex(3);
+        //detections->addFigure(cross_line2);
+
+        // auto arc = new cArcFigure();
+        // arc->setBounds(cFigure::Rectangle(cur_pos_center.x + desired_config.sensor_pos.x, cur_pos_center.y + desired_config.sensor_pos.y, 2 * depth, 2 * depth));
+        // arc->setPosition(cur_pos_center + desired_config.sensor_pos, cFigure::ANCHOR_CENTER);
+        // arc->setStartAngle(desired_config.norm_detection_angle - 30 * PI / 180 + PI);
+        // arc->setEndAngle(desired_config.norm_detection_angle + 30 * PI / 180 + PI);
+        // detections->addFigure(arc);
+    }
+}
+
+void CpService::multiObjectTracking()
+{
+    if (active_tracks.empty()) { // if there are no active tracks, all the objects will become their own track 
+        for (const auto& dm : objects_map) {
             Identifier_t id = 0;
             std::random_device rd;
             std::mt19937 gen(rd());
@@ -744,457 +923,394 @@ void CpService::processDetections(int role_name, double initial_timestamp, uint1
             } while ((std::find(active_obj_ids.begin(), active_obj_ids.end(), id) != active_obj_ids.end()));
 
             active_obj_ids.push_back(id);  // objectIDs in use
-            detections_map[role_name].objectID = id;
-            detections_map[role_name].speed = 0.0;
-            detections_map[role_name].direction = 0.0;
+            auto key = dm.first;
+            auto value = dm.second;
+            tracks_map[id].detection_coord = value.detection_coord;
+            tracks_map[id].timestamp = value.timestamp;
+            tracks_map[id].sensor = key;
+            tracks_map[id].speed = 0;
+            tracks_map[id].direction = 0;
+
+            active_tracks.push_back(id);
+            kf_map[id] = KalmanFilter(0.05, 0, 0, 0, 0.3, 0.3);
+            tracks_count++;
         }
-        detections_map[role_name].last_timestamp = detections_map[role_name].initial_timestamp;
-        detections_map[role_name].initial_timestamp = initial_timestamp;
-        detections_map[role_name].detection_delta_time = detection_delta_time;
-
-    } else if (static_object[role_name].x == coord.x && static_object[role_name].y == coord.y && detections_map[role_name].speed != 0) {
-        // in this scenario, and object exists the FOV of the sensor and the detecitons
-        // go back to being from a stationary object so we atribuit it a new objectID
-        Identifier_t id = 0;
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        do {
-            std::uniform_int_distribution<> distrib(0, 255);
-            id = distrib(gen);
-        } while ((std::find(active_obj_ids.begin(), active_obj_ids.end(), id) != active_obj_ids.end()));
-        active_obj_ids.push_back(id);
-        detections_map[role_name].objectID = id;
-        detections_map[role_name].last_timestamp = detections_map[role_name].initial_timestamp;
-        detections_map[role_name].initial_timestamp = std::round(initial_timestamp);
-        detections_map[role_name].detection_delta_time = detection_delta_time;
-        detections_map[role_name].speed = 0.0;
-        detections_map[role_name].direction = 0.0;
-
-    } else if (depth != detections_map[role_name].depth && initial_timestamp != detections_map[role_name].last_timestamp) {
-        //} else if (detections_map[role_name].detection_coords.x != coord.x || detections_map[role_name].detection_coords.y != coord.y ) {
-        // if the depth differs it means that we are currently following
-        // an object so we updtate only the necessary atribuits
-        repeted_detections[role_name] = 0;  // used to verify if the detections are from a stationary object
-        EV << "Object " << detections_map[role_name].objectID << " moving!" << endl;
-        // distance between the previous coord and the present one
-        auto dist = std::round(
-                        std::sqrt(
-                            std::pow((detections_map[role_name].detection_coords.x - coord.x), 2) +
-                            std::pow((detections_map[role_name].detection_coords.y - coord.y), 2)) *
-                        1000) /
-                    1000;
-
-        detections_map[role_name].speed = dist / (initial_timestamp - detections_map[role_name].last_timestamp);
-
-        // EV << "Precess Detection " << detections_map[role_name].objectID << ": " << endl
-        EV    << "Role Name: " << role_name << endl
-        //    << "detections_map[role_name].detection_coords.x: " << detections_map[role_name].detection_coords.x << endl
-        //    << "detections_map[role_name].detection_coords.y: " << detections_map[role_name].detection_coords.y << endl
-        //    << "coord.x: " << coord.x << endl
-        //    << "coord.y: " << coord.y << endl
-        //    << "detections_map[role_name].depth: " << detections_map[role_name].depth << endl
-        //    << "depth: " << depth << endl
-        //    << "speed: " << detections_map[role_name].speed << endl
-        //    << "dist: " << dist << endl
-        //    << "time: " << initial_timestamp - detections_map[role_name].last_timestamp << endl
-           << "timestamp: " << initial_timestamp << endl;
-
-        // calculation of the direction of the object (https://www.youtube.com/watch?v=aUsOB24W3lk&t=303s)
-        omnetpp::cFigure::Point pq = coord - detections_map[role_name].detection_coords;
-        double magPq = std::sqrt(std::pow(pq.x, 2) + std::pow(pq.y, 2));
-        double angl = std::acos(pq.x / magPq);
-        if (pq.y > 0)
-            angl = angl + PI;
-        detections_map[role_name].direction = angl;
-        // EV << "Direction: " << angl << endl;
-
-        // erase the drawings from the previous detection
-        cLineFigure* line1 = detections_map[role_name].line1;
-        cLineFigure* line2 = detections_map[role_name].line2;
-        // cArcFigure* arc = detections_map[role_name].arc;
-        if (line1 != nullptr && line2 != nullptr) {
-            // detections->removeFigure(line1);
-            // detections->removeFigure(line2);
-            // detections->removeFigure(arc);
-        }
-
-        coord = drawDetections(role_name, depth);  // draw new detection
-        EV << "role name: " << role_name << endl;
-        detections_map[role_name].last_timestamp = detections_map[role_name].initial_timestamp;
-        detections_map[role_name].initial_timestamp = initial_timestamp;
-        detections_map[role_name].detection_delta_time = detection_delta_time;
+        EV << "ACTIVE TRACKS ESTÁ VAZIO SUPOSTAMENTE!" << endl;
     } else {
-        // in this scenario the object is not moving it could mean that de sensor is detecting
-        // a stationary object or the moving object has stoped in the middle of its tajectory
+    
+        auto cost_matrix = generate_cost_matrix(0.3, 0.5); 
+                // cost matrix:   
+        //               detections:
+        //               0    1    2
+        //         0  [[0.8  0.3  0.9],          
+        // tracks: 1   [0.3  0.9  0.9],
+        //         2   [0.9  0.8  0.3]]
+        std::vector<int> min_cost_indices(cost_matrix.size());
 
+        // Loop through each row to find the minimum index for each row
+        // for (size_t i = 0; i < cost_matrix.size(); ++i) {
+        //     // Initialize min_value to the maximum possible value
+        //     double min_value = std::numeric_limits<double>::infinity();
+        //     int min_index = -1;
+        //     // Find the minimum element in the row
+        //     for (size_t j = 0; j < cost_matrix[i].size(); ++j) {
+        //         if (cost_matrix[i][j] < min_value) {
+        //             min_value = cost_matrix[i][j];
+        //             min_index = j;
+        //         }
+        //     }
+        //     // Store the index of the minimum value for the current row
+        //     min_cost_indices[i] = min_index;
+        // }
+        // min_cost_indices: [1  0  2]
+        
+        // track 0 -> detection 1
+        // track 1 -> detection 0
+        // track 2 -> detection 2
+        
 
-        detections_map[role_name].last_timestamp = detections_map[role_name].initial_timestamp;
-        detections_map[role_name].initial_timestamp = initial_timestamp;
-        detections_map[role_name].detection_delta_time = detection_delta_time;
-        detections_map[role_name].speed = 0.0;
-        detections_map[role_name].direction = 0.0;
-        repeted_detections[role_name] = repeted_detections[role_name] + 1;
-        if (repeted_detections[role_name] > 100) {
-            // if the sensor detects the same depth for 5 seconds the
-            // object being detected is considered a stationary object
-            static_object[role_name] = detections_map[role_name].detection_coords;
+        EV << "cost_matrix:" << endl;
+        for (size_t i = 0; i < cost_matrix.size(); ++i){
+             for (size_t j = 0; j < cost_matrix[i].size(); ++j) {
+                EV << cost_matrix[i][j] << " ";
+             }
+             EV << endl;
         }
-    }
-    fullPathToFile();
-}
-void CpService::determineObjects(std::list<object_info>& objects)
-{
-    for (auto it = detections_map.begin(); it != detections_map.end(); ++it) {
-        auto key = it->first;
-        auto value = it->second;
-        if (value.speed != 0.0) {
-            // if there is movement in the sensor a moving object is present
-            object_info oi;
-            if (key != 5 && key != 11 && detections_map.find(key + 1) != detections_map.end() && detections_map[key + 1].speed != 0) {
-                // if the following sensor is also detecting a moving object it is most
-                // likely the same so we do the triangulation to get a more precise position
+        EV << "min_cost_indices:" << endl;
+        for (size_t i = 0; i < cost_matrix.size(); ++i){
+            EV << min_cost_indices[i]<< " ";
+        }
+        EV << endl;
 
-                /*********************************************DRAWING RINGS*********************************************/
-                // auto ring1 = new cRingFigure();
-                // ring1->setPosition(cur_pos_center + uss_setups[it->first].sensor_pos, cFigure::ANCHOR_CENTER);
-                // ring1->setInnerRadius(value.depth);
-                // rings->addFigure(ring1);
+        std::vector<int> keys;
+        for(auto pair : objects_map){
+            keys.push_back(pair.first);
+        }
+        
+        min_cost_indices = optimal_assignment(cost_matrix);
+        if (active_tracks.size() == objects_map.size()) { 
+            
+            EV << "HÁ TANTOS OBJECTOS COMO TRACKS!" << endl;
+            // each track has a new observation
+            // if (min_cost_indices.size() != std::set<int>(min_cost_indices.begin(), min_cost_indices.end()).size()) {
+                // min_cost_indices = optimal_assignment(cost_matrix);
+            // }
 
-                // auto ring2 = new cRingFigure();
-                // ring2->setPosition(cur_pos_center + uss_setups[key + 1].sensor_pos, cFigure::ANCHOR_CENTER);
-                // ring2->setInnerRadius(detections_map[key + 1].depth);
-                // rings->addFigure(ring2);
-                /*******************************************************************************************************/
-
-                // omnetpp::cFigure::Point possible_position = findPosition(
-                //     cur_pos_center, cur_pos_center + uss_setups[it->first].sensor_pos, cur_pos_center + uss_setups[key + 1].sensor_pos, value.depth,
-                //     detections_map[key + 1].depth, value.detection_coords,
-                //     detections_map[key + 1].detection_coords);  // triangulation
-                //      oi.detection_coords = possible_position;
-
-                if (value.depth < detections_map[key + 1].depth) {
-                    oi.detection_coords = value.detection_coords;
-                } else {
-                    oi.detection_coords = detections_map[key + 1].detection_coords;
-                }
-                oi.initial_timestamp = value.initial_timestamp;
-                oi.depth = value.depth;
-                oi.detection_delta_time = value.detection_delta_time;
-                oi.objectID = value.objectID;
-
-                if ((oi.detection_coords.x != value.detection_coords.x || oi.detection_coords.y != value.detection_coords.y) &&
-                    (oi.detection_coords.x != detections_map[key + 1].detection_coords.x ||
-                     oi.detection_coords.y != detections_map[key + 1].detection_coords.y)) {
-
-                    // EV << oi.detection_coords.x << " != " << value.detection_coords.x << endl;
-                    // EV << oi.detection_coords.y << " != " << value.detection_coords.y << endl;
-                    // EV << oi.detection_coords.x << " != " << detections_map[key + 1].detection_coords.x << endl;
-                    // EV << oi.detection_coords.y << " != " << detections_map[key + 1].detection_coords.y << endl;
-
-                    omnetpp::cFigure::Point pq = value.detection_coords - value.last_detection_coords;
+            for (size_t i = 0; i < active_tracks.size(); ++i) {
+                if(min_cost_indices[i] != -1){
+                    omnetpp::cFigure::Point pq = objects_map[keys[min_cost_indices[i]]].detection_coord - tracks_map[active_tracks[i]].detection_coord;
                     double magPq = std::sqrt(std::pow(pq.x, 2) + std::pow(pq.y, 2));
                     double angl = std::acos(pq.x / magPq);
                     if (pq.y > 0)
                         angl = angl + PI;
 
-                    // distance between the previous coord and the present one
-                    auto dist = std::sqrt(
-                        std::pow((value.last_detection_coords.x - oi.detection_coords.x), 2) +
-                        std::pow((value.last_detection_coords.y - oi.detection_coords.y), 2));
-
-                    oi.direction = angl;
-                    oi.speed = dist / (value.initial_timestamp - value.last_timestamp);
-                    // oi.xDistance = -cos(uss_setups[key].norm_detection_angle) * value.depth;
-                    // oi.yDistance = sin(uss_setups[key].norm_detection_angle) * value.depth;
-                    oi.xDistance = (oi.detection_coords.x - cur_pos_center.x) * 100;
-                    oi.yDistance = (oi.detection_coords.y - cur_pos_center.y) * 100;
-                    oi.depth = value.depth;
-
-                    // EV << "xDistance (send):" << oi.xDistance/100 << endl << "yDistance: " << oi.xDistance/100<< endl;
-                    //  EV << "old speed: " << value.speed << endl;
-                    //  EV << "old direction: " << value.direction << endl;
-                    //  EV << "new speed: " << oi.speed << endl;
-                    //  EV << "new direction: " << oi.speed << endl;
-
-                } else {
-                    oi.xDistance = (value.detection_coords.x - cur_pos_center.x) * 100;
-                    oi.yDistance = (value.detection_coords.y - cur_pos_center.y) * 100;
-                    oi.direction = value.direction;
-                    oi.depth = value.depth;
-                    oi.speed = value.speed;
+                    tracks_map[active_tracks[i]].direction = angl;
+                    tracks_map[active_tracks[i]].speed = std::sqrt(std::pow(tracks_map[active_tracks[i]].detection_coord.x - objects_map[keys[min_cost_indices[i]]].detection_coord.x, 2)
+                    + std::pow(tracks_map[active_tracks[i]].detection_coord.y - objects_map[keys[min_cost_indices[i]]].detection_coord.y, 2))
+                    / (objects_map[keys[min_cost_indices[i]]].timestamp-tracks_map[active_tracks[i]].timestamp);
+                    // EV << "x1: " << tracks_map[active_tracks[i]].detection_coord.x << endl <<
+                    // "x2: " << objects_map[keys[min_cost_indices[i]]].detection_coord.x << endl <<
+                    // "y1: " << tracks_map[active_tracks[i]].detection_coord.y << endl <<
+                    // "y2: " << objects_map[keys[min_cost_indices[i]]].detection_coord.y << endl <<
+                    // "SPEED CALCULATED: " << tracks_map[active_tracks[i]].speed << endl <<
+                    // "ANGL CALCULATED: " << angl << endl;
+                    tracks_map[active_tracks[i]].detection_coord = objects_map[keys[min_cost_indices[i]]].detection_coord;
+                    tracks_map[active_tracks[i]].timestamp = objects_map[keys[min_cost_indices[i]]].timestamp;
+                    tracks_map[active_tracks[i]].sensor = keys[min_cost_indices[i]];
                 }
-
-
-                oi.sensors.push_back(key);
-                oi.sensors.push_back(key + 1);
-                objects.push_back(oi);
-
-                // // WRITE INFO TO FILE
-                // std::ostringstream oss;
-                // oss << mVehicleController->getVehicleId() << "_detection_pos.txt";
-                // detection_file.open(oss.str().c_str(), std::ios_base::app);
-
-                // const traci::Boundary boundary{mVehicleController->getTraCI()->simulation.getNetBoundary()};
-                // artery::Position arteryPos = Position(value.detection_coords.x, value.detection_coords.y);
-                // traci::TraCIPosition traCIPos = position_cast(boundary,arteryPos);
-
-                // detection_file << mVehicleController->getVehicleId() << "," << oi.initial_timestamp << "," << traCIPos.x << ","
-                //                << traCIPos.y << endl;
-                // detection_file.close();
-                ++it;
-            } else {
-                // if the following sensor isn't active, we just send the information gathered from de current sensor
-                oi.detection_coords = value.detection_coords;
-                oi.direction = value.direction;
-                oi.initial_timestamp = value.initial_timestamp;
-                oi.detection_delta_time = value.detection_delta_time;
-                oi.objectID = value.objectID;
-                oi.speed = value.speed;
-                oi.depth = value.depth;
-
-                oi.xDistance = (value.detection_coords.x - cur_pos_center.x) * 100;
-                oi.yDistance = (value.detection_coords.y - cur_pos_center.y) * 100;
-                oi.sensors.push_back(key);
-                objects.push_back(oi);
-                // // WRITE INFO TO FILE
-                // std::ostringstream oss;
-                // oss << mVehicleController->getVehicleId() << "_detection_pos.txt";
-                // detection_file.open(oss.str().c_str(), std::ios_base::app);
-                // const traci::Boundary boundary{mVehicleController->getTraCI()->simulation.getNetBoundary()};
-                // artery::Position arteryPos = Position(value.detection_coords.x, value.detection_coords.y);
-                // traci::TraCIPosition traCIPos = position_cast(boundary,arteryPos);
-
-                // detection_file << mVehicleController->getVehicleId() << "," << oi.initial_timestamp << "," << traCIPos.x << ","
-                //                << traCIPos.y << endl;
-                detection_file.close();
-            }
-        }
-    }
-}
-
-void CpService::fullPathToFile()
-{
-    for (auto it = detections_map.begin(); it != detections_map.end(); ++it) {
-        auto key = it->first;
-        auto value = it->second;
-        if (value.speed != 0.0) {
-            // if there is movement in the sensor a moving object is present
-            object_info oi;
-            if (key != 5 && key != 11 && detections_map.find(key + 1) != detections_map.end() && detections_map[key + 1].speed != 0) {
-
-
-                if (value.depth < detections_map[key + 1].depth) {
-                    oi.detection_coords = value.detection_coords;
-                } else {
-                    oi.detection_coords = detections_map[key + 1].detection_coords;
-                }
-                oi.initial_timestamp = value.initial_timestamp;
-                oi.depth = value.depth;
-                oi.detection_delta_time = value.detection_delta_time;
-                oi.objectID = value.objectID;
-
-                if ((oi.detection_coords.x != value.detection_coords.x || oi.detection_coords.y != value.detection_coords.y) &&
-                    (oi.detection_coords.x != detections_map[key + 1].detection_coords.x ||
-                     oi.detection_coords.y != detections_map[key + 1].detection_coords.y)) {
-
-                    omnetpp::cFigure::Point pq = value.detection_coords - value.last_detection_coords;
-                    double magPq = std::sqrt(std::pow(pq.x, 2) + std::pow(pq.y, 2));
-                    double angl = std::acos(pq.x / magPq);
-                    if (pq.y > 0)
-                        angl = angl + PI;
-
-                    // distance between the previous coord and the present one
-                    auto dist = std::sqrt(
-                        std::pow((value.last_detection_coords.x - oi.detection_coords.x), 2) +
-                        std::pow((value.last_detection_coords.y - oi.detection_coords.y), 2));
-
-                    oi.direction = angl;
-                    oi.speed = dist / (value.initial_timestamp - value.last_timestamp);
-                    // oi.xDistance = -cos(uss_setups[key].norm_detection_angle) * value.depth;
-                    // oi.yDistance = sin(uss_setups[key].norm_detection_angle) * value.depth;
-                    oi.xDistance = (oi.detection_coords.x - cur_pos_center.x) * 100;
-                    oi.yDistance = (oi.detection_coords.y - cur_pos_center.y) * 100;
-                    oi.depth = value.depth;
-
-                    // EV << "xDistance (send):" << oi.xDistance/100 << endl << "yDistance: " << oi.xDistance/100<< endl;
-                    //  EV << "old speed: " << value.speed << endl;
-                    //  EV << "old direction: " << value.direction << endl;
-                    //  EV << "new speed: " << oi.speed << endl;
-                    //  EV << "new direction: " << oi.speed << endl;
-
-                } else {
-                    oi.xDistance = (value.detection_coords.x - cur_pos_center.x) * 100;
-                    oi.yDistance = (value.detection_coords.y - cur_pos_center.y) * 100;
-                    oi.direction = value.direction;
-                    oi.depth = value.depth;
-                    oi.speed = value.speed;
-                }
-
-
-                oi.sensors.push_back(key);
-                oi.sensors.push_back(key + 1);
-
-                // WRITE INFO TO FILE
-                std::ostringstream oss;
-                oss << mVehicleController->getVehicleId() << "_detection_pos.txt";
-                detection_file.open(oss.str().c_str(), std::ios_base::app);
-
-                const traci::Boundary boundary{mVehicleController->getTraCI()->simulation.getNetBoundary()};
-                artery::Position arteryPos = Position(value.detection_coords.x, value.detection_coords.y);
-                traci::TraCIPosition traCIPos = position_cast(boundary, arteryPos);
-
-                DistanceConfidence_t conf = std::round(std::sqrt(2 * std::pow(oi.depth, 2) * (1 - std::cos(PI / 12))) * 100);
-
-                detection_file << mVehicleController->getVehicleId() << "," << oi.initial_timestamp << "," 
-                << traCIPos.x << "," << traCIPos.y << "," << conf << endl;
-                detection_file.close();
-
-                // DRAW DETECTION
-                omnetpp::cFigure::Point final_pos = {value.detection_coords.x, value.detection_coords.y};
-                omnetpp::cFigure::Point a = omnetpp::cFigure::Point(final_pos.x + 0.1, final_pos.y + 0.1);
-                omnetpp::cFigure::Point b = omnetpp::cFigure::Point(final_pos.x + 0.1, final_pos.y - 0.1);
-                omnetpp::cFigure::Point c = omnetpp::cFigure::Point(final_pos.x - 0.1, final_pos.y - 0.1);
-                omnetpp::cFigure::Point d = omnetpp::cFigure::Point(final_pos.x - 0.1, final_pos.y + 0.1);
-
-                auto cross_line1 = new cLineFigure();
-                cross_line1->setStart(a);
-                cross_line1->setEnd(c);
-                cross_line1->setLineColor("RED");
-                detections->addFigure(cross_line1);
-                auto cross_line2 = new cLineFigure();
-                cross_line2->setStart(b);
-                cross_line2->setEnd(d);
-                cross_line2->setLineColor("RED");
-                detections->addFigure(cross_line2);
-
-                ++it;
-            } else {
-                // if the following sensor isn't active, we just send the information gathered from de current sensor
-                oi.detection_coords = value.detection_coords;
-                oi.direction = value.direction;
-                oi.initial_timestamp = value.initial_timestamp;
-                oi.detection_delta_time = value.detection_delta_time;
-                oi.objectID = value.objectID;
-                oi.speed = value.speed;
-                oi.depth = value.depth;
-
-                oi.xDistance = (value.detection_coords.x - cur_pos_center.x) * 100;
-                oi.yDistance = (value.detection_coords.y - cur_pos_center.y) * 100;
-                oi.sensors.push_back(key);
-                // WRITE INFO TO FILE
-                std::ostringstream oss;
-                oss << mVehicleController->getVehicleId() << "_detection_pos.txt";
-                detection_file.open(oss.str().c_str(), std::ios_base::app);
-                const traci::Boundary boundary{mVehicleController->getTraCI()->simulation.getNetBoundary()};
-                artery::Position arteryPos = Position(value.detection_coords.x, value.detection_coords.y);
-                traci::TraCIPosition traCIPos = position_cast(boundary, arteryPos);
                 
-                DistanceConfidence_t conf = std::round(std::sqrt(2 * std::pow(oi.depth, 2) * (1 - std::cos(PI / 12))) * 100);
+            }
+        } else if (active_tracks.size() < objects_map.size()) { 
+            // there are more observations than tracks so all the track have a new observation and some new tracks are created 
+            EV << "HÁ MAIS OBJECTOS DO QUE TRACKS!" << endl;
+            for (size_t i = 0; i < active_tracks.size(); ++i) {
+                if(min_cost_indices[i] != -1){
+                    omnetpp::cFigure::Point pq = objects_map[keys[min_cost_indices[i]]].detection_coord - tracks_map[active_tracks[i]].detection_coord;
+                    double magPq = std::sqrt(std::pow(pq.x, 2) + std::pow(pq.y, 2));
+                    double angl = std::acos(pq.x / magPq);
+                    if (pq.y > 0)
+                        angl = angl + PI;
 
-                detection_file << mVehicleController->getVehicleId() << "," << oi.initial_timestamp << "," 
-                << traCIPos.x << "," << traCIPos.y << "," << conf << endl;
-                detection_file.close();
+                    tracks_map[active_tracks[i]].direction = angl;
+                    tracks_map[active_tracks[i]].speed = std::sqrt(std::pow(tracks_map[active_tracks[i]].detection_coord.x - objects_map[keys[min_cost_indices[i]]].detection_coord.x, 2)
+                    + std::pow(tracks_map[active_tracks[i]].detection_coord.y - objects_map[keys[min_cost_indices[i]]].detection_coord.y, 2))
+                    / (objects_map[keys[min_cost_indices[i]]].timestamp-tracks_map[active_tracks[i]].timestamp);
+                    // EV << "x1: " << tracks_map[active_tracks[i]].detection_coord.x << endl <<
+                    // "x2: " << objects_map[keys[min_cost_indices[i]]].detection_coord.x << endl <<
+                    // "y1: " << tracks_map[active_tracks[i]].detection_coord.y << endl <<
+                    // "y2: " << objects_map[keys[min_cost_indices[i]]].detection_coord.y << endl <<
+                    // "SPEED CALCULATED: " << tracks_map[active_tracks[i]].speed << endl <<
+                    // "ANGL CALCULATED: " << angl << endl;
+                    tracks_map[active_tracks[i]].detection_coord = objects_map[keys[min_cost_indices[i]]].detection_coord;
+                    tracks_map[active_tracks[i]].timestamp = objects_map[keys[min_cost_indices[i]]].timestamp;
+                    tracks_map[active_tracks[i]].sensor = keys[min_cost_indices[i]];
+                    
+                    keys.erase(std::remove(keys.begin(), keys.end(), min_cost_indices[i]), keys.end());
+                }
+                
+            }
 
-                // DRAW DETECTION
-                omnetpp::cFigure::Point final_pos = {value.detection_coords.x, value.detection_coords.y};
-                omnetpp::cFigure::Point a = omnetpp::cFigure::Point(final_pos.x + 0.1, final_pos.y + 0.1);
-                omnetpp::cFigure::Point b = omnetpp::cFigure::Point(final_pos.x + 0.1, final_pos.y - 0.1);
-                omnetpp::cFigure::Point c = omnetpp::cFigure::Point(final_pos.x - 0.1, final_pos.y - 0.1);
-                omnetpp::cFigure::Point d = omnetpp::cFigure::Point(final_pos.x - 0.1, final_pos.y + 0.1);
+            for (size_t i = 0; i < objects_map.size() - active_tracks.size(); ++i) {
 
-                auto cross_line1 = new cLineFigure();
-                cross_line1->setStart(a);
-                cross_line1->setEnd(c);
-                cross_line1->setLineColor("RED");
-                detections->addFigure(cross_line1);
-                auto cross_line2 = new cLineFigure();
-                cross_line2->setStart(b);
-                cross_line2->setEnd(d);
-                cross_line2->setLineColor("RED");
-                detections->addFigure(cross_line2);
+                Identifier_t id = 0;
+                std::random_device rd;
+                std::mt19937 gen(rd());
+                do {
+                    std::uniform_int_distribution<> distrib(0, 255);
+                    id = distrib(gen);
+                } while ((std::find(active_obj_ids.begin(), active_obj_ids.end(), id) != active_obj_ids.end()));
+
+                active_obj_ids.push_back(id);  // objectIDs in use
+
+                tracks_map[id].detection_coord = objects_map[keys[i]].detection_coord;
+                tracks_map[id].timestamp = objects_map[keys[i]].timestamp;
+                tracks_map[id].sensor = keys[i];
+                tracks_map[id].speed = 0;
+                tracks_map[id].direction = 0;
+
+                active_tracks.push_back(id);
+                kf_map[id] = KalmanFilter(0.05, 0, 0, 0, 0.3, 0.3);
+                tracks_count++;
+            }
+        } else {
+            // there are more tracks than observations so some tracks wont be "refreshed"
+            EV << "HÁ MAIS TRACKS DO QUE OBJECTOS!" << endl;
+            double min_cost = 0;
+            int tracks_aux = -1;
+            int pos_aux = -1;
+
+            for (size_t j = 0; j < objects_map.size(); ++j) {
+                min_cost = cost_matrix[0][j];
+                pos_aux = j;
+                tracks_aux = 0;
+                for (size_t i = 0; i < active_tracks.size(); ++i) {
+                    if (cost_matrix[i][j] < min_cost) {
+                        min_cost = cost_matrix[i][j];
+                        tracks_aux = i;
+                    }
+                }
+                
+                omnetpp::cFigure::Point pq = objects_map[keys[pos_aux]].detection_coord - tracks_map[active_tracks[tracks_aux]].detection_coord;
+                double magPq = std::sqrt(std::pow(pq.x, 2) + std::pow(pq.y, 2));
+                double angl = std::acos(pq.x / magPq);
+                if (pq.y > 0)
+                    angl = angl + PI;
+
+                tracks_map[active_tracks[tracks_aux]].direction = angl;
+                tracks_map[active_tracks[tracks_aux]].speed = std::sqrt(std::pow(tracks_map[active_tracks[tracks_aux]].detection_coord.x - objects_map[keys[pos_aux]].detection_coord.x, 2) 
+                + std::pow(tracks_map[active_tracks[tracks_aux]].detection_coord.y - objects_map[keys[pos_aux]].detection_coord.y, 2))
+                / ((objects_map[keys[pos_aux]].timestamp-tracks_map[active_tracks[tracks_aux]].timestamp));
+                // EV << "x1: " << tracks_map[active_tracks[tracks_aux]].detection_coord.x << endl <<
+                // "x2: " << objects_map[keys[pos_aux]].detection_coord.x << endl <<
+                // "y1: " << tracks_map[active_tracks[tracks_aux]].detection_coord.y << endl <<
+                // "y2: " << objects_map[keys[pos_aux]].detection_coord.y << endl <<
+                // "SPEED CALCULATED: " << tracks_map[active_tracks[tracks_aux]].speed << endl <<
+                // "ANGL CALCULATED: " << angl << endl;
+                tracks_map[active_tracks[tracks_aux]].detection_coord = objects_map[keys[pos_aux]].detection_coord;
+                tracks_map[active_tracks[tracks_aux]].timestamp = objects_map[keys[pos_aux]].timestamp;
+                tracks_map[active_tracks[tracks_aux]].sensor = keys[pos_aux];
             }
         }
     }
+
+    std::vector<int> remove_tracks;
+
+    for (const auto& at : active_tracks) {
+        auto prediction = kf_map[at].predict();
+        if((std::sqrt(std::pow(prediction[0] - tracks_map[at].detection_coord.x, 2) + std::pow(prediction[1] - tracks_map[at].detection_coord.y, 2))) >= 1){
+            tracks_map[at].count_reset = tracks_map[at].count_reset + 1;
+        }
+        else{
+            tracks_map[at].count_reset = 0;
+        }
+        
+        if(tracks_map[at].count_reset >= 7){ //  0.2 segundo / 0,05 T = 4 timestamps
+            cLineFigure* line1 = tracks_map[at].cross_line1;
+            cLineFigure* line2 = tracks_map[at].cross_line2;
+            if (line1 != nullptr && line2 != nullptr) {
+                detections->removeFigure(tracks_map[at].cross_line1);
+                detections->removeFigure(tracks_map[at].cross_line2);
+            }
+            tracks_map.erase(at);
+            kf_map.erase(at);
+            remove_tracks.push_back(at);
+        }else{
+            kf_map[at].update({tracks_map[at].detection_coord.x, tracks_map[at].detection_coord.y});
+            auto updated = kf_map[at].getPosition();
+            tracks_map[at].detection_coord = omnetpp::cFigure::Point(updated(0), updated(1));
+
+            cLineFigure* line1 = tracks_map[at].cross_line1;
+            cLineFigure* line2 = tracks_map[at].cross_line2;
+            if (line1 != nullptr && line2 != nullptr) {
+                detections->removeFigure(tracks_map[at].cross_line1);
+                detections->removeFigure(tracks_map[at].cross_line2);
+            }
+            // DRAW DETECTION
+            auto coord = tracks_map[at].detection_coord;
+            auto cross_line1 = new cLineFigure();
+            auto cross_line2 = new cLineFigure();
+            cross_line1->setStart(omnetpp::cFigure::Point(coord.x + 0.1, coord.y + 0.1));
+            cross_line1->setEnd(omnetpp::cFigure::Point(coord.x - 0.1, coord.y - 0.1));
+            cross_line2->setStart(omnetpp::cFigure::Point(coord.x + 0.1, coord.y - 0.1));
+            cross_line2->setEnd(omnetpp::cFigure::Point(coord.x - 0.1, coord.y + 0.1));
+            cross_line1->setZIndex(3);
+            cross_line2->setZIndex(3);
+            if(at % 2 == 0){
+                cross_line1->setLineColor("RED");
+                cross_line2->setLineColor("RED");
+            }else{
+                cross_line1->setLineColor("BLUE");
+                cross_line2->setLineColor("BLUE");
+            }
+            detections->addFigure(cross_line1);
+            detections->addFigure(cross_line2);
+            
+            tracks_map[at].cross_line1 = cross_line1;
+            tracks_map[at].cross_line2 = cross_line2;
+        }
+    }
+    for (auto at : remove_tracks) {
+        EV << "REMOVEU A TRACK " << at << endl;
+        active_tracks.erase(std::remove(active_tracks.begin(), active_tracks.end(), at), active_tracks.end());
+        cLineFigure* line1 = tracks_map[at].cross_line1;
+        cLineFigure* line2 = tracks_map[at].cross_line2;
+        if (line1 != nullptr && line2 != nullptr) {
+            detections->removeFigure(tracks_map[at].cross_line1);
+            detections->removeFigure(tracks_map[at].cross_line2);
+        }
+    }
+    past_tracks_map = tracks_map;
+    past_active_tracks = active_tracks;
 }
 
-omnetpp::cFigure::Point CpService::findPosition(
-    omnetpp::cFigure::Point cpc, omnetpp::cFigure::Point A, omnetpp::cFigure::Point B, double d_A, double d_B, omnetpp::cFigure::Point C,
-    omnetpp::cFigure::Point D)
-{  // does the triangulation
-    double x1 = A.x, y1 = A.y;
-    double x2 = B.x, y2 = B.y;
-    double d = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+std::vector<std::vector<double>> CpService::generate_cost_matrix(double distance_weight, double direction_weight) {
 
-    if (d > d_A + d_B || d < abs(d_A - d_B) || (d == 0 && d_A != d_B)) {
-        // if there is no intersection (the circles do not touch)
-        // we return the detection that is most close to the sensor
-        if (d_A < d_B)
-            return C;
-        else
-            return D;
+    size_t n = active_tracks.size();
+    size_t m = objects_map.size();
+    std::vector<std::vector<double>> cost_matrix(n, std::vector<double>(m, 0.0));
+
+    for (size_t i = 0; i < n; ++i) {
+        int j = 0;
+        for (auto pair : objects_map) {
+            auto key = pair.first;
+            auto value = pair.second;
+
+            auto pred_track_pos = tracks_map[active_tracks[i]];
+            auto detection_pos = value.detection_coord;
+            auto past_tracks_map_pos = past_tracks_map[past_active_tracks[i]];
+
+            double dx = pred_track_pos.detection_coord.x - detection_pos.x;
+            double dy = pred_track_pos.detection_coord.y - detection_pos.y;
+
+            double distance = std::sqrt(dx * dx + dy * dy);
+            double ang_dif = 0.0;
+
+            if (!past_active_tracks.empty()) {
+                double delta_x = past_tracks_map_pos.detection_coord.x - pred_track_pos.detection_coord.x;
+                double delta_y = past_tracks_map_pos.detection_coord.y - pred_track_pos.detection_coord.y;
+
+                double angle1 = std::atan2(delta_y, delta_x);
+
+                delta_x = pred_track_pos.detection_coord.x - detection_pos.x;
+                delta_y = pred_track_pos.detection_coord.y - detection_pos.y;
+
+                double angle2 = std::atan2(delta_y, delta_x);
+
+                ang_dif = std::abs(angle1 - angle2);
+            }
+
+            cost_matrix[i][j] = std::round(distance * 100.0) / 100.0 * distance_weight + std::round(ang_dif * 100.0) / 100.0 * direction_weight;
+            j++;
+        }
+    }
+    return cost_matrix;
+}
+
+// std::vector<int> CpService::optimal_assignment(const std::vector<std::vector<double>>& cost_matrix) {
+//     size_t num_tracks = cost_matrix.size();
+//     std::vector<int> indices(num_tracks);
+//     std::iota(indices.begin(), indices.end(), 0);
+//     double best_cost = std::numeric_limits<double>::infinity();
+//     std::vector<int> best_assignment;
+
+//     do {
+//         double total_cost = 0.0;
+//         for (size_t i = 0; i < num_tracks; ++i) {
+//             total_cost += cost_matrix[i][indices[i]];
+//         }
+
+//         if (total_cost < best_cost) {
+//             best_cost = total_cost;
+//             best_assignment = indices;
+//         }
+//     } while (std::next_permutation(indices.begin(), indices.end()));
+
+//     return best_assignment;
+// }
+
+std::vector<int> CpService::optimal_assignment(const std::vector<std::vector<double>>& cost_matrix) {
+    const double UNASSIGNED_COST = 1e6; // High cost for unassigned tracks
+
+    size_t num_tracks = cost_matrix.size();
+    size_t num_detections = cost_matrix[0].size();
+
+    // Augment the cost matrix with dummy assignments for unassigned tracks
+    std::vector<std::vector<double>> augmented_matrix = cost_matrix;
+    for (auto& row : augmented_matrix) {
+        row.push_back(UNASSIGNED_COST); // Add dummy column
     }
 
-    double a = (d_A * d_A - d_B * d_B + d * d) / (2 * d);
-    double h = sqrt(d_A * d_A - a * a);
+    // Adjust the size for permutations
+    size_t num_assignments = augmented_matrix[0].size();
+    std::vector<int> indices(num_assignments);
+    std::iota(indices.begin(), indices.end(), 0);
 
-    double x0 = x1 + a * (x2 - x1) / d;
-    double y0 = y1 + a * (y2 - y1) / d;
+    double best_cost = std::numeric_limits<double>::infinity();
+    std::vector<int> best_assignment(num_tracks, -1);
 
-    double rx = -(y2 - y1) * (h / d);
-    double ry = (x2 - x1) * (h / d);
+    do {
+        double total_cost = 0.0;
+        bool valid = true;
 
-    omnetpp::cFigure::Point P1 = {x0 + rx, y0 + ry};
-    omnetpp::cFigure::Point P2 = {x0 - rx, y0 - ry};
+        // Compute the total cost for the current permutation
+        for (size_t i = 0; i < num_tracks; ++i) {
+            int assignment = indices[i];
+            if (assignment < num_detections) {
+                total_cost += augmented_matrix[i][assignment];
+            } else if (assignment == num_detections) {
+                // Track is unassigned
+                total_cost += UNASSIGNED_COST;
+            } else {
+                valid = false;
+                break;
+            }
+        }
 
-    if (std::sqrt(std::pow(A.x - cpc.x, 2) + std::pow(A.y - cpc.y, 2)) > std::sqrt(std::pow(B.x - cpc.x, 2) + std::pow(B.y - cpc.y, 2)))
-        // if (P1.x < mVehicleDataProvider->position().x.value() && P1.x > mVehicleDataProvider->position().x.value() - vehicle_length)
-        //  triangulation with only 2 detections gives us 2 possible coords
-        //  we chose the coord that is in outside of the car
-        return P1;
-    else
-        return P2;
+        if (valid && total_cost < best_cost) {
+            best_cost = total_cost;
+            best_assignment = indices;
+        }
+    } while (std::next_permutation(indices.begin(), indices.end()));
+
+    // Map assignments back to the original detection set (-1 indicates unassigned)
+    for (size_t i = 0; i < best_assignment.size(); ++i) {
+        if (best_assignment[i] >= num_detections) {
+            best_assignment[i] = -1; // Unassigned
+        }
+    }
+
+    return best_assignment;
 }
 
-omnetpp::cFigure::Point CpService::drawDetections(int role_name, double depth)
-{
-    // // From front-center-bumper to center (sumo reference system).
+// int MyVeinsRSUApp::pointInPolygon (int nvert, Coord verts[], Coord point)
+// {
+//     int i, j, c = 0;
 
-    uss_setup desired_config = uss_setups[role_name];
-    omnetpp::cFigure::Point detection_pos =
-        omnetpp::cFigure::Point(-cos(desired_config.norm_detection_angle) * depth, sin(desired_config.norm_detection_angle) * depth);
-
-    omnetpp::cFigure::Point final_pos = cur_pos_center + desired_config.sensor_pos + detection_pos;
-
-    auto cross_line1 = new cLineFigure();
-    cross_line1->setStart(omnetpp::cFigure::Point(final_pos.x + 0.1, final_pos.y + 0.1));
-    cross_line1->setEnd(omnetpp::cFigure::Point(final_pos.x - 0.1, final_pos.y - 0.1));
-    cross_line1->setLineColor("BLACK");
-    cross_line1->setZIndex(3);
-    // detections->addFigure(cross_line1);
-
-    auto cross_line2 = new cLineFigure();
-    cross_line2->setStart(omnetpp::cFigure::Point(final_pos.x + 0.1, final_pos.y - 0.1));
-    cross_line2->setEnd(omnetpp::cFigure::Point(final_pos.x - 0.1, final_pos.y + 0.1));
-    cross_line2->setLineColor("BLACK");
-    cross_line2->setZIndex(3);
-    // detections->addFigure(cross_line2);
-
-    auto arc = new cArcFigure();
-    arc->setBounds(cFigure::Rectangle(cur_pos_center.x + desired_config.sensor_pos.x, cur_pos_center.y + desired_config.sensor_pos.y, 2 * depth, 2 * depth));
-    arc->setPosition(cur_pos_center + desired_config.sensor_pos, cFigure::ANCHOR_CENTER);
-    arc->setStartAngle(desired_config.norm_detection_angle - 30 * PI / 180 + PI);
-    arc->setEndAngle(desired_config.norm_detection_angle + 30 * PI / 180 + PI);
-    // detections->addFigure(arc);
-
-    detections_map[role_name].depth = depth;
-    detections_map[role_name].line1 = cross_line1;
-    detections_map[role_name].line2 = cross_line2;
-    detections_map[role_name].arc = arc;
-    detections_map[role_name].last_timestamp = detections_map[role_name].initial_timestamp;
-    detections_map[role_name].last_detection_coords = detections_map[role_name].detection_coords;
-    detections_map[role_name].detection_coords = final_pos;
-
-    return final_pos;
-}
+//     for (i = 0, j = nvert-1; i < nvert; j = i++) {
+//         if ( ((verts[i].y>point.y) != (verts[j].y>point.y)) && (point.x < (verts[j].x-verts[i].x) * (point.y-verts[i].y) / (verts[j].y-verts[i].y) + verts[i].x) )
+//            c = !c;
+//     }
+//     return c;
+// }
 
 }  // namespace artery

@@ -73,7 +73,6 @@ typedef struct {
     uint16_t detection_delta_time;
     double depth;
     omnetpp::cFigure::Point detection_coord;
-
     omnetpp::cLineFigure* line1;
     omnetpp::cLineFigure* line2;
     omnetpp::cArcFigure* arc;
@@ -82,20 +81,59 @@ typedef struct {
 typedef struct {
     double timestamp;
     uint16_t detection_delta_time;
+    double depth; 
     omnetpp::cFigure::Point detection_coord;
+    double xDistance;
+    double yDistance;
+    int sensor;
 } object_info;
 
 typedef struct {
     double timestamp;
-    uint16_t detection_delta_time;
+    // uint16_t detection_delta_time;
+    //double depth; 
     omnetpp::cFigure::Point detection_coord;
-    double speed;
-    double direction;
     int sensor;
-    int count_reset;
-    omnetpp::cLineFigure* cross_line1;
-    omnetpp::cLineFigure* cross_line2;
 } track_info;
+
+// typedef struct {
+//     double last_timestamp;
+//     double initial_timestamp;
+//     uint16_t detection_delta_time;
+//     double depth;
+//     omnetpp::cFigure::Point last_detection_coords;
+//     omnetpp::cFigure::Point detection_coords;
+//     double speed;
+//     Identifier_t objectID;
+//     double direction;
+//     omnetpp::cLineFigure* line1;
+//     omnetpp::cLineFigure* line2;
+//     omnetpp::cArcFigure* arc;
+// }   uss_value;
+
+// typedef struct {
+//     Identifier_t objectID;
+//     double initial_timestamp;
+//     uint16_t detection_delta_time;
+//     double depth;
+//     omnetpp::cFigure::Point detection_coords;
+//     double xDistance;
+//     double yDistance;
+//     double speed;
+//     double direction;
+//     std::list <int> sensors;
+// } object_info;
+
+// typedef struct {
+//     Identifier_t objectID;
+//     double timestamp;
+//     uint16_t detection_delta_time;
+//     double depth; 
+//     omnetpp::cFigure::Point detection_coords;
+//     double xDistance;
+//     double yDistance;
+//     int sensor;
+// } object_info;
 
 bool operator<(const std::string& one, const std::string& other);
 
@@ -150,16 +188,19 @@ private:
     omnetpp::cFigure::Point sensor_pos;
     std::map<std::string, int> numSamplesPerSensor;
 
-	std::map<int, uss_setup> uss_setups;
     std::map<int, uss_value> detections_map;
-    std::map<int, object_info> objects_map;
+	std::map<int, uss_setup> uss_setups;
+
+    // NEW VARIABLES FOR MOT AND KF
     
+
     std::map<int, track_info> tracks_map;
     std::map<int, track_info> past_tracks_map;
-    int tracks_count = 0;
+    int tracks_count_id = 0;
     std::vector<int> active_tracks;
     std::vector<int> past_active_tracks;
     std::map<int, KalmanFilter> kf_map;
+
 
     std::string topic;
     double vehicle_length;
@@ -168,7 +209,7 @@ private:
     omnetpp::cFigure::Point cur_pos_center;
 
     int repeted_detections[12];
-    omnetpp::cFigure::Point static_object[12];
+    omnetpp::cFigure::Point static_object[12]; 
     
     std::list<Identifier_t> active_obj_ids;
     std::string protocol;
@@ -182,9 +223,13 @@ private:
     void receiveFromCarla();
     void updateEveryTimestamp();
     void storeDetections(int role_name, double initial_timestamp, uint16_t detection_delta_time, double depth);
+    //void determineObjects(std::list<object_info>& objects);
+    // void processDetections(int role_name, double initial_timestamp, uint16_t detection_delta_time, double depth);
+    // omnetpp::cFigure::Point drawDetections(int role_name, double depth);
+    // void fullPathToFile();
+    // void filterDetections();
     omnetpp::cFigure::Point findPosition(omnetpp::cFigure::Point cpc, omnetpp::cFigure::Point A, omnetpp::cFigure::Point B, double d_A, double d_B, omnetpp::cFigure::Point C, omnetpp::cFigure::Point D);
 
-    void processDetections();
     void multiObjectTracking();
 
     std::vector<int> optimal_assignment(const std::vector<std::vector<double>>& cost_matrix);
@@ -192,6 +237,14 @@ private:
     std::vector<std::vector<double>> generate_cost_matrix(
     double distance_weight,
     double direction_weight);
+
+    // std::vector<std::vector<double>> generate_cost_matrix(
+    // const std::map<int, track_info> pred_tracks,
+    // const std::vector<int>& active_tracks,
+    // const std::vector<int>& past_active_tracks,
+    // const std::map<int, track_info> past_pred_tracks,
+    // double distance_weight,
+    // double direction_weight)
 
 };
 

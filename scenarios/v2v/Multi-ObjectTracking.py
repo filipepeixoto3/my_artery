@@ -79,12 +79,11 @@ def optimal_assignment(cost_matrix):
 
 def main():
     # Load detection positions from the files (including confidence)
-    detections = pd.read_csv('car1_detection_pos3.txt')
+    # detections = pd.read_csv('car1_detection_pos3.txt')
     #positions = pd.read_csv('positions.txt')
     
     pred_tracks = {}   # map of predicted tracks
     past_pred_tracks = {}   # map of past predicted tracks
-    pred_tracks_repeat = {}   # number of detections a track has
     tracks_count_id = 0 # counter of tracks used for id atribution
     active_tracks = []  # list with the ids of active tracks
     past_active_tracks = []   # list with the ids of active tracks in the past iteration
@@ -113,27 +112,19 @@ def main():
             
         for i in range(len(pos)):
             pred_tracks[tracks_count_id] = (pos[i, 0], pos[i, 1], timestamp)
-            pred_tracks_repeat[tracks_count_id] = 1
                 
             active_tracks.append(tracks_count_id)
             kf_map[tracks_count_id] = KalmanFilter(0.05, 0, 0, 0, 0.3, 0.3)
-                
-            # detected_plot[tracks_count_id] = []
-            # detected_plot[tracks_count_id].append((pos[i, 0],pos[i, 1], timestamp))
-            # updated_period[tracks_count_id] = timestamp
-            # updated_plot[tracks_count_id] = []
-            # predicted_plot[tracks_count_id] = []
 
             tracks_count_id += 1
                 
     else:
         cost_matrix = generate_cost_matrix(pred_tracks, active_tracks, past_active_tracks, past_pred_tracks, pos)
-        #min_cost_indices = np.argmin(cost_matrix, axis=1)
         min_cost_indices = optimal_assignment(cost_matrix) # we calculate the otimal assignement
         """
         cost matrix:   
                         detections:
-                        0    1    3
+                      0    1    3
                 0  [[0.8  0.3  0.9],          
         tracks: 1   [0.3  0.9  0.9],
                 2   [0.9  0.8  0.3]]
@@ -146,7 +137,7 @@ def main():
         """
             
         if len(active_tracks) == len(pos): #number of detections is equal to the number of active tracks
-                    
+
             if len(min_cost_indices) != len(set(min_cost_indices)): 
             # if min_cost_indices has repeated values, that means that a detection was atribuited to more than one track
                 min_cost_indices = optimal_assignment(cost_matrix) # we calculate the otimal assignement
@@ -155,40 +146,18 @@ def main():
             for i,value in enumerate(active_tracks):
                 pred_tracks[value] = (pos[min_cost_indices[i], 0], pos[min_cost_indices[i], 1], timestamp)
                 
-                if value in pred_tracks_repeat:
-                    pred_tracks_repeat[value] += 1
-                else:
-                    pred_tracks_repeat[value] = 1
-                    
-                # if value not in detected_plot:
-                #     detected_plot[value] = []
-                # detected_plot[value].append((pos[min_cost_indices[i], 0], pos[min_cost_indices[i], 1], timestamp)) # for ploting the detections
-                
+                     
         elif len(active_tracks) < len(pos): #number of detections is greater than the number of active tracks
                 
             # the existing tracks get updated with the new detection
             for i,value in enumerate(active_tracks):
                 pred_tracks[value] = (pos[min_cost_indices[i], 0], pos[min_cost_indices[i], 1], timestamp)
-                pred_tracks_repeat[value] += 1
-
-                # if value not in detected_plot:
-                #     detected_plot[value] = []
-                # detected_plot[value].append((pos[min_cost_indices[i], 0], pos[min_cost_indices[i], 1], timestamp))
-                
+ 
             # a new track for each detection that doesnt have a track is added
             for i in range(len(pos) - len(active_tracks)):
                 pred_tracks[tracks_count_id] = (pos[len(active_tracks)-1+i, 0], pos[len(active_tracks)-1+i, 1], timestamp)
-                pred_tracks_repeat[tracks_count_id] = 1
                 active_tracks.append(tracks_count_id)
                 kf_map[tracks_count_id] = (KalmanFilter(0.05, 0, 0, 0, 0.3, 0.3))
-
-                # for plotting
-                # if tracks_count_id not in detected_plot:
-                #     detected_plot[tracks_count_id] = []
-                # detected_plot[tracks_count_id].append((pos[len(active_tracks)-1+i, 0], pos[len(active_tracks)-1+i, 1], timestamp))
-                # updated_period[tracks_count_id] = timestamp
-                # updated_plot[tracks_count_id] = []
-                # predicted_plot[tracks_count_id] = []
 
                 tracks_count_id += 1  
             
@@ -207,59 +176,15 @@ def main():
                         tracks_aux = i 
                             
                 pred_tracks[active_tracks[tracks_aux]] = (pos[pos_aux, 0], pos[pos_aux, 1], timestamp)
-                pred_tracks_repeat[active_tracks[tracks_aux]] += 1
 
     # Update each Kalman filter with the current position
     for at in active_tracks:
 
         prediction = kf_map[at].predict()  # Predict the next position with the KALMAN FILTER
         update = kf_map[at].update([pred_tracks[at][0], pred_tracks[at][1]])  # Update with the current position with the KALMAN FILTER
-
-        # Only plots after 5 iterations so the filter stablizes, and only plots the update and detection every 1 second
-        # if pred_tracks_repeat[at]>= 5:
-        #     if timestamp - updated_period[at] >= 1:
-        #         updated_plot[at].append((update[0, 0], update[0, 1], timestamp))
-        #         if value not in detected_plot:
-        #             detected_plot[value] = []
-        #         predicted_plot[at].append((prediction[0, 0], prediction[0, 1], timestamp))
-        #         updated_period[at] = timestamp
-
         
     past_pred_tracks = pred_tracks.copy()
     past_active_tracks = active_tracks.copy()
-                
-    #     colors = ['red', 'blue', 'green', 'purple', 'brown', 'pink', 'gray', 'olive', 'cyan','orange']
-    #     plt.clf()
-
-    #     for value in pred_tracks:
-    #         # Plot detected points
-    #         point_color = colors[value % len(colors)]
-    #         # for i in range(len(detected_plot[value])):
-    #         #     x, y, timestamp = detected_plot[value][i]
-    #         #     plt.scatter(x, y, color=point_color, label=f'Update {value}', facecolor='none')
-    #                 #plt.text(x, y, f'{timestamp:.2f}', fontsize=8, ha='right', color=point_color)  # Add timestamp with the same color
-                    
-    #         # Plot updated and predicted points
-    #         for i in range(len(updated_plot[value])):
-    #             x, y, timestamp = updated_plot[value][i]
-    #             plt.scatter(x, y, color=point_color, label=f'Updatead {value}')
-    #             #plt.scatter(predicted_plot[value][i][0], predicted_plot[value][i][1], color=point_color, label=f'Detected {value}', facecolor='none')
-    #             plt.text(x, y, f'{timestamp:.2f}', fontsize=8, ha='right', color=point_color)  # Add timestamp with the same color
-
-
-    #     plt.xlabel('X-axis')
-    #     plt.ylabel('Y-axis')
-    #     plt.title('Kalman Filter Tracking: Detections, Predictions, and Updates')
-    #     #plt.legend()
-    #     plt.draw()
-    #     plt.pause(0.1)  # Pause to allow the plot to update
-   
-    #     #except Exception as e:
-    #     #    print(f"Error processing timestamp {timestamp}: {e}")
-
-    # plt.ioff()  # Turn off interactive mode
-    # plt.show()  # Keep the plot open after processing
-
 
 if __name__ == "__main__":
     main()

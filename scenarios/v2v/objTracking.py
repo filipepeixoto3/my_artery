@@ -78,7 +78,8 @@ def optimal_assignment(cost_matrix):
 
 def main():
     # Load detection positions from the files (including confidence)
-    detections = pd.read_csv('car1_detection_pos3.txt')
+    #detections = pd.read_csv('car0_detection_pos.txt')
+    detections = pd.read_csv('car0_detection_pos.txt')
     #positions = pd.read_csv('positions.txt')
     
     pred_tracks = {}   # map of predicted tracks
@@ -94,7 +95,7 @@ def main():
     #positions = positions.iloc[1:]
 
     # Sort detections by the timestamp
-    detections = detections.sort_values(by='timestamp')
+    # detections = detections.sort_values(by='timestamp')
     # Group detections by timestamp
     grouped_detections = detections.groupby('timestamp')
     
@@ -145,12 +146,18 @@ def main():
                     
         else:
             cost_matrix = generate_cost_matrix(pred_tracks, active_tracks, past_active_tracks, past_pred_tracks, pos)
-            #min_cost_indices = np.argmin(cost_matrix, axis=1)
-            min_cost_indices = optimal_assignment(cost_matrix) # we calculate the otimal assignement
+            min_cost_indices = np.argmin(cost_matrix, axis=1)
+            print("timestamp: " + str(timestamp))
+            print("cost_matrix:")
+            print(cost_matrix)
+            print("min_cost_indices:")
+            print(min_cost_indices)
+            print()
+            #min_cost_indices = optimal_assignment(cost_matrix) # we calculate the otimal assignement
             """
             cost matrix:   
                           detections:
-                          0    1    3
+                          0    1    2
                     0  [[0.8  0.3  0.9],          
             tracks: 1   [0.3  0.9  0.9],
                     2   [0.9  0.8  0.3]]
@@ -251,16 +258,16 @@ def main():
         for value in pred_tracks:
             # Plot detected points
             point_color = colors[value % len(colors)]
-            # for i in range(len(detected_plot[value])):
-            #     x, y, timestamp = detected_plot[value][i]
-            #     plt.scatter(x, y, color=point_color, label=f'Update {value}', facecolor='none')
-                    #plt.text(x, y, f'{timestamp:.2f}', fontsize=8, ha='right', color=point_color)  # Add timestamp with the same color
+            for i in range(len(detected_plot[value])):
+                x, y, timestamp = detected_plot[value][i]
+                plt.scatter(x, y, color=point_color, label=f'Update {value}', facecolor='none')
+                plt.text(x, y, f'{timestamp:.2f}', fontsize=8, ha='right', color=point_color)  # Add timestamp with the same color
                     
             # Plot updated and predicted points
             for i in range(len(updated_plot[value])):
                 x, y, timestamp = updated_plot[value][i]
                 plt.scatter(x, y, color=point_color, label=f'Updatead {value}')
-                #plt.scatter(predicted_plot[value][i][0], predicted_plot[value][i][1], color=point_color, label=f'Detected {value}', facecolor='none')
+                plt.scatter(predicted_plot[value][i][0], predicted_plot[value][i][1], color=point_color, label=f'Detected {value}', facecolor='none')
                 plt.text(x, y, f'{timestamp:.2f}', fontsize=8, ha='right', color=point_color)  # Add timestamp with the same color
 
 
