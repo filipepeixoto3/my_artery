@@ -868,15 +868,15 @@ void CpService::processDetections(){
             oss.clear();            // Reset any error flags
             oss << mVehicleController->getVehicleId() << "_detection_pos.txt";
             detection_file.open(oss.str().c_str(), std::ios_base::app);
-            arteryPos = Position(oi.detection_coord.x, oi.detection_coord.y);
-            traCIPos = position_cast(boundary,arteryPos);
+            // arteryPos = Position(oi.detection_coord.x, oi.detection_coord.y);
+            // traCIPos = position_cast(boundary,arteryPos);
 
-            detection_file << mVehicleController->getVehicleId() << "," << oi.timestamp << "," << traCIPos.x << ","
-                            << traCIPos.y << "," << tracks_count << endl;
+            detection_file << mVehicleController->getVehicleId() << "," << oi.timestamp << "," << oi.detection_coord.x << ","
+                            << oi.detection_coord.y << "," << tracks_count << endl;
                             
             if(detection_file.is_open()){
-                EV << mVehicleController->getVehicleId() << "," << key  << "," << oi.timestamp << "," << traCIPos.x << ","
-                            << traCIPos.y << "," <<  tracks_count << endl;
+                EV << mVehicleController->getVehicleId() << "," << key  << "," << oi.timestamp << "," << oi.detection_coord.x << ","
+                            << oi.detection_coord.y << "," <<  tracks_count << endl;
             }
             detection_file.close();
     }

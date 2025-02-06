@@ -82,10 +82,13 @@ void BasicNodeManager::initialize()
     canvas = getSimulation()->getModuleByPath("World")->getCanvas();
     draw_figures = new cGroupFigure();
     canvas->addFigure(draw_figures);
-    remove("positions.txt");
-    pos_file.open("positions.txt" , std::ios_base::app);
-        pos_file << "id,timestamp,x,y" << endl;
-        pos_file.close();
+    remove("persons_positions.txt");
+    per_pos_file.open("persons_positions.txt" , std::ios_base::app);
+    per_pos_file << "person_id,timestamp,x,y" << endl;
+    per_pos_file.close();
+    //car_pos_file.open("cars_positions.txt" , std::ios_base::app);
+    //car_pos_file << "id,sensor,x0,y0,x1,y1,x2,y2" << endl;
+    // car_pos_file.close();
     // end add by lip
 }
 
@@ -190,6 +193,9 @@ void BasicNodeManager::addVehicle(const std::string& id)
     } else {
         m_vehicles[id] = nullptr;
     }
+    
+    std::string file_name = id + "_sensor_positions.txt";
+    remove(file_name.c_str());
 }
 
 void BasicNodeManager::removeVehicle(const std::string& id)
@@ -205,14 +211,15 @@ void BasicNodeManager::updateVehicle(const std::string& id, VehicleSink* sink)
     VehicleObjectImpl update(vehicle);
     emit(updateVehicleSignal, id.c_str(), &update);
     if (sink) {
-        sink->updateVehicle(vehicle->get<libsumo::VAR_POSITION>(), TraCIAngle{vehicle->get<libsumo::VAR_ANGLE>()}, vehicle->get<libsumo::VAR_SPEED>());
+        
+        TraCIPosition traci_pos = vehicle->get<libsumo::VAR_POSITION>();
+        sink->updateVehicle(traci_pos, TraCIAngle{vehicle->get<libsumo::VAR_ANGLE>()}, vehicle->get<libsumo::VAR_SPEED>());
 
         double vehicle_angle = angle_cast(TraCIAngle{vehicle->get<libsumo::VAR_ANGLE>()}).radian();
         double vehicle_length = (vehicle->get<libsumo::VAR_LENGTH>() * si::meter).value();
         double vehicle_width = (vehicle->get<libsumo::VAR_WIDTH>() * si::meter).value();
         double bbox_radius = sqrt(pow(vehicle_length / 2, 2) + pow(vehicle_width / 2, 2));
         auto position = traci::position_cast(m_boundary, vehicle->get<libsumo::VAR_POSITION>());
-
 
         // traci::API traCIAPI;
         // TraCIPosition p;
@@ -259,6 +266,14 @@ void BasicNodeManager::updateVehicle(const std::string& id, VehicleSink* sink)
             uss_setups[10] = {29 - 180, -vehicle_length / 2 - 0.1, -vehicle_width / 4, 0.5, 0, 0, 0, omnetpp::cFigure::Point(0, 0)};
             uss_setups[11] = {78 - 180, -vehicle_length / 2 - 0.1, -5 * vehicle_width / 12, 0.5, 0, 0, 0, omnetpp::cFigure::Point(0, 0)};
 
+
+            std::string file_name = id + "_sensor_positions.txt";
+            remove(file_name.c_str());
+            car_pos_file.open(file_name , std::ios_base::app);
+            car_pos_file << "sensor_id,x0,y0,x1,y1,x2,y2" << endl;
+            car_pos_file.close();
+
+
             for (auto it = uss_setups.begin(); it != uss_setups.end(); ++it) {
                 auto key = it->first;
                 auto value = it->second;
@@ -276,23 +291,23 @@ void BasicNodeManager::updateVehicle(const std::string& id, VehicleSink* sink)
                     value.norm_detection_angle += 2 * PI;
                 while (value.norm_detection_angle >= PI)
                     value.norm_detection_angle -= 2 * PI;
-
+                
+                omnetpp::cFigure::Point cur_sensor_pos = cur_pos_center + value.sensor_pos;
                 auto sensor_rectangle = new cRectangleFigure();
-                sensor_rectangle->setBounds(cFigure::Rectangle(cur_pos_center.x + value.sensor_pos.x, cur_pos_center.y + value.sensor_pos.y, 0.2, 0.2));
-                sensor_rectangle->setPosition(cur_pos_center + value.sensor_pos, cFigure::ANCHOR_CENTER);
-                sensor_rectangle->rotate(-vehicle_angle + PI / 2, cur_pos_center + value.sensor_pos);
+                sensor_rectangle->setBounds(cFigure::Rectangle(cur_sensor_pos.x, cur_sensor_pos.y, 0.2, 0.2));
+                sensor_rectangle->setPosition(cur_sensor_pos, cFigure::ANCHOR_CENTER);
+                sensor_rectangle->rotate(-vehicle_angle + PI / 2, cur_sensor_pos);
                 sensor_rectangle->setFilled(true);
                 sensor_rectangle->setFillColor("GRAY");
                 draw_figures->addFigure(sensor_rectangle);
 
                 auto cone = new cPieSliceFigure();
-                cone->setBounds(cFigure::Rectangle(cur_pos_center.x + value.sensor_pos.x, cur_pos_center.y + value.sensor_pos.y, 11, 11));
-                cone->setPosition(cur_pos_center + value.sensor_pos, cFigure::ANCHOR_CENTER);
+                cone->setBounds(cFigure::Rectangle(cur_sensor_pos.x, cur_sensor_pos.y, 11, 11));
+                cone->setPosition(cur_sensor_pos, cFigure::ANCHOR_CENTER);
                 cone->setStartAngle(value.norm_detection_angle + 15 * (PI / 180) + PI);
                 cone->setEndAngle(value.norm_detection_angle - 15 * (PI / 180) + PI);
                 cone->setFilled(true);
                 cone->setFillOpacity(0.01);
-
 
                 if (key % 2 == 0) {
                     cone->setLineColor("GREEN");
@@ -304,6 +319,50 @@ void BasicNodeManager::updateVehicle(const std::string& id, VehicleSink* sink)
                     cone->setFillColor("BLUE");
                 }
                 draw_figures->addFigure(cone);
+
+                
+                omnetpp::cFigure::Point corner1 =
+                    omnetpp::cFigure::Point(-cos(value.norm_detection_angle - 15*(PI/180)) * 5.5, sin(value.norm_detection_angle - 15*(PI/180)) * 5.5);
+                omnetpp::cFigure::Point coord_corner1 = cur_pos_center + value.sensor_pos + corner1;
+                
+                omnetpp::cFigure::Point corner2 =
+                    omnetpp::cFigure::Point(-cos(value.norm_detection_angle + 15*(PI/180)) * 5.5, sin(value.norm_detection_angle + 15*(PI/180)) * 5.5);
+                omnetpp::cFigure::Point coord_corner2 = cur_pos_center + value.sensor_pos + corner2;
+
+
+                if (vehicle->get<libsumo::VAR_SPEED>() == 0){
+                    
+                    std::string file_name = id + "_sensor_positions.txt";
+                    car_pos_file.open(file_name , std::ios_base::app);
+                    car_pos_file
+                    << key << ","
+                    << cur_sensor_pos.x << "," 
+                    << cur_sensor_pos.y << "," 
+                    << coord_corner1.x << "," 
+                    << coord_corner1.y << "," 
+                    << coord_corner2.x << "," 
+                    << coord_corner2.y << endl;
+                    car_pos_file.close();
+                }
+                
+
+                //DEBUG
+                // auto corner_sensor_1 = omnetpp::cFigure::Point(x1, y1);
+                // auto corner_sensor_2 = omnetpp::cFigure::Point(x2, y2);
+
+                // auto debug1 = new cRectangleFigure();
+                // sensor_rectangle->setBounds(cFigure::Rectangle(corner_sensor_1.x, corner_sensor_1.y, 0.2, 0.2));
+                // sensor_rectangle->setPosition(corner_sensor_1, cFigure::ANCHOR_CENTER);
+                // sensor_rectangle->setFilled(true);
+                // sensor_rectangle->setFillColor("BLUE");
+                // draw_figures->addFigure(debug1);
+
+                // auto debug2 = new cRectangleFigure();
+                // sensor_rectangle->setBounds(cFigure::Rectangle(corner_sensor_2.x, corner_sensor_2.y, 0.2, 0.2));
+                // sensor_rectangle->setPosition(corner_sensor_2, cFigure::ANCHOR_CENTER);
+                // sensor_rectangle->setFilled(true);
+                // sensor_rectangle->setFillColor("GREEN");
+                // draw_figures->addFigure(debug2);
             }
     }
 }
@@ -367,30 +426,6 @@ void BasicNodeManager::updatePerson(const std::string& id, PersonSink* sink)
         TraCIPosition traci_pos = person->get<libsumo::VAR_POSITION>();
         sink->updatePerson(traci_pos, TraCIAngle{person->get<libsumo::VAR_ANGLE>()}, person->get<libsumo::VAR_SPEED>());
 
-        // auto currTime = m_api->simulation.getCurrentTime();
-        auto currTime = omnetpp::simTime();
-
-
-        
-        std::vector<omnetpp::cFigure::Point> verts;
-        verts.push_back(omnetpp::cFigure::Point(269.397, 230.355)); // 169.085
-        verts.push_back(omnetpp::cFigure::Point(266.612, 230.947)); // 168.493
-        verts.push_back(omnetpp::cFigure::Point(266.612, 218.253)); // 181.187
-        verts.push_back(omnetpp::cFigure::Point(269.397, 218.845)); // 180.595
-        int i, j, c = 0;
-        int nvert = 4;
-        for (i = 0, j = nvert-1; i < nvert; j = i++) {
-            if ( ((verts[i].y>traci_pos.y) != (verts[j].y>traci_pos.y)) && (traci_pos.x < (verts[j].x-verts[i].x) * (traci_pos.y-verts[i].y) / (verts[j].y-verts[i].y) + verts[i].x) )
-                c = !c;
-        }
-
-        if(c){
-            pos_file.open("positions.txt" , std::ios_base::app);
-            pos_file << id << "," << currTime << "," << traci_pos.x << "," << traci_pos.y << endl;
-            pos_file.close();
-        }
-
-        
 
         // Draw person bounding box START
 
@@ -401,7 +436,7 @@ void BasicNodeManager::updatePerson(const std::string& id, PersonSink* sink)
         EV << "person_width: " << person_width << endl;
         double bbox_radius = sqrt(pow(person_length / 2, 2) + pow(person_width / 2, 2));
 
-        auto position = traci::position_cast(m_boundary, person->get<libsumo::VAR_POSITION>());
+        auto position = traci::position_cast(m_boundary, traci_pos);
 
         // From front-center-bumper to center (sumo reference system).
         omnetpp::cFigure::Point cur_pos_center =
@@ -416,6 +451,29 @@ void BasicNodeManager::updatePerson(const std::string& id, PersonSink* sink)
         rectangle->setFillColor("GRAY");
         rectangle->setZIndex(2.0);
         draw_figures->addFigure(rectangle);
+
+        // auto currTime = m_api->simulation.getCurrentTime();
+        auto currTime = omnetpp::simTime();       
+        std::vector<omnetpp::cFigure::Point> verts;
+        verts.push_back(omnetpp::cFigure::Point(269.397, 169.085)); // 230.355
+        verts.push_back(omnetpp::cFigure::Point(266.612, 168.493)); // 230.947
+        verts.push_back(omnetpp::cFigure::Point(266.612, 181.187)); // 218.253
+        verts.push_back(omnetpp::cFigure::Point(269.397, 180.595)); // 218.845
+        int i, j, c = 0;
+        int nvert = 4;
+
+        // for (i = 0, j = nvert-1; i < nvert; j = i++) {
+        //     if ( ((verts[i].y>position.y.value()) != (verts[j].y>position.y.value())) && (position.x.value() < (verts[j].x-verts[i].x) * (position.y.value()-verts[i].y) / (verts[j].y-verts[i].y) + verts[i].x) )
+        //         c = !c;
+        // }
+        // if(c){
+        //     per_pos_file.open("persons_positions.txt" , std::ios_base::app);
+        //     per_pos_file << id << "," << currTime << "," << position.x.value() << "," << position.y.value() << endl;
+        //     per_pos_file.close();
+        // }
+        per_pos_file.open("persons_positions.txt" , std::ios_base::app);
+        per_pos_file << id << "," << currTime << "," << position.x.value() << "," << position.y.value() << endl;
+        per_pos_file.close();
     }
 }
 

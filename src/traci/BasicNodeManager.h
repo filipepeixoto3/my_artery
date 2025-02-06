@@ -133,7 +133,8 @@ private:
     //add by lip
     omnetpp::cCanvas* canvas = nullptr;
     omnetpp::cGroupFigure* draw_figures = nullptr;
-    std::ofstream pos_file; //at every timestamp collects pedestrian's positions
+    std::ofstream per_pos_file; //at every timestamp collects pedestrian's positions
+    std::ofstream car_pos_file; //at every timestamp collects car's sensor positions
     
     //end add by lip
 };
