@@ -82,11 +82,11 @@ void BasicNodeManager::initialize()
     canvas = getSimulation()->getModuleByPath("World")->getCanvas();
     draw_figures = new cGroupFigure();
     canvas->addFigure(draw_figures);
-    remove("persons_positions.txt");
-    per_pos_file.open("persons_positions.txt" , std::ios_base::app);
+    remove("persons_positions.csv");
+    per_pos_file.open("persons_positions.csv" , std::ios_base::app);
     per_pos_file << "person_id,timestamp,x,y" << endl;
     per_pos_file.close();
-    //car_pos_file.open("cars_positions.txt" , std::ios_base::app);
+    //car_pos_file.open("cars_positions.csv" , std::ios_base::app);
     //car_pos_file << "id,sensor,x0,y0,x1,y1,x2,y2" << endl;
     // car_pos_file.close();
     // end add by lip
@@ -194,7 +194,7 @@ void BasicNodeManager::addVehicle(const std::string& id)
         m_vehicles[id] = nullptr;
     }
     
-    std::string file_name = id + "_sensor_positions.txt";
+    std::string file_name = id + "_sensor_positions.csv";
     remove(file_name.c_str());
 }
 
@@ -267,7 +267,7 @@ void BasicNodeManager::updateVehicle(const std::string& id, VehicleSink* sink)
             uss_setups[11] = {78 - 180, -vehicle_length / 2 - 0.1, -5 * vehicle_width / 12, 0.5, 0, 0, 0, omnetpp::cFigure::Point(0, 0)};
 
 
-            std::string file_name = id + "_sensor_positions.txt";
+            std::string file_name = id + "_sensor_positions.csv";
             remove(file_name.c_str());
             car_pos_file.open(file_name , std::ios_base::app);
             car_pos_file << "sensor_id,x0,y0,x1,y1,x2,y2" << endl;
@@ -332,7 +332,7 @@ void BasicNodeManager::updateVehicle(const std::string& id, VehicleSink* sink)
 
                 if (vehicle->get<libsumo::VAR_SPEED>() == 0){
                     
-                    std::string file_name = id + "_sensor_positions.txt";
+                    std::string file_name = id + "_sensor_positions.csv";
                     car_pos_file.open(file_name , std::ios_base::app);
                     car_pos_file
                     << key << ","
@@ -467,11 +467,11 @@ void BasicNodeManager::updatePerson(const std::string& id, PersonSink* sink)
         //         c = !c;
         // }
         // if(c){
-        //     per_pos_file.open("persons_positions.txt" , std::ios_base::app);
+        //     per_pos_file.open("persons_positions.csv" , std::ios_base::app);
         //     per_pos_file << id << "," << currTime << "," << position.x.value() << "," << position.y.value() << endl;
         //     per_pos_file.close();
         // }
-        per_pos_file.open("persons_positions.txt" , std::ios_base::app);
+        per_pos_file.open("persons_positions.csv" , std::ios_base::app);
         per_pos_file << id << "," << currTime << "," << position.x.value() << "," << position.y.value() << endl;
         per_pos_file.close();
     }

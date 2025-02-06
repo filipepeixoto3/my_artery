@@ -265,12 +265,19 @@ void CpService::initialize()
 
     EV_INFO << "Connect to ZMQ succesful!" << endl;
 
-    // remove(boost::lexical_cast<std::string>(mVehicleDataProvider->getStationId()) + "_detection_pos.txt");
+    // remove(boost::lexical_cast<std::string>(mVehicleDataProvider->getStationId()) + "_detection_pos.csv");
     std::ostringstream oss;
-    oss << mVehicleController->getVehicleId() << "_detection_pos.txt";
+    oss << mVehicleController->getVehicleId() << "_detection_pos.csv";
     remove(oss.str().c_str());
     detection_file.open(oss.str().c_str(), std::ios_base::app);
     detection_file << "id,sensor,timestamp,x,y,active_objects" << endl;
+    detection_file.close();
+    oss.str("");  // Clear the buffer
+    oss.clear();  // Reset the state flags
+    oss << mVehicleController->getVehicleId() << "_tracks_positions.csv";
+    remove(oss.str().c_str());
+    detection_file.open(oss.str().c_str(), std::ios_base::app);
+    detection_file << "track_id,sensor_id,timestamp,x,y" << endl;
     detection_file.close();
 }
 
@@ -866,7 +873,7 @@ void CpService::processDetections(){
             // WRITE INFO TO FILE
             oss.str("");            // Clear the content
             oss.clear();            // Reset any error flags
-            oss << mVehicleController->getVehicleId() << "_detection_pos.txt";
+            oss << mVehicleController->getVehicleId() << "_detection_pos.csv";
             detection_file.open(oss.str().c_str(), std::ios_base::app);
             // arteryPos = Position(oi.detection_coord.x, oi.detection_coord.y);
             // traCIPos = position_cast(boundary,arteryPos);
@@ -912,6 +919,13 @@ void CpService::processDetections(){
 
 void CpService::multiObjectTracking()
 {
+
+// WRITE INFO TO FILE
+    oss.str("");            // Clear the content
+    oss.clear();            // Reset any error flags
+    oss << mVehicleController->getVehicleId() << "_tracks_positions.csv";
+    detection_file.open(oss.str().c_str(), std::ios_base::app);
+
     if (active_tracks.empty()) { // if there are no active tracks, all the objects will become their own track 
         for (const auto& dm : objects_map) {
             Identifier_t id = 0;
@@ -934,6 +948,12 @@ void CpService::multiObjectTracking()
             active_tracks.push_back(id);
             kf_map[id] = KalmanFilter(0.05, 0, 0, 0, 0.3, 0.3);
             tracks_count++;
+
+            detection_file << id << "," 
+            << key << "," 
+            << value.timestamp << "," 
+            << value.detection_coord.x << "," 
+            << value.detection_coord.y << endl;
         }
         EV << "ACTIVE TRACKS ESTÁ VAZIO SUPOSTAMENTE!" << endl;
     } else {
@@ -1017,6 +1037,12 @@ void CpService::multiObjectTracking()
                     tracks_map[active_tracks[i]].detection_coord = objects_map[keys[min_cost_indices[i]]].detection_coord;
                     tracks_map[active_tracks[i]].timestamp = objects_map[keys[min_cost_indices[i]]].timestamp;
                     tracks_map[active_tracks[i]].sensor = keys[min_cost_indices[i]];
+
+                    detection_file << active_tracks[i] << "," 
+                    << keys[min_cost_indices[i]] << "," 
+                    << objects_map[keys[min_cost_indices[i]]].timestamp << "," 
+                    << objects_map[keys[min_cost_indices[i]]].detection_coord.x << "," 
+                    << objects_map[keys[min_cost_indices[i]]].detection_coord.y << endl;
                 }
                 
             }
@@ -1046,6 +1072,12 @@ void CpService::multiObjectTracking()
                     tracks_map[active_tracks[i]].sensor = keys[min_cost_indices[i]];
                     
                     keys.erase(std::remove(keys.begin(), keys.end(), min_cost_indices[i]), keys.end());
+
+                    detection_file << active_tracks[i] << "," 
+                    << keys[min_cost_indices[i]] << "," 
+                    << objects_map[keys[min_cost_indices[i]]].timestamp << "," 
+                    << objects_map[keys[min_cost_indices[i]]].detection_coord.x << "," 
+                    << objects_map[keys[min_cost_indices[i]]].detection_coord.y << endl;
                 }
                 
             }
@@ -1071,6 +1103,12 @@ void CpService::multiObjectTracking()
                 active_tracks.push_back(id);
                 kf_map[id] = KalmanFilter(0.05, 0, 0, 0, 0.3, 0.3);
                 tracks_count++;
+
+                detection_file << id << "," 
+                << keys[i] << "," 
+                << objects_map[keys[i]].timestamp << "," 
+                << objects_map[keys[i]].detection_coord.x << "," 
+                << objects_map[keys[i]].detection_coord.y << endl;
             }
         } else {
             // there are more tracks than observations so some tracks wont be "refreshed"
@@ -1109,9 +1147,16 @@ void CpService::multiObjectTracking()
                 tracks_map[active_tracks[tracks_aux]].detection_coord = objects_map[keys[pos_aux]].detection_coord;
                 tracks_map[active_tracks[tracks_aux]].timestamp = objects_map[keys[pos_aux]].timestamp;
                 tracks_map[active_tracks[tracks_aux]].sensor = keys[pos_aux];
+
+                detection_file << active_tracks[tracks_aux] << "," 
+                << keys[pos_aux] << "," 
+                << objects_map[keys[pos_aux]].timestamp << "," 
+                << objects_map[keys[pos_aux]].detection_coord.x << "," 
+                << objects_map[keys[pos_auxi]].detection_coord.y << endl;
             }
         }
     }
+    detection_file.close();
 
     std::vector<int> remove_tracks;
 
