@@ -46,12 +46,12 @@ def process_detection(persons_file, sensor_files):
     # Save detected persons to individual files
     for person_id, data in detected_data.items():
         output_df = pd.DataFrame(data, columns=['timestamp', 'x', 'y', 'car', 'sensor'])
-        output_file = f"{person_id}.txt"
+        output_file = f"{person_id}.csv"
         output_df.to_csv(output_file, index=False)
         print(f"Output saved to {output_file}")
 
 if __name__ == "__main__":
-    persons_file = "persons_positions.txt"
-    sensor_files = glob.glob("car*_sensor_positions.txt")  # Find all sensor files
+    persons_file = "persons_positions.csv"
+    sensor_files = glob.glob("car*_sensor_positions.csv")  # Find all sensor files
     
     process_detection(persons_file, sensor_files)

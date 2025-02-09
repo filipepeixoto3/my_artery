@@ -659,14 +659,14 @@ vanetza::asn1::Cpm createCollectivePerceptionMessage(
         // po->yawAngle->value = (long)((value.direction) * 1800/PI); //crasha não se bem porquê (usar round(?))
         // po->yawAngle->confidence = AngleConfidence_unavailable;
 
-        EV << "Object " << po->objectID << ": " << endl <<
-        "xDistance:" << po->xDistance.value << endl <<
-        "yDistance:" << po->yDistance.value << endl <<
-        "DistanceConfidence: " << conf << endl <<
-        "xSpeed:" << po->xSpeed.value << endl <<
-        "ySpeed:" << po->ySpeed.value << endl <<
-        "direction: " << value.direction << endl <<
-        "timeOfMeasurement: " << po->timeOfMeasurement << endl;
+        // EV << "Object " << po->objectID << ": " << endl <<
+        // "xDistance:" << po->xDistance.value << endl <<
+        // "yDistance:" << po->yDistance.value << endl <<
+        // "DistanceConfidence: " << conf << endl <<
+        // "xSpeed:" << po->xSpeed.value << endl <<
+        // "ySpeed:" << po->ySpeed.value << endl <<
+        // "direction: " << value.direction << endl <<
+        // "timeOfMeasurement: " << po->timeOfMeasurement << endl;
 
         ASN_SEQUENCE_ADD(cpm.cpmParameters.perceivedObjectContainer, po);
     }
@@ -779,7 +779,7 @@ void CpService::updateEveryTimestamp()
         auto value = pair.second;
         // Check if the track's timestamp is older than 1 seconds and the track is still in the active_tracks list
         if (timestamp - value.timestamp > 1 && std::find(active_tracks.begin(), active_tracks.end(), key) != active_tracks.end()) {
-            EV << "ENTROU NO REMOVE OLD TRACKS!" << endl;
+            // EV << "ENTROU NO REMOVE OLD TRACKS!" << endl;
             // Remove the track from `active_tracks`
             active_tracks.erase(std::remove(active_tracks.begin(), active_tracks.end(), key), active_tracks.end());
             // Check if the track is also in `past_active_tracks`
@@ -919,10 +919,8 @@ void CpService::processDetections(){
 
 void CpService::multiObjectTracking()
 {
-
 // WRITE INFO TO FILE
-    oss.str("");            // Clear the content
-    oss.clear();            // Reset any error flags
+    std::ostringstream oss;
     oss << mVehicleController->getVehicleId() << "_tracks_positions.csv";
     detection_file.open(oss.str().c_str(), std::ios_base::app);
 
@@ -954,8 +952,10 @@ void CpService::multiObjectTracking()
             << value.timestamp << "," 
             << value.detection_coord.x << "," 
             << value.detection_coord.y << endl;
+
+            EV << "Track ID: " << id << endl;
         }
-        EV << "ACTIVE TRACKS ESTÁ VAZIO SUPOSTAMENTE!" << endl;
+        // EV << "ACTIVE TRACKS ESTÁ VAZIO SUPOSTAMENTE!" << endl;
     } else {
     
         auto cost_matrix = generate_cost_matrix(0.3, 0.5); 
@@ -989,18 +989,18 @@ void CpService::multiObjectTracking()
         // track 2 -> detection 2
         
 
-        EV << "cost_matrix:" << endl;
-        for (size_t i = 0; i < cost_matrix.size(); ++i){
-             for (size_t j = 0; j < cost_matrix[i].size(); ++j) {
-                EV << cost_matrix[i][j] << " ";
-             }
-             EV << endl;
-        }
-        EV << "min_cost_indices:" << endl;
-        for (size_t i = 0; i < cost_matrix.size(); ++i){
-            EV << min_cost_indices[i]<< " ";
-        }
-        EV << endl;
+        // EV << "cost_matrix:" << endl;
+        // for (size_t i = 0; i < cost_matrix.size(); ++i){
+        //      for (size_t j = 0; j < cost_matrix[i].size(); ++j) {
+        //         EV << cost_matrix[i][j] << " ";
+        //      }
+        //      EV << endl;
+        // }
+        // EV << "min_cost_indices:" << endl;
+        // for (size_t i = 0; i < cost_matrix.size(); ++i){
+        //     EV << min_cost_indices[i]<< " ";
+        // }
+        // EV << endl;
 
         std::vector<int> keys;
         for(auto pair : objects_map){
@@ -1010,7 +1010,7 @@ void CpService::multiObjectTracking()
         min_cost_indices = optimal_assignment(cost_matrix);
         if (active_tracks.size() == objects_map.size()) { 
             
-            EV << "HÁ TANTOS OBJECTOS COMO TRACKS!" << endl;
+            // EV << "HÁ TANTOS OBJECTOS COMO TRACKS!" << endl;
             // each track has a new observation
             // if (min_cost_indices.size() != std::set<int>(min_cost_indices.begin(), min_cost_indices.end()).size()) {
                 // min_cost_indices = optimal_assignment(cost_matrix);
@@ -1048,7 +1048,7 @@ void CpService::multiObjectTracking()
             }
         } else if (active_tracks.size() < objects_map.size()) { 
             // there are more observations than tracks so all the track have a new observation and some new tracks are created 
-            EV << "HÁ MAIS OBJECTOS DO QUE TRACKS!" << endl;
+            // EV << "HÁ MAIS OBJECTOS DO QUE TRACKS!" << endl;
             for (size_t i = 0; i < active_tracks.size(); ++i) {
                 if(min_cost_indices[i] != -1){
                     omnetpp::cFigure::Point pq = objects_map[keys[min_cost_indices[i]]].detection_coord - tracks_map[active_tracks[i]].detection_coord;
@@ -1112,7 +1112,7 @@ void CpService::multiObjectTracking()
             }
         } else {
             // there are more tracks than observations so some tracks wont be "refreshed"
-            EV << "HÁ MAIS TRACKS DO QUE OBJECTOS!" << endl;
+            // EV << "HÁ MAIS TRACKS DO QUE OBJECTOS!" << endl;
             double min_cost = 0;
             int tracks_aux = -1;
             int pos_aux = -1;
@@ -1152,7 +1152,7 @@ void CpService::multiObjectTracking()
                 << keys[pos_aux] << "," 
                 << objects_map[keys[pos_aux]].timestamp << "," 
                 << objects_map[keys[pos_aux]].detection_coord.x << "," 
-                << objects_map[keys[pos_auxi]].detection_coord.y << endl;
+                << objects_map[keys[pos_aux]].detection_coord.y << endl;
             }
         }
     }
@@ -1215,7 +1215,7 @@ void CpService::multiObjectTracking()
         }
     }
     for (auto at : remove_tracks) {
-        EV << "REMOVEU A TRACK " << at << endl;
+        // EV << "REMOVEU A TRACK " << at << endl;
         active_tracks.erase(std::remove(active_tracks.begin(), active_tracks.end(), at), active_tracks.end());
         cLineFigure* line1 = tracks_map[at].cross_line1;
         cLineFigure* line2 = tracks_map[at].cross_line2;
