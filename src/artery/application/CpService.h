@@ -177,6 +177,7 @@ private:
     zmq::context_t context;
 
     std::ofstream detection_file; 
+    std::ofstream tracks_file; 
 
 
     void receiveFromCarla();
@@ -189,9 +190,9 @@ private:
 
     std::vector<int> optimal_assignment(const std::vector<std::vector<double>>& cost_matrix);
 
-    std::vector<std::vector<double>> generate_cost_matrix(
-    double distance_weight,
-    double direction_weight);
+    // std::vector<std::vector<double>> generate_cost_matrix(double distance_weight, double direction_weight);
+
+    std::pair<std::vector<std::vector<double>>, std::vector<std::vector<double>>> generate_cost_matrices();
 
 };
 

@@ -84,7 +84,7 @@ void BasicNodeManager::initialize()
     canvas->addFigure(draw_figures);
     remove("persons_positions.csv");
     per_pos_file.open("persons_positions.csv" , std::ios_base::app);
-    per_pos_file << "person_id,timestamp,x,y" << endl;
+    per_pos_file << "timestamp,person_id,x_gt,y_gt" << endl;
     per_pos_file.close();
     //car_pos_file.open("cars_positions.csv" , std::ios_base::app);
     //car_pos_file << "id,sensor,x0,y0,x1,y1,x2,y2" << endl;
@@ -431,9 +431,9 @@ void BasicNodeManager::updatePerson(const std::string& id, PersonSink* sink)
 
         double person_angle = angle_cast(TraCIAngle{person->get<libsumo::VAR_ANGLE>()}).radian();
         double person_length = (person->get<libsumo::VAR_LENGTH>() * si::meter).value();
-        EV << "person_length: " << person_length << endl;
+        // EV << "person_length: " << person_length << endl;
         double person_width = (person->get<libsumo::VAR_WIDTH>() * si::meter).value();
-        EV << "person_width: " << person_width << endl;
+        // EV << "person_width: " << person_width << endl;
         double bbox_radius = sqrt(pow(person_length / 2, 2) + pow(person_width / 2, 2));
 
         auto position = traci::position_cast(m_boundary, traci_pos);
@@ -472,7 +472,7 @@ void BasicNodeManager::updatePerson(const std::string& id, PersonSink* sink)
         //     per_pos_file.close();
         // }
         per_pos_file.open("persons_positions.csv" , std::ios_base::app);
-        per_pos_file << id << "," << currTime << "," << position.x.value() << "," << position.y.value() << endl;
+        per_pos_file << currTime << "," << id << ","  << position.x.value() << "," << position.y.value() << endl;
         per_pos_file.close();
     }
 }

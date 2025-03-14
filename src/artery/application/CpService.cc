@@ -28,7 +28,6 @@
 #include <random>
 #include <thread>
 
-// batota!
 #include "artery/traci/VehicleController.h"
 #include "artery/traci/Cast.h"
 
@@ -37,7 +36,6 @@ namespace artery
 
 using namespace omnetpp;
 class API;
-
 
 static const auto microdegree = vanetza::units::degree * boost::units::si::micro;
 static const auto decidegree = vanetza::units::degree * boost::units::si::deci;
@@ -270,15 +268,15 @@ void CpService::initialize()
     oss << mVehicleController->getVehicleId() << "_detection_pos.csv";
     remove(oss.str().c_str());
     detection_file.open(oss.str().c_str(), std::ios_base::app);
-    detection_file << "id,sensor,timestamp,x,y,active_objects" << endl;
+    detection_file << "timestamp,id,sensor,x,y" << endl;
     detection_file.close();
     oss.str("");  // Clear the buffer
     oss.clear();  // Reset the state flags
     oss << mVehicleController->getVehicleId() << "_tracks_positions.csv";
     remove(oss.str().c_str());
-    detection_file.open(oss.str().c_str(), std::ios_base::app);
-    detection_file << "track_id,sensor_id,timestamp,x,y" << endl;
-    detection_file.close();
+    tracks_file.open(oss.str().c_str(), std::ios_base::app);
+    tracks_file << "timestamp,track_id,sensor_id,x_track,y_track,x_raw,y_raw" << endl;
+    tracks_file.close();
 }
 
 void CpService::trigger()
@@ -289,85 +287,6 @@ void CpService::trigger()
     processDetections();                    // extract objects from the detections_map
     multiObjectTracking();                  // tracking of multiple objects and correcting their positions with kalman filter
     checkTriggeringConditions(simTime());   // checks if coditions to create and a send a CPM are meet
-
-
-    //TESTING FASE
-    // double ang1 = uss_setups[0].norm_detection_angle-(15*PI/180);
-    // while (ang1 < -PI)
-    //     ang1 += 2 * PI;
-    // while (ang1 >= PI)
-    //     ang1 -= 2 * PI;
-    // double ang2 = uss_setups[0].norm_detection_angle+(15*PI/180);
-    // while (ang2 < -PI)
-    //     ang2 += 2 * PI;
-    // while (ang2 >= PI)
-    //     ang2 -= 2 * PI;
-    //      double ang3 = uss_setups[5].norm_detection_angle-(15*PI/180);
-    // while (ang3 < -PI)
-    //     ang3 += 2 * PI;
-    // while (ang3 >= PI)
-    //     ang3 -= 2 * PI;
-    // double ang4 = uss_setups[5].norm_detection_angle+(15*PI/180);
-    // while (ang4 < -PI)
-    //     ang4 += 2 * PI;
-    // while (ang4 >= PI)
-    //     ang4 -= 2 * PI;
-    
-    // const traci::Boundary boundary{mVehicleController->getTraCI()->simulation.getNetBoundary()};
-    // artery::Position arteryPos;
-
-    // omnetpp::cFigure::Point coord1 =
-    //     omnetpp::cFigure::Point(-cos(ang1) * 5.5, sin(ang1) * 5.5)
-    //     + cur_pos_center + uss_setups[0].sensor_pos;
-    // arteryPos = Position(coord1.x, coord1.y);
-    // traci::TraCIPosition traCIPos1 = position_cast(boundary,arteryPos);
-
-    // omnetpp::cFigure::Point coord2 =
-    //     omnetpp::cFigure::Point(-cos(ang2) * 5.5, sin(ang2) * 5.5)
-    //     + cur_pos_center + uss_setups[0].sensor_pos;
-    // arteryPos = Position(coord2.x, coord2.y);
-    // traci::TraCIPosition traCIPos2 = position_cast(boundary,arteryPos);
-
-    // omnetpp::cFigure::Point coord3 =
-    //     omnetpp::cFigure::Point(-cos(ang3) * 5.5, sin(ang3) * 5.5)
-    //     + cur_pos_center + uss_setups[5].sensor_pos;
-    // arteryPos = Position(coord3.x, coord3.y);
-    // traci::TraCIPosition traCIPos3 = position_cast(boundary,arteryPos);
-    
-    // omnetpp::cFigure::Point coord4 =
-    //     omnetpp::cFigure::Point(-cos(ang4) * 5.5, sin(ang4) * 5.5)
-    //     + cur_pos_center + uss_setups[5].sensor_pos;
-    // arteryPos = Position(coord4.x, coord4.y);
-    // traci::TraCIPosition traCIPos4 = position_cast(boundary,arteryPos);
-
-    // std::vector<traci::TraCIPosition> coords;
-    // coords.push_back(traCIPos1);
-    // coords.push_back(traCIPos2);
-    // coords.push_back(traCIPos3);
-    // coords.push_back(traCIPos4);
-
-    // omnetpp::cFigure::Point a = omnetpp::cFigure::Point(coord2.x + 0.1, coord2.y + 0.1);
-    // omnetpp::cFigure::Point b = omnetpp::cFigure::Point(coord2.x + 0.1, coord2.y - 0.1);
-    // omnetpp::cFigure::Point c = omnetpp::cFigure::Point(coord2.x - 0.1, coord2.y - 0.1);
-    // omnetpp::cFigure::Point d = omnetpp::cFigure::Point(coord2.x - 0.1, coord2.y + 0.1);
-
-    // auto cross_line1 = new cLineFigure();
-    // cross_line1->setStart(a);
-    // cross_line1->setEnd(c);
-    // cross_line1->setLineColor("GREEN");
-    // detections->addFigure(cross_line1);
-    // auto cross_line2 = new cLineFigure();
-    // cross_line2->setStart(b);
-    // cross_line2->setEnd(d);
-    // cross_line2->setLineColor("GREEN");
-    // detections->addFigure(cross_line2);
-
-
-    // for (size_t i = 0; i < coords.size(); ++i) {
-    //     EV << "Point " << i << ": ("
-    //               << coords[i].x << ", " << coords[i].y << ")\n";
-    // }
-
     detections_map.clear();
     objects_map.clear();
 }
@@ -673,6 +592,70 @@ vanetza::asn1::Cpm createCollectivePerceptionMessage(
     return message;
 }
 
+void CpService::updateEveryTimestamp()
+{
+    vehicle_angle = mVehicleController->getHeading().radian();
+    // From front-center-bumper to center (sumo reference system).
+    cur_pos_center = omnetpp::cFigure::Point(
+        mVehicleController->getPosition().x.value() - cos(vehicle_angle) * vehicle_length / 2,
+        mVehicleController->getPosition().y.value() + sin(vehicle_angle) * vehicle_length / 2);
+
+    for (auto& pair : uss_setups) {
+        pair.second.norm_sensor_angle = vehicle_angle - atan2(pair.second.y, pair.second.x) + PI;
+        while (pair.second.norm_sensor_angle < -PI)
+            pair.second.norm_sensor_angle += 2 * PI;
+        while (pair.second.norm_sensor_angle >= PI)
+            pair.second.norm_sensor_angle -= 2 * PI;
+
+        // pair.second.sensor_dist = sqrt(pow(abs(pair.second.x), 2) + pow(abs(pair.second.y), 2));
+        pair.second.sensor_pos = omnetpp::cFigure::Point(
+            -cos(pair.second.norm_sensor_angle) * pair.second.sensor_dist, sin(pair.second.norm_sensor_angle) * pair.second.sensor_dist);
+
+        pair.second.norm_detection_angle = vehicle_angle - (pair.second.yaw * (PI / 180)) + PI;
+        while (pair.second.norm_detection_angle < -PI)
+            pair.second.norm_detection_angle += 2 * PI;
+        while (pair.second.norm_detection_angle >= PI)
+            pair.second.norm_detection_angle -= 2 * PI;
+    }
+    for (int i = 0; i < rings->getNumFigures(); i++)
+        rings->removeFigure(i);
+
+
+    auto timestamp = simTime();
+
+    // Remove tracks older than 2 seconds (100 timestamps ago)
+    for (auto pair : tracks_map) {
+        auto key = pair.first;
+        auto value = pair.second;
+        // Check if the track's timestamp is older than 1 seconds and the track is still in the active_tracks list
+        if (timestamp - value.timestamp > 1 && std::find(active_tracks.begin(), active_tracks.end(), key) != active_tracks.end()|| (timestamp - value.timestamp > 0.5 && detections_map[tracks_map[key].sensor].depth >=5)) {
+            // EV << "ENTROU NO REMOVE OLD TRACKS!" << endl;
+            // Remove the track from `active_tracks`
+            active_tracks.erase(std::remove(active_tracks.begin(), active_tracks.end(), key), active_tracks.end());
+            // Check if the track is also in `past_active_tracks`
+            if (std::find(past_active_tracks.begin(), past_active_tracks.end(), key) != past_active_tracks.end()) {
+                // If the track is found, remove it from `past_active_tracks` as well
+                past_active_tracks.erase(std::remove(past_active_tracks.begin(), past_active_tracks.end(), key), past_active_tracks.end());
+            }
+        }
+    }
+    
+    // std::vector<int> remove_tracks;
+    // auto cur_time = simTime();
+    // for(auto pair : tracks_map){
+    //     auto key = pair.first;
+    //     auto value = pair.second;
+    //     if (cur_time - value.timestamp > 0.2 and detections_map[value.sensor].depth >=5){
+    //         remove_tracks.push_back(key);
+    //     }
+    // }
+    // for (auto at : remove_tracks) {
+    //     tracks_map.erase(at);
+    //     kf_map.erase(at);
+    //     EV << "Track " << at << "was removed!" << endl;
+    // }
+}
+
 void CpService::receiveFromCarla()
 {
     // set timeout of 400ms
@@ -738,57 +721,6 @@ void CpService::receiveFromCarla()
             EV << "RCV_MORE=" << sndhwm << endl;
         }
     } while (true);
-
-
-}
-
-void CpService::updateEveryTimestamp()
-{
-    vehicle_angle = mVehicleController->getHeading().radian();
-    // From front-center-bumper to center (sumo reference system).
-    cur_pos_center = omnetpp::cFigure::Point(
-        mVehicleController->getPosition().x.value() - cos(vehicle_angle) * vehicle_length / 2,
-        mVehicleController->getPosition().y.value() + sin(vehicle_angle) * vehicle_length / 2);
-
-    for (auto& pair : uss_setups) {
-        pair.second.norm_sensor_angle = vehicle_angle - atan2(pair.second.y, pair.second.x) + PI;
-        while (pair.second.norm_sensor_angle < -PI)
-            pair.second.norm_sensor_angle += 2 * PI;
-        while (pair.second.norm_sensor_angle >= PI)
-            pair.second.norm_sensor_angle -= 2 * PI;
-
-        // pair.second.sensor_dist = sqrt(pow(abs(pair.second.x), 2) + pow(abs(pair.second.y), 2));
-        pair.second.sensor_pos = omnetpp::cFigure::Point(
-            -cos(pair.second.norm_sensor_angle) * pair.second.sensor_dist, sin(pair.second.norm_sensor_angle) * pair.second.sensor_dist);
-
-        pair.second.norm_detection_angle = vehicle_angle - (pair.second.yaw * (PI / 180)) + PI;
-        while (pair.second.norm_detection_angle < -PI)
-            pair.second.norm_detection_angle += 2 * PI;
-        while (pair.second.norm_detection_angle >= PI)
-            pair.second.norm_detection_angle -= 2 * PI;
-    }
-    for (int i = 0; i < rings->getNumFigures(); i++)
-        rings->removeFigure(i);
-
-
-    auto timestamp = simTime();
-
-    // Remove tracks older than 2 seconds (100 timestamps ago)
-    for (auto pair : tracks_map) {
-        auto key = pair.first;
-        auto value = pair.second;
-        // Check if the track's timestamp is older than 1 seconds and the track is still in the active_tracks list
-        if (timestamp - value.timestamp > 1 && std::find(active_tracks.begin(), active_tracks.end(), key) != active_tracks.end()) {
-            // EV << "ENTROU NO REMOVE OLD TRACKS!" << endl;
-            // Remove the track from `active_tracks`
-            active_tracks.erase(std::remove(active_tracks.begin(), active_tracks.end(), key), active_tracks.end());
-            // Check if the track is also in `past_active_tracks`
-            if (std::find(past_active_tracks.begin(), past_active_tracks.end(), key) != past_active_tracks.end()) {
-                // If the track is found, remove it from `past_active_tracks` as well
-                past_active_tracks.erase(std::remove(past_active_tracks.begin(), past_active_tracks.end(), key), past_active_tracks.end());
-            }
-        }
-    }
 }
 
 void CpService::storeDetections(int role_name, double timestamp, uint16_t detection_delta_time, double depth)
@@ -842,6 +774,7 @@ void CpService::processDetections(){
     artery::Position arteryPos;
 
     for (auto pair : detections_map){
+        // EV << "checking detection from sensor: " <<  pair.first << endl;
         if(skip_next){
             skip_next = false;
             continue;
@@ -859,18 +792,35 @@ void CpService::processDetections(){
             oi.detection_coord = source.detection_coord;
             objects_map[target_key] = oi;
         };
-
-        if (key != 5 && detections_map.find(key + 1) != detections_map.end() && tracks_map.size() < detections_map.size()) {
-            auto& next_detection = detections_map[key + 1];
+        // EV << "active_tracks size: " << active_tracks.size() << endl; 
+        // EV << "Detections_Map size: " << detections_map.size() << endl; 
+        // EV << "Next key: " << key+1 << endl;
+        // if(detections_map.find(key+1) != detections_map.end()){
+        //     EV << "Next sensor has a detection!" << endl;
+        // }
+        // if(tracks_map.size() < detections_map.size()){
+        //     EV << "tracks_map.size() < detections_map.size() = TRUE" << endl;
+        // }else{
+        //     EV << "tracks_map.size() < detections_map.size() = FALSE" << endl;
+        // }
+        if (key != 5 && detections_map.find(key+1) != detections_map.end() && active_tracks.size() < detections_map.size()) {
+            //EV << "2 sensors next to eachother are detecting an object!" << endl;
+            auto& next_detection = detections_map[key+1];
             if(value.depth > next_detection.depth){
                 assign_to_map(key + 1, next_detection);
+               // EV << "Chose detection from sensor: " << key + 1 << endl;
+            }else{
+                assign_to_map(key, detections_map[key]);
+                //EV << "Chose detection from sensor: " << key<< endl;
             }
             skip_next = true; // Skip processing the next key
         }else{
             assign_to_map(key, value);
+            // EV << "Assigned detection from sensor: " << key<< endl;
+            
         }
 
-            // WRITE INFO TO FILE
+            // WRITE INFO TO FILE 
             oss.str("");            // Clear the content
             oss.clear();            // Reset any error flags
             oss << mVehicleController->getVehicleId() << "_detection_pos.csv";
@@ -878,13 +828,13 @@ void CpService::processDetections(){
             // arteryPos = Position(oi.detection_coord.x, oi.detection_coord.y);
             // traCIPos = position_cast(boundary,arteryPos);
 
-            detection_file << mVehicleController->getVehicleId() << "," << oi.timestamp << "," << oi.detection_coord.x << ","
+            detection_file << oi.timestamp << "," << mVehicleController->getVehicleId() << "," << key << "," << oi.detection_coord.x << ","
                             << oi.detection_coord.y << "," << tracks_count << endl;
                             
-            if(detection_file.is_open()){
-                EV << mVehicleController->getVehicleId() << "," << key  << "," << oi.timestamp << "," << oi.detection_coord.x << ","
-                            << oi.detection_coord.y << "," <<  tracks_count << endl;
-            }
+            // if(detection_file.is_open()){
+            //     EV << mVehicleController->getVehicleId() << "," << key  << "," << oi.timestamp << "," << oi.detection_coord.x << ","
+            //                 << oi.detection_coord.y << "," <<  tracks_count << endl;
+            // }
             detection_file.close();
     }
     // DRAW DETECTION
@@ -919,10 +869,14 @@ void CpService::processDetections(){
 
 void CpService::multiObjectTracking()
 {
-// WRITE INFO TO FILE
+    // WRITE INFO TO FILE
     std::ostringstream oss;
-    oss << mVehicleController->getVehicleId() << "_tracks_positions.csv";
-    detection_file.open(oss.str().c_str(), std::ios_base::app);
+
+    auto cur_time = simTime();
+    // oss << mVehicleController->getVehicleId() << "_tracks_positions.csv";
+    // tracks_file.open(oss.str().c_str(), std::ios_base::app);
+    std::vector<int> objects_used; // Dynamic array of object_info
+    std::vector<int> keys;
 
     if (active_tracks.empty()) { // if there are no active tracks, all the objects will become their own track 
         for (const auto& dm : objects_map) {
@@ -947,41 +901,58 @@ void CpService::multiObjectTracking()
             kf_map[id] = KalmanFilter(0.05, 0, 0, 0, 0.3, 0.3);
             tracks_count++;
 
-            detection_file << id << "," 
-            << key << "," 
-            << value.timestamp << "," 
-            << value.detection_coord.x << "," 
-            << value.detection_coord.y << endl;
+            // tracks_file << value.timestamp << ","  
+            // << id << "," 
+            // << key << "," 
+            // << value.detection_coord.x << "," 
+            // << value.detection_coord.y << endl;
 
-            EV << "Track ID: " << id << endl;
+            // EV << "Track ID: " << id << endl;
         }
         // EV << "ACTIVE TRACKS ESTÁ VAZIO SUPOSTAMENTE!" << endl;
     } else {
     
-        auto cost_matrix = generate_cost_matrix(0.3, 0.5); 
+        // auto cost_matrix = generate_cost_matrix(0.3, 0.5); 
                 // cost matrix:   
         //               detections:
         //               0    1    2
         //         0  [[0.8  0.3  0.9],          
         // tracks: 1   [0.3  0.9  0.9],
         //         2   [0.9  0.8  0.3]]
+        
+        auto [distance_matrix, direction_matrix] = generate_cost_matrices();
+
+        std::vector<std::vector<double>> cost_matrix = distance_matrix; // Initialize with distance_matrix
+        double distance_weight = 0.3;
+        double direction_weight = 0.5;
+        double distance_threshold = 1.5; // Threshold for infinite cost
+        // Element-wise transformation
+        for (size_t i = 0; i < cost_matrix.size(); ++i) {
+            std::transform(distance_matrix[i].begin(), distance_matrix[i].end(),
+                direction_matrix[i].begin(), cost_matrix[i].begin(),
+                [distance_weight, direction_weight, distance_threshold](double d, double a) {
+                    double cost = d * distance_weight + a * direction_weight;
+                    return (d > distance_threshold) ? std::numeric_limits<double>::infinity() : cost;
+                });
+        }
+        
         std::vector<int> min_cost_indices(cost_matrix.size());
 
         // Loop through each row to find the minimum index for each row
-        // for (size_t i = 0; i < cost_matrix.size(); ++i) {
-        //     // Initialize min_value to the maximum possible value
-        //     double min_value = std::numeric_limits<double>::infinity();
-        //     int min_index = -1;
-        //     // Find the minimum element in the row
-        //     for (size_t j = 0; j < cost_matrix[i].size(); ++j) {
-        //         if (cost_matrix[i][j] < min_value) {
-        //             min_value = cost_matrix[i][j];
-        //             min_index = j;
-        //         }
-        //     }
-        //     // Store the index of the minimum value for the current row
-        //     min_cost_indices[i] = min_index;
-        // }
+        for (size_t i = 0; i < cost_matrix.size(); ++i) {
+            // Initialize min_value to the maximum possible value
+            double min_value = std::numeric_limits<double>::infinity();
+            int min_index = -1;
+            // Find the minimum element in the row
+            for (size_t j = 0; j < cost_matrix[i].size(); ++j) {
+                if (cost_matrix[i][j] < min_value) {
+                    min_value = cost_matrix[i][j];
+                    min_index = j;
+                }
+            }
+            // Store the index of the minimum value for the current row
+            min_cost_indices[i] = min_index;
+        }
         // min_cost_indices: [1  0  2]
         
         // track 0 -> detection 1
@@ -1002,20 +973,20 @@ void CpService::multiObjectTracking()
         // }
         // EV << endl;
 
-        std::vector<int> keys;
         for(auto pair : objects_map){
             keys.push_back(pair.first);
         }
         
         min_cost_indices = optimal_assignment(cost_matrix);
-        if (active_tracks.size() == objects_map.size()) { 
+
+    
+        if (active_tracks.size() == objects_map.size()) {
             
             // EV << "HÁ TANTOS OBJECTOS COMO TRACKS!" << endl;
             // each track has a new observation
             // if (min_cost_indices.size() != std::set<int>(min_cost_indices.begin(), min_cost_indices.end()).size()) {
                 // min_cost_indices = optimal_assignment(cost_matrix);
             // }
-
             for (size_t i = 0; i < active_tracks.size(); ++i) {
                 if(min_cost_indices[i] != -1){
                     omnetpp::cFigure::Point pq = objects_map[keys[min_cost_indices[i]]].detection_coord - tracks_map[active_tracks[i]].detection_coord;
@@ -1037,14 +1008,14 @@ void CpService::multiObjectTracking()
                     tracks_map[active_tracks[i]].detection_coord = objects_map[keys[min_cost_indices[i]]].detection_coord;
                     tracks_map[active_tracks[i]].timestamp = objects_map[keys[min_cost_indices[i]]].timestamp;
                     tracks_map[active_tracks[i]].sensor = keys[min_cost_indices[i]];
+                    objects_used.push_back(keys[min_cost_indices[i]]);
 
-                    detection_file << active_tracks[i] << "," 
-                    << keys[min_cost_indices[i]] << "," 
-                    << objects_map[keys[min_cost_indices[i]]].timestamp << "," 
-                    << objects_map[keys[min_cost_indices[i]]].detection_coord.x << "," 
-                    << objects_map[keys[min_cost_indices[i]]].detection_coord.y << endl;
+                    // tracks_file << objects_map[keys[min_cost_indices[i]]].timestamp << "," 
+                    // << active_tracks[i] << "," 
+                    // << keys[min_cost_indices[i]] << "," 
+                    // << objects_map[keys[min_cost_indices[i]]].detection_coord.x << "," 
+                    // << objects_map[keys[min_cost_indices[i]]].detection_coord.y << endl;
                 }
-                
             }
         } else if (active_tracks.size() < objects_map.size()) { 
             // there are more observations than tracks so all the track have a new observation and some new tracks are created 
@@ -1070,14 +1041,15 @@ void CpService::multiObjectTracking()
                     tracks_map[active_tracks[i]].detection_coord = objects_map[keys[min_cost_indices[i]]].detection_coord;
                     tracks_map[active_tracks[i]].timestamp = objects_map[keys[min_cost_indices[i]]].timestamp;
                     tracks_map[active_tracks[i]].sensor = keys[min_cost_indices[i]];
-                    
+                    objects_used.push_back(keys[min_cost_indices[i]]);
+
                     keys.erase(std::remove(keys.begin(), keys.end(), min_cost_indices[i]), keys.end());
 
-                    detection_file << active_tracks[i] << "," 
-                    << keys[min_cost_indices[i]] << "," 
-                    << objects_map[keys[min_cost_indices[i]]].timestamp << "," 
-                    << objects_map[keys[min_cost_indices[i]]].detection_coord.x << "," 
-                    << objects_map[keys[min_cost_indices[i]]].detection_coord.y << endl;
+                    // tracks_file << objects_map[keys[min_cost_indices[i]]].timestamp << "," 
+                    // << active_tracks[i] << "," 
+                    // << keys[min_cost_indices[i]] << "," 
+                    // << objects_map[keys[min_cost_indices[i]]].detection_coord.x << "," 
+                    // << objects_map[keys[min_cost_indices[i]]].detection_coord.y << endl;
                 }
                 
             }
@@ -1099,16 +1071,17 @@ void CpService::multiObjectTracking()
                 tracks_map[id].sensor = keys[i];
                 tracks_map[id].speed = 0;
                 tracks_map[id].direction = 0;
+                objects_used.push_back(keys[i]);
 
                 active_tracks.push_back(id);
                 kf_map[id] = KalmanFilter(0.05, 0, 0, 0, 0.3, 0.3);
                 tracks_count++;
 
-                detection_file << id << "," 
-                << keys[i] << "," 
-                << objects_map[keys[i]].timestamp << "," 
-                << objects_map[keys[i]].detection_coord.x << "," 
-                << objects_map[keys[i]].detection_coord.y << endl;
+                // tracks_file << objects_map[keys[i]].timestamp << "," 
+                // << id << "," 
+                // << keys[i] << "," 
+                // << objects_map[keys[i]].detection_coord.x << "," 
+                // << objects_map[keys[i]].detection_coord.y << endl;
             }
         } else {
             // there are more tracks than observations so some tracks wont be "refreshed"
@@ -1147,96 +1120,132 @@ void CpService::multiObjectTracking()
                 tracks_map[active_tracks[tracks_aux]].detection_coord = objects_map[keys[pos_aux]].detection_coord;
                 tracks_map[active_tracks[tracks_aux]].timestamp = objects_map[keys[pos_aux]].timestamp;
                 tracks_map[active_tracks[tracks_aux]].sensor = keys[pos_aux];
+                objects_used.push_back(keys[pos_aux]);
 
-                detection_file << active_tracks[tracks_aux] << "," 
-                << keys[pos_aux] << "," 
-                << objects_map[keys[pos_aux]].timestamp << "," 
-                << objects_map[keys[pos_aux]].detection_coord.x << "," 
-                << objects_map[keys[pos_aux]].detection_coord.y << endl;
+                // tracks_file << objects_map[keys[pos_aux]].timestamp << "," 
+                // << active_tracks[tracks_aux] << "," 
+                // << keys[pos_aux] << "," 
+                // << objects_map[keys[pos_aux]].detection_coord.x << "," 
+                // << objects_map[keys[pos_aux]].detection_coord.y << endl;
             }
         }
     }
-    detection_file.close();
+    std::unordered_set<int> used_set(objects_used.begin(), objects_used.end());
+
+    std::vector<int> missing_keys;
+    for (int key : keys) {
+        if (used_set.find(key) == used_set.end()) {
+            missing_keys.push_back(key);
+        }
+    }
+    for  (int key : missing_keys) {
+        Identifier_t id = 0;
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        do {
+            std::uniform_int_distribution<> distrib(0, 255);
+            id = distrib(gen);
+        } while ((std::find(active_obj_ids.begin(), active_obj_ids.end(), id) != active_obj_ids.end()));
+
+        active_obj_ids.push_back(id);  // objectIDs in use
+
+        tracks_map[id].detection_coord = objects_map[key].detection_coord;
+        tracks_map[id].timestamp = objects_map[key].timestamp;
+        tracks_map[id].sensor = key;
+        tracks_map[id].speed = 0;
+        tracks_map[id].direction = 0;
+        objects_used.push_back(key);
+
+        active_tracks.push_back(id);
+        kf_map[id] = KalmanFilter(0.05, 0, 0, 0, 0.3, 0.3);
+        tracks_count++;
+
+        // tracks_file << objects_map[key].timestamp << "," 
+        // << id << "," 
+        // << key << "," 
+        // << objects_map[key].detection_coord.x << "," 
+        // << objects_map[key].detection_coord.y << endl;
+    }
+
+    //tracks_file.close();
+
+    oss << mVehicleController->getVehicleId() << "_tracks_positions.csv";
+    tracks_file.open(oss.str().c_str(), std::ios_base::app);
 
     std::vector<int> remove_tracks;
 
     for (const auto& at : active_tracks) {
         auto prediction = kf_map[at].predict();
-        if((std::sqrt(std::pow(prediction[0] - tracks_map[at].detection_coord.x, 2) + std::pow(prediction[1] - tracks_map[at].detection_coord.y, 2))) >= 1){
-            tracks_map[at].count_reset = tracks_map[at].count_reset + 1;
-        }
-        else{
-            tracks_map[at].count_reset = 0;
-        }
         
-        if(tracks_map[at].count_reset >= 7){ //  0.2 segundo / 0,05 T = 4 timestamps
-            cLineFigure* line1 = tracks_map[at].cross_line1;
-            cLineFigure* line2 = tracks_map[at].cross_line2;
-            if (line1 != nullptr && line2 != nullptr) {
-                detections->removeFigure(tracks_map[at].cross_line1);
-                detections->removeFigure(tracks_map[at].cross_line2);
-            }
-            tracks_map.erase(at);
-            kf_map.erase(at);
-            remove_tracks.push_back(at);
-        }else{
-            kf_map[at].update({tracks_map[at].detection_coord.x, tracks_map[at].detection_coord.y});
-            auto updated = kf_map[at].getPosition();
-            tracks_map[at].detection_coord = omnetpp::cFigure::Point(updated(0), updated(1));
-
-            cLineFigure* line1 = tracks_map[at].cross_line1;
-            cLineFigure* line2 = tracks_map[at].cross_line2;
-            if (line1 != nullptr && line2 != nullptr) {
-                detections->removeFigure(tracks_map[at].cross_line1);
-                detections->removeFigure(tracks_map[at].cross_line2);
-            }
-            // DRAW DETECTION
-            auto coord = tracks_map[at].detection_coord;
-            auto cross_line1 = new cLineFigure();
-            auto cross_line2 = new cLineFigure();
-            cross_line1->setStart(omnetpp::cFigure::Point(coord.x + 0.1, coord.y + 0.1));
-            cross_line1->setEnd(omnetpp::cFigure::Point(coord.x - 0.1, coord.y - 0.1));
-            cross_line2->setStart(omnetpp::cFigure::Point(coord.x + 0.1, coord.y - 0.1));
-            cross_line2->setEnd(omnetpp::cFigure::Point(coord.x - 0.1, coord.y + 0.1));
-            cross_line1->setZIndex(3);
-            cross_line2->setZIndex(3);
-            if(at % 2 == 0){
-                cross_line1->setLineColor("RED");
-                cross_line2->setLineColor("RED");
-            }else{
-                cross_line1->setLineColor("BLUE");
-                cross_line2->setLineColor("BLUE");
-            }
-            detections->addFigure(cross_line1);
-            detections->addFigure(cross_line2);
-            
-            tracks_map[at].cross_line1 = cross_line1;
-            tracks_map[at].cross_line2 = cross_line2;
+        kf_map[at].update({tracks_map[at].detection_coord.x, tracks_map[at].detection_coord.y});
+        auto updated = kf_map[at].getPosition();
+        
+        // EV << "cur time: " << cur_time << endl << "track time: " << tracks_map[at].timestamp << endl << (cur_time - tracks_map[at].timestamp <  0.05) << endl;
+        // EV << tracks_map[at].timestamp << "," 
+        // << at << "," 
+        // << tracks_map[at].sensor << "," 
+        // << updated(0) << ","
+        // << updated(1) << ","
+        // << tracks_map[at].detection_coord.x << "," 
+        // << tracks_map[at].detection_coord.y << endl;
+        if((cur_time - tracks_map[at].timestamp) <  0.05){
+            tracks_file << tracks_map[at].timestamp << "," 
+            << at << "," 
+            << tracks_map[at].sensor << "," 
+            << updated(0) << ","
+            << updated(1) << ","
+            << tracks_map[at].detection_coord.x << "," 
+            << tracks_map[at].detection_coord.y << endl;
         }
-    }
-    for (auto at : remove_tracks) {
-        // EV << "REMOVEU A TRACK " << at << endl;
-        active_tracks.erase(std::remove(active_tracks.begin(), active_tracks.end(), at), active_tracks.end());
+
+        tracks_map[at].detection_coord = omnetpp::cFigure::Point(updated(0), updated(1));
         cLineFigure* line1 = tracks_map[at].cross_line1;
         cLineFigure* line2 = tracks_map[at].cross_line2;
         if (line1 != nullptr && line2 != nullptr) {
             detections->removeFigure(tracks_map[at].cross_line1);
             detections->removeFigure(tracks_map[at].cross_line2);
         }
-    }
+        // DRAW DETECTION
+        auto coord = tracks_map[at].detection_coord;
+        auto cross_line1 = new cLineFigure();
+        auto cross_line2 = new cLineFigure();
+        cross_line1->setStart(omnetpp::cFigure::Point(coord.x + 0.1, coord.y + 0.1));
+        cross_line1->setEnd(omnetpp::cFigure::Point(coord.x - 0.1, coord.y - 0.1));
+        cross_line2->setStart(omnetpp::cFigure::Point(coord.x + 0.1, coord.y - 0.1));
+        cross_line2->setEnd(omnetpp::cFigure::Point(coord.x - 0.1, coord.y + 0.1));
+        cross_line1->setZIndex(3);
+        cross_line2->setZIndex(3);
+        if(at % 2 == 0){
+            cross_line1->setLineColor("RED");
+            cross_line2->setLineColor("RED");
+        }else{
+            cross_line1->setLineColor("BLUE");
+            cross_line2->setLineColor("BLUE");
+        }
+        detections->addFigure(cross_line1);
+        detections->addFigure(cross_line2);
+        
+        tracks_map[at].cross_line1 = cross_line1;
+        tracks_map[at].cross_line2 = cross_line2;
+        
+        EV << "Track ID: " << at << endl;
+    }    
+    tracks_file.close();
     past_tracks_map = tracks_map;
     past_active_tracks = active_tracks;
 }
 
-std::vector<std::vector<double>> CpService::generate_cost_matrix(double distance_weight, double direction_weight) {
 
+
+std::pair<std::vector<std::vector<double>>, std::vector<std::vector<double>>> CpService::generate_cost_matrices() {
     size_t n = active_tracks.size();
     size_t m = objects_map.size();
-    std::vector<std::vector<double>> cost_matrix(n, std::vector<double>(m, 0.0));
+    std::vector<std::vector<double>> distance_matrix(n, std::vector<double>(m, 0.0));
+    std::vector<std::vector<double>> direction_matrix(n, std::vector<double>(m, 0.0));
 
     for (size_t i = 0; i < n; ++i) {
         int j = 0;
-        for (auto pair : objects_map) {
+        for (const auto& pair : objects_map) {
             auto key = pair.first;
             auto value = pair.second;
 
@@ -1253,45 +1262,23 @@ std::vector<std::vector<double>> CpService::generate_cost_matrix(double distance
             if (!past_active_tracks.empty()) {
                 double delta_x = past_tracks_map_pos.detection_coord.x - pred_track_pos.detection_coord.x;
                 double delta_y = past_tracks_map_pos.detection_coord.y - pred_track_pos.detection_coord.y;
-
                 double angle1 = std::atan2(delta_y, delta_x);
 
                 delta_x = pred_track_pos.detection_coord.x - detection_pos.x;
                 delta_y = pred_track_pos.detection_coord.y - detection_pos.y;
-
                 double angle2 = std::atan2(delta_y, delta_x);
 
                 ang_dif = std::abs(angle1 - angle2);
             }
 
-            cost_matrix[i][j] = std::round(distance * 100.0) / 100.0 * distance_weight + std::round(ang_dif * 100.0) / 100.0 * direction_weight;
+            distance_matrix[i][j] = std::round(distance * 100.0) / 100.0;
+            direction_matrix[i][j] = std::round(ang_dif * 100.0) / 100.0;
             j++;
         }
     }
-    return cost_matrix;
+    return {distance_matrix, direction_matrix};
 }
 
-// std::vector<int> CpService::optimal_assignment(const std::vector<std::vector<double>>& cost_matrix) {
-//     size_t num_tracks = cost_matrix.size();
-//     std::vector<int> indices(num_tracks);
-//     std::iota(indices.begin(), indices.end(), 0);
-//     double best_cost = std::numeric_limits<double>::infinity();
-//     std::vector<int> best_assignment;
-
-//     do {
-//         double total_cost = 0.0;
-//         for (size_t i = 0; i < num_tracks; ++i) {
-//             total_cost += cost_matrix[i][indices[i]];
-//         }
-
-//         if (total_cost < best_cost) {
-//             best_cost = total_cost;
-//             best_assignment = indices;
-//         }
-//     } while (std::next_permutation(indices.begin(), indices.end()));
-
-//     return best_assignment;
-// }
 
 std::vector<int> CpService::optimal_assignment(const std::vector<std::vector<double>>& cost_matrix) {
     const double UNASSIGNED_COST = 1e6; // High cost for unassigned tracks
@@ -1346,16 +1333,5 @@ std::vector<int> CpService::optimal_assignment(const std::vector<std::vector<dou
 
     return best_assignment;
 }
-
-// int MyVeinsRSUApp::pointInPolygon (int nvert, Coord verts[], Coord point)
-// {
-//     int i, j, c = 0;
-
-//     for (i = 0, j = nvert-1; i < nvert; j = i++) {
-//         if ( ((verts[i].y>point.y) != (verts[j].y>point.y)) && (point.x < (verts[j].x-verts[i].x) * (point.y-verts[i].y) / (verts[j].y-verts[i].y) + verts[i].x) )
-//            c = !c;
-//     }
-//     return c;
-// }
 
 }  // namespace artery
