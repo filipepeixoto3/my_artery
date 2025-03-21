@@ -9,6 +9,9 @@
 #include "artery/envmod/Geometry.h"
 #include "artery/traci/Cast.h"
 #include "traci/Core.h"
+//add by lip
+#include "traci/API.h"
+//end add by lip
 #include <boost/geometry/geometries/register/linestring.hpp>
 #include <boost/range/adaptor/transformed.hpp>
 #include <inet/common/ModuleAccess.h>

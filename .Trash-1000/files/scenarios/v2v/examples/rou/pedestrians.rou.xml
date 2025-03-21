@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<routes xmlns_xsi="http://www.w3.org/2001/XMLSchema-instance" xsi_noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+  <person id="person0" type="walker.pedestrian.0022" depart="1.00">
+    <personTrip from="E28.16" to="E24" walkFactor="0.75"/>
+  </person>
+  <person id="person1" type="walker.pedestrian.0028" depart="2.00">
+    <personTrip from="E28.12" to="E26.14" walkFactor="0.75"/>
+  </person>
+  <person id="person2" type="walker.pedestrian.0014" depart="3.00">
+    <personTrip from="E28.16" to="-E3" walkFactor="0.75"/>
+  </person>
+  <person id="person3" type="walker.pedestrian.0024" depart="4.00">
+    <personTrip from="E24" to="-E3" walkFactor="0.75"/>
+  </person>
+  <person id="person4" type="walker.pedestrian.0010" depart="5.00">
+    <personTrip from="E27.16" to="E28.16" walkFactor="0.75"/>
+  </person>
+  <person id="person5" type="walker.pedestrian.0024" depart="6.00">
+    <personTrip from="E26.14" to="-E3" walkFactor="0.75"/>
+  </person>
+  <person id="person6" type="walker.pedestrian.0028" depart="7.00">
+    <personTrip from="-E2" to="E27" walkFactor="0.75"/>
+  </person>
+  <person id="person7" type="walker.pedestrian.0008" depart="8.00">
+    <personTrip from="E28.16" to="E27.16" walkFactor="0.75"/>
+  </person>
+  <person id="person8" type="walker.pedestrian.0024" depart="9.00">
+    <personTrip from="E24" to="E27.16" walkFactor="0.75"/>
+  </person>
+  <person id="person9" type="walker.pedestrian.0014" depart="10.00">
+    <personTrip from="E3" to="E24" walkFactor="0.75"/>
+  </person>
+</routes>

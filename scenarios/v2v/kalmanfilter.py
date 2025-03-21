@@ -48,15 +48,18 @@ class KalmanFilter(object):
         #self.P = np.eye(self.A.shape[1])
         self.P = np.eye(self.A.shape[1])* 500
 
-    # def update_measurement_noise(self, confidence):
-    #     """
-    #     Update the measurement noise covariance matrix R based on the confidence value.
-    #     Higher confidence means less reliable measurement, so R should be larger.
-    #     :param confidence: The confidence value from the detection data (in meters)
-    #     """
-    #     # The confidence is in meters, so set R proportional to the square of the confidence
-    #     self.R = np.matrix([[confidence**2, 0],
-    #                         [0, confidence**2]])
+        self.pred_tracks =[] 
+
+
+    def update_measurement_noise(self, confidence):
+        """
+        Update the measurement noise covariance matrix R based on the confidence value.
+        Higher confidence means less reliable measurement, so R should be larger.
+        :param confidence: The confidence value from the detection data (in meters)
+        """
+        # The confidence is in meters, so set R proportional to the square of the confidence
+        self.R = np.matrix([[confidence**2, 0],
+                            [0, confidence**2]])
 
     def predict(self):
         # Refer to :Eq.(9) and Eq.(10)  in https://machinelearningspace.com/object-tracking-simple-implementation-of-kalman-filter-in-python/?preview_id=1364&preview_nonce=52f6f1262e&preview=true&_thumbnail_id=1795

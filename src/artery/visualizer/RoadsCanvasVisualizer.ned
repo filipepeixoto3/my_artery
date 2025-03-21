@@ -12,9 +12,9 @@ simple RoadsCanvasVisualizer
 
         @display("i=misc/globe;is=s");
 
-        string traciModule;
-        bool drawObstacles = default(false);
-        string obstacleTypes = default("");
+        string traciModule = default("traci");
+        bool drawObstacles = default(true);
+        string obstacleTypes = default("building shop");
         double lineWidth = default(1);  // line width of roads
         bool lineWidthZoom = default(false);  // whether zooming should affect line width
 }

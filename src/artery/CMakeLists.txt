@@ -3,6 +3,7 @@ add_library(core SHARED
     StaticNodeManager.cc
     application/CaObject.cc
     application/CaService.cc
+    application/CpObject.cc
     application/CpService.cc
     application/KalmanFilter.cc
     application/DenmObject.cc
@@ -97,7 +98,11 @@ find_package(PkgConfig MODULE REQUIRED)
 pkg_check_modules(ZEROMQ REQUIRED libzmq)
 target_include_directories(core PUBLIC "${ZEROMQ_INCLUDES_DIRS}")
 target_link_libraries(core PUBLIC "${ZEROMQ_LIBRARIES}")
+
+find_package(Eigen3 REQUIRED)
+target_include_directories(core PUBLIC "${EIGEN3_INCLUDE_DIR}")
 #end add by lip
+
 
 if(TARGET veins)
     message(STATUS "Enable Veins integration")

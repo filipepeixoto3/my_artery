@@ -85,7 +85,7 @@ def plot_data():
         plot_route(ax, route_data, colors[i])
     
     # Plot other detection files with different colors
-    detection_files = glob.glob('car1_detection_pos3.txt')
+    detection_files = glob.glob('car*_detection_pos.txt')
     detection_colors = plt.cm.tab10(np.linspace(0, 1, len(detection_files)))  # Different color map for other files
     
     for i, file in enumerate(detection_files):

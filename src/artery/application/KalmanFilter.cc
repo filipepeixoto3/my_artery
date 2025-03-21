@@ -117,15 +117,4 @@ Eigen::Vector2d KalmanFilter::getPosition(){
      return x.head<2>();
 }
 
-// void KalmanFilter::reset(const Eigen::Vector4d& initial_state = Eigen::Vector4d::Zero()) {
-//     // Reset the state vector to the provided initial state
-//     x = initial_state;
-
-//     // Reset the covariance matrix to the initial value
-//     P = Eigen::Matrix4d::Identity() * 500;
-
-//     // Optionally, reset control input (if needed)
-//     u = Eigen::Vector2d::Zero();
-// }
-
 }

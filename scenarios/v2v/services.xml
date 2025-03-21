@@ -9,5 +9,5 @@
     <service type="artery.application.CpService" name="CP">
         <listener port="2009" />
     </service>
-  
+
 </services>

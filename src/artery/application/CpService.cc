@@ -344,12 +344,12 @@ void CpService::indicate(const vanetza::btp::DataIndication& ind, std::unique_pt
             cross_line1->setStart(a);
             cross_line1->setEnd(c);
             cross_line1->setLineColor("GREEN");
-            // detections->addFigure(cross_line1);
+            detections->addFigure(cross_line1);
             auto cross_line2 = new cLineFigure();
             cross_line2->setStart(b);
             cross_line2->setEnd(d);
             cross_line2->setLineColor("GREEN");
-            // detections->addFigure(cross_line2);
+            detections->addFigure(cross_line2);
         }
 
         // for (int i = 0; i < msg->cpm.cpmParameters.sensorInformationContainer->list.count; i++) {

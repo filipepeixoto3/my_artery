@@ -1,3 +1,5 @@
+
+
 //import artery.application.ItsG5Service;
 
 //
@@ -40,13 +42,4 @@ simple CpService like ItsG5Service
 	
 	string host = default("192.168.31.248");  // zmq port
 	int port = default(5555);  // zmq port
-
-    // Multi-Object Tracking and Kalman Filter setup
-
-    double dt = default(0.05); // :param dt: sampling time (time for 1 cycle)
-    double u_x = default(0.0); // :param u_x: acceleration in x-direction
-    double u_y = default(0.0); // :param u_y: acceleration in y-direction
-    double std_acc = default(0.0); // :param std_acc: process noise magnitude
-    double x_std_meas = default(0.3); // :param x_std_meas: standard deviation of the measurement in x-direction
-    y_std_meas = default(0.3); // :param y_std_meas: standard deviation of the measurement in y-direction
 }

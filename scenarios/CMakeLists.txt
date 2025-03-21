@@ -1,6 +1,10 @@
 add_subdirectory(artery)
 add_subdirectory(gemv2)
 add_subdirectory(highway-police)
+#add by lip
+add_subdirectory(parking_lot)
+#end add by lip
+
 
 if(WITH_ENVMOD)
     add_subdirectory(rsu_grid)
@@ -37,6 +41,7 @@ if(TARGET lte AND WITH_STORYBOARD)
 endif()
 
 add_opp_run(car2car-grid WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/car2car-grid)
-add_opp_run(v2v WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/v2v)
 add_opp_test(car2car-grid SUFFIX cam_bsp CONFIG cam_bsp RUN 0 SIMTIME_LIMIT 30s)
+add_opp_run(v2v WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/v2v)
 add_opp_test(v2v SUFFIX cam_bsp CONFIG cam_bsp RUN 0 SIMTIME_LIMIT 30s)
+

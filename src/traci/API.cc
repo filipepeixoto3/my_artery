@@ -28,8 +28,11 @@ void API::connect(const ServerEndpoint& endpoint)
     while (true) {
         try {
             TraCIAPI::connect(endpoint.hostname, endpoint.port);
-            TraCIAPI::setOrder(endpoint.clientId);
-            return;
+            //add by lip
+	    //TraCIAPI::setOrder(endpoint.clientId);
+            TraCIAPI::setOrder(2);
+	    //end add by lip
+   	    return;
         } catch (tcpip::SocketException&) {
             if (++tries < max_tries) {
                 std::this_thread::sleep_for(sleep);
