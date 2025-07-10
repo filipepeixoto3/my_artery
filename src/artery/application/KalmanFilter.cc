@@ -72,7 +72,16 @@ namespace artery
 {
 
 KalmanFilter::KalmanFilter(double dt, double u_x, double u_y, double std_acc, double x_std_meas, double y_std_meas)
-    : dt(dt), u(u_x, u_y), x(Eigen::Vector4d::Zero()) {
+    : dt(dt), u(u_x, u_y), x(Eigen::Vector4d::Zero()) { // KalmanFilter(0.05, 0, 0, 0, 0.3, 0.3)
+
+        """
+        :param dt: sampling time (time for 1 cycle)
+        :param u_x: acceleration in x-direction
+        :param u_y: acceleration in y-direction
+        :param std_acc: process noise magnitude
+        :param x_std_meas: standard deviation of the measurement in x-direction
+        :param y_std_meas: standard deviation of the measurement in y-direction
+        """
 
     A << 1, 0, dt, 0,
          0, 1, 0, dt,

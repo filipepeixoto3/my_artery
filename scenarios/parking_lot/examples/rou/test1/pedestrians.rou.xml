@@ -1,0 +1,123 @@
+<?xml version="1.0" ?>
+<routes xmlns_xsi="http://www.w3.org/2001/XMLSchema-instance" xsi_noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+  <person id="person0" type="walker.pedestrian.0006" depart="61.00">
+    <walk edges="-E3 E28.12 E28.16 E0 E26.14 E24 E3"/>
+  </person>
+  <person id="person1" type="walker.pedestrian.0019" depart="67.00">
+    <walk edges="E27 E26.14 E1 E28.12"/>
+  </person>
+  <person id="person2" type="walker.pedestrian.0016" depart="73.00">
+    <walk edges="E0 E26.14 E1 E28.16"/>
+  </person>
+  <person id="person3" type="walker.pedestrian.0024" depart="79.00">
+    <walk edges="E26.14 E0 E28.16 E28.12 E24"/>
+  </person>
+  <person id="person4" type="walker.pedestrian.0022" depart="85.00">
+    <walk edges="-E3 E24 E26.14 E0 E28.16 E28.12"/>
+  </person>
+  <person id="person5" type="walker.pedestrian.0020" depart="91.00">
+    <walk edges="E27.16 E28.16 E1 E26.14 E27"/>
+  </person>
+  <person id="person6" type="walker.pedestrian.0013" depart="97.00">
+    <walk edges="-E3 E24 E26.14 E0 E27.16"/>
+  </person>
+  <person id="person7" type="walker.pedestrian.0004" depart="103.00">
+    <walk edges="E28.12 E28.16 E0"/>
+  </person>
+  <person id="person8" type="walker.pedestrian.0021" depart="109.00">
+    <walk edges="E27 E26.14 E1 E28.12 -E3"/>
+  </person>
+  <person id="person9" type="walker.pedestrian.0010" depart="115.00">
+    <walk edges="E3 E28.12 E28.16 E0 E26.14 E24"/>
+  </person>
+  <person id="person10" type="walker.pedestrian.0022" depart="121.00">
+    <walk edges="E1 E28.12 -E3"/>
+  </person>
+  <person id="person11" type="walker.pedestrian.0005" depart="127.00">
+    <walk edges="E26.14 E1 E28.12"/>
+  </person>
+  <person id="person12" type="walker.pedestrian.0032" depart="133.00">
+    <walk edges="E27.16 E0 E26.14"/>
+  </person>
+  <person id="person13" type="walker.pedestrian.0004" depart="139.00">
+    <walk edges="E0 E26.14 E1"/>
+  </person>
+  <person id="person14" type="walker.pedestrian.0012" depart="145.00">
+    <walk edges="E28.12 E28.16 E0 E27"/>
+  </person>
+  <person id="person15" type="walker.pedestrian.0028" depart="151.00">
+    <walk edges="E1 E26.14 E0"/>
+  </person>
+  <person id="person16" type="walker.pedestrian.0013" depart="157.00">
+    <walk edges="-E3 E24 E26.14 E0 E28.16 E28.12"/>
+  </person>
+  <person id="person17" type="walker.pedestrian.0007" depart="163.00">
+    <walk edges="E27 E0 E28.16"/>
+  </person>
+  <person id="person18" type="walker.pedestrian.0014" depart="169.00">
+    <walk edges="E3 E24 E26.14 E0 E27.16"/>
+  </person>
+  <person id="person19" type="walker.pedestrian.0010" depart="175.00">
+    <walk edges="E28.12 E28.16 E0 E26.14 E24 -E3"/>
+  </person>
+  <person id="person20" type="walker.pedestrian.0012" depart="181.00">
+    <walk edges="E1 E28.12 E3"/>
+  </person>
+  <person id="person21" type="walker.pedestrian.0012" depart="187.00">
+    <walk edges="E1 E26.14 E27"/>
+  </person>
+  <person id="person22" type="walker.pedestrian.0004" depart="193.00">
+    <walk edges="E24 E26.14 E0 E28.16 E28.12"/>
+  </person>
+  <person id="person23" type="walker.pedestrian.0016" depart="199.00">
+    <walk edges="E26.14 E1 E28.16 E0"/>
+  </person>
+  <person id="person24" type="walker.pedestrian.0004" depart="205.00">
+    <walk edges="E3 E28.12 E28.16 E0"/>
+  </person>
+  <person id="person25" type="walker.pedestrian.0026" depart="211.00">
+    <walk edges="E28.12 E24 E26.14 E0 E28.16"/>
+  </person>
+  <person id="person26" type="walker.pedestrian.0005" depart="217.00">
+    <walk edges="E28.16 E0 E27"/>
+  </person>
+  <person id="person27" type="walker.pedestrian.0014" depart="223.00">
+    <walk edges="E0 E26.14 E1 E28.16"/>
+  </person>
+  <person id="person28" type="walker.pedestrian.0017" depart="229.00">
+    <walk edges="E26.14 E1 E28.12"/>
+  </person>
+  <person id="person29" type="walker.pedestrian.0012" depart="235.00">
+    <walk edges="E27 E26.14 E1 E28.16 E0"/>
+  </person>
+  <person id="person30" type="walker.pedestrian.0019" depart="241.00">
+    <walk edges="E24 E28.12 E28.16 E0 E26.14"/>
+  </person>
+  <person id="person31" type="walker.pedestrian.0017" depart="247.00">
+    <walk edges="E28.16 E1 E24 E3"/>
+  </person>
+  <person id="person32" type="walker.pedestrian.0028" depart="253.00">
+    <walk edges="E0 E26.14 E1 E28.16"/>
+  </person>
+  <person id="person33" type="walker.pedestrian.0031" depart="259.00">
+    <walk edges="E28.16 E1 E24"/>
+  </person>
+  <person id="person34" type="walker.pedestrian.0008" depart="265.00">
+    <walk edges="E28.16 E1 E24"/>
+  </person>
+  <person id="person35" type="walker.pedestrian.0003" depart="271.00">
+    <walk edges="E27.16 E27 E26.14 E1 E28.12"/>
+  </person>
+  <person id="person36" type="walker.pedestrian.0031" depart="277.00">
+    <walk edges="-E3 E28.12 E1 E26.14"/>
+  </person>
+  <person id="person37" type="walker.pedestrian.0016" depart="283.00">
+    <walk edges="E26.14 E0 E28.16"/>
+  </person>
+  <person id="person38" type="walker.pedestrian.0012" depart="289.00">
+    <walk edges="E0 E26.14 E1 E28.16 E27.16"/>
+  </person>
+  <person id="person39" type="walker.pedestrian.0012" depart="295.00">
+    <walk edges="E1 E26.14 E0"/>
+  </person>
+</routes>

@@ -261,7 +261,7 @@ void CpService::initialize()
     // EV << "Trying connecting to: " << addr << endl;
     this->socket.connect(addr);
 
-    EV_INFO << "Connect to ZMQ succesful!" << endl;
+    // EV_INFO << "Connect to ZMQ succesful!" << endl;
 
     // remove(boost::lexical_cast<std::string>(mVehicleDataProvider->getStationId()) + "_detection_pos.csv");
     std::ostringstream oss;
@@ -272,23 +272,42 @@ void CpService::initialize()
     detection_file.close();
     oss.str("");  // Clear the buffer
     oss.clear();  // Reset the state flags
-    oss << mVehicleController->getVehicleId() << "_tracks_positions.csv";
+
+    oss << mVehicleController->getVehicleId() << "_detection_pos.csv";
     remove(oss.str().c_str());
     tracks_file.open(oss.str().c_str(), std::ios_base::app);
     tracks_file << "timestamp,track_id,sensor_id,x_track,y_track,x_raw,y_raw" << endl;
     tracks_file.close();
+    oss.str("");  // Clear the buffer
+    oss.clear();  // Reset the state flags
+
+    // EV << "(INITIALIZE) mVehicleController->getVehicleId(): " << mVehicleController->getVehicleId() << endl;
+    if(mVehicleController->getVehicleId() == "car0"){
+        std::string file_name = mVehicleController->getVehicleId() + "_cpm_objects.csv";
+        remove(file_name.c_str());
+        cpms_file.open(file_name , std::ios_base::app);
+        cpms_file << "timestamp,track_id,x_track,y_track" << endl;
+        cpms_file.close();
+    }
+    
+
 }
 
 void CpService::trigger()
 {
     Enter_Method("trigger");
-    updateEveryTimestamp();
-    receiveFromCarla();                     // checks if there is content in the socket connected to CARLA and if so the data is processed
-    processDetections();                    // extract objects from the detections_map
-    multiObjectTracking();                  // tracking of multiple objects and correcting their positions with kalman filter
-    checkTriggeringConditions(simTime());   // checks if coditions to create and a send a CPM are meet
-    detections_map.clear();
-    objects_map.clear();
+    if(simTime() > 60){
+        updateEveryTimestamp();
+        receiveFromCarla();                     // checks if there is content in the socket connected to CARLA and if so the data is processed
+        determineObjects();                     // extract objects from the detections_map
+        multiObjectTracking();                  // tracking of multiple objects and correcting their positions with kalman filter
+        //if(false)
+        if (tracks_map.size() != 0) {
+            checkTriggeringConditions(simTime());   // checks if coditions to create and a send a CPM are meet
+        }
+        detections_map.clear();
+        objects_map.clear();
+    }
 }
 
 void CpService::indicate(const vanetza::btp::DataIndication& ind, std::unique_ptr<vanetza::UpPacket> packet)  // when a CPM is received
@@ -333,6 +352,7 @@ void CpService::indicate(const vanetza::btp::DataIndication& ind, std::unique_pt
             // ReferencePosition_t r = getPos(libsumo::VAR_POSITION, msg->header.stationID);
 
             active_obj_ids.push_back(object->objectID);
+            // EV << "indicate received objects." << endl;
             // omnetpp::cFigure::Point final_pos = {((double)object->xDistance.value) / 100.00, ((double)object->yDistance.value) / 100.00};
             omnetpp::cFigure::Point final_pos = {cpc.x + ((double)object->xDistance.value / 100), cpc.y + ((double)object->yDistance.value / 100)};
             omnetpp::cFigure::Point a = omnetpp::cFigure::Point(final_pos.x + 0.1, final_pos.y + 0.1);
@@ -350,6 +370,15 @@ void CpService::indicate(const vanetza::btp::DataIndication& ind, std::unique_pt
             cross_line2->setEnd(d);
             cross_line2->setLineColor("GREEN");
             detections->addFigure(cross_line2);
+            
+            if(mVehicleController->getVehicleId() == "car0"){
+                std::string file_name = "car" + mVehicleController->getVehicleId() + "_cpm_objects.csv";
+                remove(file_name.c_str());
+                cpms_file.open(file_name , std::ios_base::app);
+                // cpms_file << "timestamp,track_id,x_track,y_track" << endl;
+                cpms_file << simTime() << "," << object->objectID << ","  << cpc.x + ((double)object->xDistance.value / 100) << "," << cpc.y + ((double)object->yDistance.value / 100) << endl;
+                cpms_file.close();
+            }
         }
 
         // for (int i = 0; i < msg->cpm.cpmParameters.sensorInformationContainer->list.count; i++) {
@@ -407,13 +436,28 @@ bool CpService::checkSpeedDelta() const
 
 void CpService::sendCpm(const SimTime& T_now)
 {    
-    if (tracks_map.size() == 0) {
-        return;
+    
+
+    if(mVehicleController->getVehicleId() == "car0"){
+        for (auto pair : tracks_map) {
+            auto key = pair.first;
+            auto value = pair.second;
+            // if(simTime() == value.timestamp){
+            std::string file_name = mVehicleController->getVehicleId() + "_cpm_objects.csv";
+            cpms_file.open(file_name , std::ios_base::app);
+            // cpms_file << "timestamp,track_id,x_track,y_track" << endl;
+            cpms_file << simTime().dbl() << "," << key << ","  << value.detection_coord.x << "," << value.detection_coord.y << endl;
+            cpms_file.close();
+            // }
+        }
     }
+
     uint16_t genDeltaTimeMod = countTaiMilliseconds(mTimer->getTimeFor(mVehicleDataProvider->updated()));
+    
     auto cpm = createCollectivePerceptionMessage(
         *mVehicleDataProvider, genDeltaTimeMod, *mVehicleController, uss_setups, detections_map, tracks_map, *detections, cur_pos_center);
-    mLastCpmPosition = mVehicleDataProvider->position();
+    
+        mLastCpmPosition = mVehicleDataProvider->position();
     mLastCpmSpeed = mVehicleDataProvider->speed();
     mLastCpmHeading = mVehicleDataProvider->heading();
     mLastCpmTimestamp = T_now;
@@ -426,8 +470,10 @@ void CpService::sendCpm(const SimTime& T_now)
     request.gn.maximum_lifetime = geonet::Lifetime{geonet::Lifetime::Base::One_Second, 1};
     request.gn.traffic_class.tc_id(static_cast<unsigned>(dcc::Profile::DP2));
     request.gn.communication_profile = geonet::CommunicationProfile::ITS_G5;
+    
     CpObject obj(std::move(cpm));
     emit(scSignalCpmSent, &obj);
+
     using CpmByteBuffer = convertible::byte_buffer_impl<asn1::Cpm>;
     std::unique_ptr<geonet::DownPacket> payload{new geonet::DownPacket()};
     std::unique_ptr<convertible::byte_buffer> buffer{new CpmByteBuffer(obj.shared_ptr())};
@@ -489,7 +535,6 @@ vanetza::asn1::Cpm createCollectivePerceptionMessage(
     management.referencePosition.latitude = round(vdp.latitude(), microdegree) * Latitude_oneMicrodegreeNorth;
     management.referencePosition.longitude = round(vdp.longitude(), microdegree) * Longitude_oneMicrodegreeEast;
 
-
     management.referencePosition.positionConfidenceEllipse.semiMajorOrientation = HeadingValue_unavailable;
     management.referencePosition.positionConfidenceEllipse.semiMajorConfidence = SemiAxisLength_unavailable;
     management.referencePosition.positionConfidenceEllipse.semiMinorConfidence = SemiAxisLength_unavailable;
@@ -524,8 +569,8 @@ vanetza::asn1::Cpm createCollectivePerceptionMessage(
 
         auto vsp = vanetza::asn1::allocate<VehicleSensorProperties>();
         vsp->range = 5.5 * 10;  // 5.5
-        vsp->horizontalOpeningAngleStart = (long)((desired_config.yaw - 30) * 10);
-        vsp->horizontalOpeningAngleEnd = ((long)(desired_config.yaw + 30) * 10);
+        vsp->horizontalOpeningAngleStart = (long)((desired_config.yaw - 15) * 10);
+        vsp->horizontalOpeningAngleEnd = ((long)(desired_config.yaw + 15) * 10);
 
         vsp->horizontalOpeningAngleStart = 0;
         vsp->horizontalOpeningAngleEnd = 0;
@@ -540,7 +585,6 @@ vanetza::asn1::Cpm createCollectivePerceptionMessage(
     perceivedObjects = (long)tm.size();
     // EV << "perceivedObjects: " << perceivedObjects << endl;
 
-
     for (auto pair : tm) {
         auto key = pair.first;
         auto value = pair.second;
@@ -548,7 +592,7 @@ vanetza::asn1::Cpm createCollectivePerceptionMessage(
 
         auto po = vanetza::asn1::allocate<PerceivedObject>();
         po->objectID = key;
-        po->timeOfMeasurement = (long)(current_time.dbl() - value.timestamp); 
+        po->timeOfMeasurement = (long)(current_time.dbl() - value.timestamp); //genDeltaTime - value.timestamp
         // po->timeOfMeasurement = 0; 
         // EV << "timeOfMeasurement: " << po->timeOfMeasurement << endl;
         po->xDistance.value = (value.detection_coord.x - cpc.x) * 100;
@@ -586,11 +630,158 @@ vanetza::asn1::Cpm createCollectivePerceptionMessage(
         // "ySpeed:" << po->ySpeed.value << endl <<
         // "direction: " << value.direction << endl <<
         // "timeOfMeasurement: " << po->timeOfMeasurement << endl;
-
+        
         ASN_SEQUENCE_ADD(cpm.cpmParameters.perceivedObjectContainer, po);
     }
     return message;
 }
+
+// vanetza::asn1::Cpm createCollectivePerceptionMessage(
+//     const VehicleDataProvider& vdp, uint16_t genDeltaTime, const VehicleController& vc, std::map<int, uss_setup> us, std::map<int, uss_value> dm, std::map<int, track_info> tm,
+//     omnetpp::cGroupFigure& det, omnetpp::cFigure::Point cpc, std::ofstream cpmsf)
+// {
+//     vanetza::asn1::Cpm message;
+
+//     ItsPduHeader_t& header = (*message).header;
+//     header.protocolVersion = 2;
+//     header.messageID = ItsPduHeader__messageID_cpm;
+//     header.stationID = vdp.station_id();
+
+//     CollectivePerceptionMessage_t& cpm = (*message).cpm;
+//     cpm.generationDeltaTime = genDeltaTime * GenerationDeltaTime_oneMilliSec;
+
+//     // CPM CONTAINER -> (Station Data | Cpm Management | Sensor Information |Perceived Object | Free Space Addendum)
+
+//     // Station Data Container (Done)
+//     cpm.cpmParameters.stationDataContainer = vanetza::asn1::allocate<StationDataContainer_t>();
+//     StationDataContainer_t* station = cpm.cpmParameters.stationDataContainer;
+//     station->present = StationDataContainer_PR_originatingVehicleContainer;
+//     OriginatingVehicleContainer_t& ovc = station->choice.originatingVehicleContainer;
+//     ovc.heading.headingConfidence = HeadingConfidence_equalOrWithinOneDegree;
+//     ovc.heading.headingValue = round(vdp.heading(), decidegree);
+//     ovc.speed.speedConfidence = SpeedConfidence_equalOrWithinOneCentimeterPerSec * 3;
+//     ovc.speed.speedValue = buildSpeedValue(vdp.speed());
+//     ovc.vehicleLength = new VehicleLength_t();
+//     ovc.vehicleLength->vehicleLengthValue = vc.getLength().value() * 100;
+//     ovc.vehicleLength->vehicleLengthConfidenceIndication = VehicleLengthConfidenceIndication_unavailable;
+
+//     // Cpm Management Container (Done)
+//     CpmManagementContainer_t& management = cpm.cpmParameters.managementContainer;
+//     management.stationType = StationType_passengerCar;
+//     management.referencePosition.altitude.altitudeValue = AltitudeValue_unavailable;
+//     management.referencePosition.altitude.altitudeConfidence = AltitudeConfidence_unavailable;
+
+//     management.referencePosition.latitude = round(vdp.latitude(), microdegree) * Latitude_oneMicrodegreeNorth;
+//     management.referencePosition.longitude = round(vdp.longitude(), microdegree) * Longitude_oneMicrodegreeEast;
+
+//     management.referencePosition.positionConfidenceEllipse.semiMajorOrientation = HeadingValue_unavailable;
+//     management.referencePosition.positionConfidenceEllipse.semiMajorConfidence = SemiAxisLength_unavailable;
+//     management.referencePosition.positionConfidenceEllipse.semiMinorConfidence = SemiAxisLength_unavailable;
+
+//     // Sensor Information Container (Done)
+//     cpm.cpmParameters.sensorInformationContainer = vanetza::asn1::allocate<SensorInformationContainer_t>();
+//     SensorInformationContainer_t* sic = cpm.cpmParameters.sensorInformationContainer;
+//     int index = 1;
+//     auto current_time = simTime();
+//     for (auto pair : dm) {
+        
+//         auto key = pair.first;
+//         auto value = pair.second;
+//         uss_setup desired_config = us[key];
+//         auto si = vanetza::asn1::allocate<SensorInformation>();
+//         si->sensorID = key;
+//         si->type = SensorType_ultrasonic;
+//         si->detectionArea.present = DetectionArea_PR_vehicleSensor;
+
+
+//         VehicleSensor_t& vs = si->detectionArea.choice.vehicleSensor;
+//         vs.xSensorOffset = (XSensorOffset_t)(desired_config.x * 100);
+//         vs.ySensorOffset = (XSensorOffset_t)(desired_config.y * 100);
+
+//         if (vs.xSensorOffset > 0) {  // dont know why ("Describes the mounting position of a sensor along the negative x-direction from Reference Point
+//                                         // indicated by the refPointID")
+//             vs.xSensorOffset = -vs.xSensorOffset;
+//         }
+//         if (vs.ySensorOffset > 0) {
+//             vs.ySensorOffset = -vs.ySensorOffset;
+//         }
+
+//         auto vsp = vanetza::asn1::allocate<VehicleSensorProperties>();
+//         vsp->range = 5.5 * 10;  // 5.5
+//         vsp->horizontalOpeningAngleStart = (long)((desired_config.yaw - 15) * 10);
+//         vsp->horizontalOpeningAngleEnd = ((long)(desired_config.yaw + 15) * 10);
+
+//         vsp->horizontalOpeningAngleStart = 0;
+//         vsp->horizontalOpeningAngleEnd = 0;
+
+//         ASN_SEQUENCE_ADD(&vs.vehicleSensorPropertyList, vsp);
+//         ASN_SEQUENCE_ADD(sic, si);
+//     }
+
+//     // Perceived Object Container
+//     cpm.cpmParameters.perceivedObjectContainer = vanetza::asn1::allocate<PerceivedObjectContainer_t>();
+//     NumberOfPerceivedObjects_t& perceivedObjects = cpm.cpmParameters.numberOfPerceivedObjects;
+//     perceivedObjects = (long)tm.size();
+//     // EV << "perceivedObjects: " << perceivedObjects << endl;
+
+//     for (auto pair : dm) {
+//         auto key = pair.first;
+//         auto value = pair.second;
+//         uss_setup desired_config = us[key];
+
+//         auto po = vanetza::asn1::allocate<PerceivedObject>();
+//         po->objectID = key;
+//         po->timeOfMeasurement = (long)(current_time.dbl() - value.timestamp); //genDeltaTime - value.timestamp
+//         // po->timeOfMeasurement = 0; 
+//         // EV << "timeOfMeasurement: " << po->timeOfMeasurement << endl;
+//         po->xDistance.value = (value.detection_coord.x - cpc.x) * 100;
+//         // EV << "xDistance: " << po->xDistance.value << endl;
+//         po->yDistance.value = (value.detection_coord.y - cpc.y) * 100;
+//         // EV << "yDistance: " << po->yDistance.value << endl;
+
+//         DistanceConfidence_t conf = std::round(std::sqrt(2 * std::pow(value.depth, 2) * (1 - std::cos(PI / 12))) * 100);
+//         if (conf > 100) {
+//             po->xDistance.confidence = DistanceConfidence_outOfRange;
+//             po->yDistance.confidence = DistanceConfidence_outOfRange;
+//         } else {
+//             po->xDistance.confidence = conf;
+//             // EV << "xDistance.confidence: " << po->xDistance.confidence << endl;
+//             po->yDistance.confidence = conf;
+//             // EV << "yDistance.confidence: " << po->yDistance.confidence << endl;
+//         }
+
+//         // po->xSpeed.value = (long)(value.speed * std::cos(value.direction) * 100);
+//         po->xSpeed.value = 0;
+//         po->xSpeed.confidence = SpeedConfidence_unavailable;
+
+//         // po->ySpeed.value = (long)(value.speed * std::sin(value.direction) * 100);
+//         po->ySpeed.value = 0;
+//         po->ySpeed.confidence = SpeedConfidence_unavailable;
+
+//         // po->yawAngle->value = (long)((value.direction) * 1800/PI); //crasha não se bem porquê (usar round(?))
+//         // po->yawAngle->confidence = AngleConfidence_unavailable;
+
+//         // EV << "Object " << po->objectID << ": " << endl <<
+//         // "xDistance:" << po->xDistance.value << endl <<
+//         // "yDistance:" << po->yDistance.value << endl <<
+//         // "DistanceConfidence: " << conf << endl <<
+//         // "xSpeed:" << po->xSpeed.value << endl <<
+//         // "ySpeed:" << po->ySpeed.value << endl <<
+//         // "direction: " << value.direction << endl <<
+//         // "timeOfMeasurement: " << po->timeOfMeasurement << endl;
+//         if("car" + vc.getVehicleId() == "car0"){
+//             std::string file_name = "car" + vc.getVehicleId() + "_cpm_objects.csv";
+//             remove(file_name.c_str());
+//             cpmsf.open(file_name , std::ios_base::app);
+//             // cpms_file << "timestamp,track_id,x_track,y_track" << endl;
+//             cpmsf << simTime() << "," << po->objectID << ","  << cpc.x + ((double)po->xDistance.value / 100) << "," << cpc.y + ((double)po->yDistance.value / 100);
+//             cpmsf.close();
+//         }
+//         ASN_SEQUENCE_ADD(cpm.cpmParameters.perceivedObjectContainer, po);
+//     }
+    
+//     return message;
+// }
 
 void CpService::updateEveryTimestamp()
 {
@@ -617,9 +808,6 @@ void CpService::updateEveryTimestamp()
         while (pair.second.norm_detection_angle >= PI)
             pair.second.norm_detection_angle -= 2 * PI;
     }
-    for (int i = 0; i < rings->getNumFigures(); i++)
-        rings->removeFigure(i);
-
 
     auto timestamp = simTime();
 
@@ -631,6 +819,12 @@ void CpService::updateEveryTimestamp()
         if (timestamp - value.timestamp > 1 && std::find(active_tracks.begin(), active_tracks.end(), key) != active_tracks.end()|| (timestamp - value.timestamp > 0.5 && detections_map[tracks_map[key].sensor].depth >=5)) {
             // EV << "ENTROU NO REMOVE OLD TRACKS!" << endl;
             // Remove the track from `active_tracks`
+            cLineFigure* line1 = tracks_map[key].cross_line1;
+            cLineFigure* line2 = tracks_map[key].cross_line2;
+            if (line1 != nullptr && line2 != nullptr) {
+                detections->removeFigure(line1);
+                detections->removeFigure(line2);
+            }
             active_tracks.erase(std::remove(active_tracks.begin(), active_tracks.end(), key), active_tracks.end());
             // Check if the track is also in `past_active_tracks`
             if (std::find(past_active_tracks.begin(), past_active_tracks.end(), key) != past_active_tracks.end()) {
@@ -639,21 +833,7 @@ void CpService::updateEveryTimestamp()
             }
         }
     }
-    
-    // std::vector<int> remove_tracks;
-    // auto cur_time = simTime();
-    // for(auto pair : tracks_map){
-    //     auto key = pair.first;
-    //     auto value = pair.second;
-    //     if (cur_time - value.timestamp > 0.2 and detections_map[value.sensor].depth >=5){
-    //         remove_tracks.push_back(key);
-    //     }
-    // }
-    // for (auto at : remove_tracks) {
-    //     tracks_map.erase(at);
-    //     kf_map.erase(at);
-    //     EV << "Track " << at << "was removed!" << endl;
-    // }
+
 }
 
 void CpService::receiveFromCarla()
@@ -672,7 +852,7 @@ void CpService::receiveFromCarla()
         rc = zmq_getsockopt(socket, ZMQ_RCVMORE, &sndhwm, &sndhwm_size);
 
         if (reply.to_string().empty()) {
-            EV << "    msg empty! return!=" << endl;
+            // EV << "    msg empty! return!=" << endl;
 
             for (auto it = uss_setups.begin(); it != uss_setups.end(); ++it) {
                 if ((std::find(sensors_with_input.begin(), sensors_with_input.end(), it->first) == sensors_with_input.end()) &&
@@ -709,16 +889,16 @@ void CpService::receiveFromCarla()
                 int role_name = std::stoi(jsonResp["role_name"].get<std::string>());
                 sensors_with_input.push_back(role_name);
 
-                EV << "    USS-" << sensor_id << "<" << role_name << ">" << "@" << vehicle_id << " (t=" << initial_timestamp << ")  Depth=" << depth << "m"
-                   << endl;
+                // EV << "    USS-" << sensor_id << "<" << role_name << ">" << "@" << vehicle_id << " (t=" << initial_timestamp << ")  Depth=" << depth << "m"
+                //    << endl;
                 if (depth <= 5.5)
                     storeDetections(role_name, initial_timestamp, detection_delta_time, std::round(depth * 1000) / 1000);  // storing the detections in the "detections_map"
             } else {
-                EV << "    Unknown message type..." << endl;
+                // EV << "    Unknown message type..." << endl;
             }
         } else {
-            EV << "STRING=" << reply.to_string() << endl;
-            EV << "RCV_MORE=" << sndhwm << endl;
+            // EV << "STRING=" << reply.to_string() << endl;
+            // EV << "RCV_MORE=" << sndhwm << endl;
         }
     } while (true);
 }
@@ -739,33 +919,34 @@ void CpService::storeDetections(int role_name, double timestamp, uint16_t detect
     detections_map[role_name].detection_delta_time = detection_delta_time;
 
     // DRAW DETECTION
+    // << "coords: (" << coord.x << "," << coord.y << ")" << endl;
     auto cross_line1 = new cLineFigure();
     cross_line1->setStart(omnetpp::cFigure::Point(coord.x + 0.1, coord.y + 0.1));
     cross_line1->setEnd(omnetpp::cFigure::Point(coord.x - 0.1, coord.y - 0.1));
     cross_line1->setLineColor("GREEN");
     cross_line1->setZIndex(3);
-    //detections->addFigure(cross_line1);
+    // detections->addFigure(cross_line1);
 
     auto cross_line2 = new cLineFigure();
     cross_line2->setStart(omnetpp::cFigure::Point(coord.x + 0.1, coord.y - 0.1));
     cross_line2->setEnd(omnetpp::cFigure::Point(coord.x - 0.1, coord.y + 0.1));
     cross_line2->setLineColor("GREEN");
     cross_line2->setZIndex(3);
-    //detections->addFigure(cross_line2);
+    // detections->addFigure(cross_line2);
 
     auto arc = new cArcFigure();
     arc->setBounds(cFigure::Rectangle(cur_pos_center.x + desired_config.sensor_pos.x, cur_pos_center.y + desired_config.sensor_pos.y, 2 * depth, 2 * depth));
     arc->setPosition(cur_pos_center + desired_config.sensor_pos, cFigure::ANCHOR_CENTER);
     arc->setStartAngle(desired_config.norm_detection_angle - 30 * PI / 180 + PI);
     arc->setEndAngle(desired_config.norm_detection_angle + 30 * PI / 180 + PI);
-    // detections->addFigure(arc);
+    //detections->addFigure(arc);
 
     detections_map[role_name].line1 = cross_line1;
     detections_map[role_name].line2 = cross_line2;
     detections_map[role_name].arc = arc;
 }
 
-void CpService::processDetections(){
+void CpService::determineObjects(){
     bool skip_next = false;
 
     std::ostringstream oss;
@@ -774,7 +955,6 @@ void CpService::processDetections(){
     artery::Position arteryPos;
 
     for (auto pair : detections_map){
-        // EV << "checking detection from sensor: " <<  pair.first << endl;
         if(skip_next){
             skip_next = false;
             continue;
@@ -782,60 +962,41 @@ void CpService::processDetections(){
         auto key = pair.first;
         auto value = pair.second;
         object_info oi;
-        DistanceConfidence_t conf = std::round(std::sqrt(2 * std::pow(value.depth, 2) * (1 - std::cos(PI / 12))) * 100);
+        // DistanceConfidence_t conf = std::round(std::sqrt(2 * std::pow(value.depth, 2) * (1 - std::cos(PI / 12))) * 100);
         
-        //if (conf <= 100){
-
         auto assign_to_map = [&](int target_key, const auto& source) {
             oi.detection_delta_time = source.detection_delta_time;
             oi.timestamp = source.timestamp;
             oi.detection_coord = source.detection_coord;
             objects_map[target_key] = oi;
         };
-        // EV << "active_tracks size: " << active_tracks.size() << endl; 
-        // EV << "Detections_Map size: " << detections_map.size() << endl; 
-        // EV << "Next key: " << key+1 << endl;
-        // if(detections_map.find(key+1) != detections_map.end()){
-        //     EV << "Next sensor has a detection!" << endl;
-        // }
-        // if(tracks_map.size() < detections_map.size()){
-        //     EV << "tracks_map.size() < detections_map.size() = TRUE" << endl;
-        // }else{
-        //     EV << "tracks_map.size() < detections_map.size() = FALSE" << endl;
-        // }
-        if (key != 5 && detections_map.find(key+1) != detections_map.end() && active_tracks.size() < detections_map.size()) {
-            //EV << "2 sensors next to eachother are detecting an object!" << endl;
-            auto& next_detection = detections_map[key+1];
+        if(key <= 5)
+        {
+            if (key != 5 && detections_map.find(key+1) != detections_map.end() && active_tracks.size() < detections_map.size()) {
+                auto& next_detection = detections_map[key+1];
             if(value.depth > next_detection.depth){
                 assign_to_map(key + 1, next_detection);
-               // EV << "Chose detection from sensor: " << key + 1 << endl;
             }else{
                 assign_to_map(key, detections_map[key]);
-                //EV << "Chose detection from sensor: " << key<< endl;
             }
             skip_next = true; // Skip processing the next key
-        }else{
-            assign_to_map(key, value);
-            // EV << "Assigned detection from sensor: " << key<< endl;
-            
-        }
+            }else{
+                assign_to_map(key, value);
+            }
+                // WRITE INFO TO FILE 
+                // oss.str("");            // Clear the content
+                // oss.clear();            // Reset any error flags
+                // oss << mVehicleController->getVehicleId() << "_detection_pos.csv";
+                // detection_file.open(oss.str().c_str(), std::ios_base::app);
+                // arteryPos = Position(oi.detection_coord.x, oi.detection_coord.y);
+                // traCIPos = position_cast(boundary,arteryPos);
 
-            // WRITE INFO TO FILE 
-            oss.str("");            // Clear the content
-            oss.clear();            // Reset any error flags
-            oss << mVehicleController->getVehicleId() << "_detection_pos.csv";
-            detection_file.open(oss.str().c_str(), std::ios_base::app);
-            // arteryPos = Position(oi.detection_coord.x, oi.detection_coord.y);
-            // traCIPos = position_cast(boundary,arteryPos);
-
-            detection_file << oi.timestamp << "," << mVehicleController->getVehicleId() << "," << key << "," << oi.detection_coord.x << ","
-                            << oi.detection_coord.y << "," << tracks_count << endl;
+                // detection_file << oi.timestamp << "," << mVehicleController->getVehicleId() << "," << key << "," << oi.detection_coord.x << ","
+                //                 << oi.detection_coord.y << "," << tracks_count << endl;
                             
-            // if(detection_file.is_open()){
-            //     EV << mVehicleController->getVehicleId() << "," << key  << "," << oi.timestamp << "," << oi.detection_coord.x << ","
-            //                 << oi.detection_coord.y << "," <<  tracks_count << endl;
-            // }
-            detection_file.close();
+                // detection_file.close();
+        }
+        
     }
     // DRAW DETECTION
     for (auto pair : objects_map){
@@ -878,7 +1039,7 @@ void CpService::multiObjectTracking()
     std::vector<int> objects_used; // Dynamic array of object_info
     std::vector<int> keys;
 
-    if (active_tracks.empty()) { // if there are no active tracks, all the objects will become their own track 
+    if (active_tracks.empty())  { // if there are no active tracks, all the objects will become their own track 
         for (const auto& dm : objects_map) {
             Identifier_t id = 0;
             std::random_device rd;
@@ -911,7 +1072,7 @@ void CpService::multiObjectTracking()
         }
         // EV << "ACTIVE TRACKS ESTÁ VAZIO SUPOSTAMENTE!" << endl;
     } else {
-    
+
         // auto cost_matrix = generate_cost_matrix(0.3, 0.5); 
                 // cost matrix:   
         //               detections:
@@ -1228,7 +1389,7 @@ void CpService::multiObjectTracking()
         tracks_map[at].cross_line1 = cross_line1;
         tracks_map[at].cross_line2 = cross_line2;
         
-        EV << "Track ID: " << at << endl;
+        // EV << "Track ID: " << at << endl;
     }    
     tracks_file.close();
     past_tracks_map = tracks_map;

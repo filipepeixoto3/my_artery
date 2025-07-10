@@ -135,6 +135,8 @@ private:
     omnetpp::cGroupFigure* draw_figures = nullptr;
     std::ofstream per_pos_file; //at every timestamp collects pedestrian's positions
     std::ofstream car_pos_file; //at every timestamp collects car's sensor positions
+    std::ofstream person_pos_file; //at every timestamp collects car's sensor positions
+
     
     //end add by lip
 };

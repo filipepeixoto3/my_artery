@@ -3,9 +3,15 @@
 
     <input>
         <net-file value="net/Town05_parking.net.xml"/>
-	<route-files value="carlavtypes.rou.xml,rou/Town05.rou.xml"/>
-	<additional-files value="poly/Town05_new.poly.xml"/>
+	    <route-files value="carlavtypes.rou.xml,rou/vehicles.rou.xml,rou/pedestrians.rou.xml"/>
+	    <additional-files value="poly/Town05_new.poly.xml"/>
     </input>
+
+    <!-- <processing>
+        <pedestrian.model value="striping"/>
+        <pedestrian.striping.useVehicleLanes value="1"/>
+        <pedestrian.striping.useWalkingArea value="1"/>
+    </processing> -->
 
     <gui_only>
         <gui-settings-file value="viewsettings.xml"/>
@@ -15,4 +21,6 @@
 	<end value="100"/>
 	<step-length value="0.05"/>
     </time>
+
+
 </configuration>

@@ -1,19 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 	
-        <vehicle id="car0" type="vehicle.audi.tt" depart="0.00"  departPos="stop">
+        <vehicle id="car0" type="vehicle.audi.etron" depart="0.00"  departPos="stop">
                 <route edges="E1"/>
-                <stop parkingArea="pa_12" duration="150"/>
+                <stop parkingArea="pa_12" duration="850"/>
         </vehicle>
-
-	<personFlow id="personFlow1" type="walker.pedestrian.0001" begin="0" end="50" departPos="12" period="10">
+<!--
+	<personFlow id="personFlow1" type="walker.pedestrian.0001" begin="0" end="700" departPos="12" period="7">
 		<walk from="E1" to="E28.12"/>
 	</personFlow>
 
-	<personFlow id="personFlow2" begin="0" type="walker.pedestrian.0001" end="50" departPos="27" period="10">
+	<personFlow id="personFlow2" begin="0" type="walker.pedestrian.0001" end="700" departPos="27" period="7">
                 <walk from="E1" to="E26.14"/>
         </personFlow>
-
+-->
 <!--
         <person id="person0" type="walker.pedestrian.0001" depart="0.00">
 		<walk edges=" E1 E28.12"/>
@@ -31,12 +31,12 @@
                 <walk edges="E28.12 E1 E26.14"/>
         </person>
 -->
-
+<!--
 	<vehicle id="car1" type="vehicle.audi.etron" depart="0.00"  departPos="stop">
                 <route edges="E1"/>
                 <stop parkingArea="pa_22" duration="150"/>
         </vehicle>
-
+-->
 		<!--
 	<person id="3" type="walker.pedestrian.0001" depart="9.00">
 		<walk edges="20.0.00" arrivalPos="0" />

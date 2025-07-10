@@ -82,10 +82,10 @@ void BasicNodeManager::initialize()
     canvas = getSimulation()->getModuleByPath("World")->getCanvas();
     draw_figures = new cGroupFigure();
     canvas->addFigure(draw_figures);
-    remove("persons_positions.csv");
-    per_pos_file.open("persons_positions.csv" , std::ios_base::app);
-    per_pos_file << "timestamp,person_id,x_gt,y_gt" << endl;
-    per_pos_file.close();
+    // remove("persons_positions.csv");
+    // per_pos_file.open("persons_positions.csv" , std::ios_base::app);
+    // per_pos_file << "timestamp,person_id,x_gt,y_gt" << endl;
+    // per_pos_file.close();
     //car_pos_file.open("cars_positions.csv" , std::ios_base::app);
     //car_pos_file << "id,sensor,x0,y0,x1,y1,x2,y2" << endl;
     // car_pos_file.close();
@@ -330,8 +330,7 @@ void BasicNodeManager::updateVehicle(const std::string& id, VehicleSink* sink)
                 omnetpp::cFigure::Point coord_corner2 = cur_pos_center + value.sensor_pos + corner2;
 
 
-                if (vehicle->get<libsumo::VAR_SPEED>() == 0){
-                    
+                if (vehicle->get<libsumo::VAR_SPEED>() == 0){ 
                     std::string file_name = id + "_sensor_positions.csv";
                     car_pos_file.open(file_name , std::ios_base::app);
                     car_pos_file
@@ -408,6 +407,11 @@ void BasicNodeManager::addPerson(const std::string& id)
     } else {
         m_persons[id] = nullptr;
     }
+    std::string file_name = id + "_positions.csv";
+    remove(file_name.c_str());
+    person_pos_file.open(file_name , std::ios_base::app);
+    person_pos_file << "timestamp,x_gt,y_gt" << endl;
+    person_pos_file.close();
 }
 
 void BasicNodeManager::removePerson(const std::string& id)
@@ -471,8 +475,12 @@ void BasicNodeManager::updatePerson(const std::string& id, PersonSink* sink)
         //     per_pos_file << id << "," << currTime << "," << position.x.value() << "," << position.y.value() << endl;
         //     per_pos_file.close();
         // }
-        per_pos_file.open("persons_positions.csv" , std::ios_base::app);
-        per_pos_file << currTime << "," << id << ","  << position.x.value() << "," << position.y.value() << endl;
+        //per_pos_file.open("persons_positions.csv" , std::ios_base::app);
+        //per_pos_file << currTime << "," << id << ","  << position.x.value() << "," << position.y.value() << endl;
+        //per_pos_file.close();
+        std::string file_name = id + "_positions.csv";
+        per_pos_file.open(file_name , std::ios_base::app);
+        per_pos_file << currTime << ","  << position.x.value() << "," << position.y.value() << endl;
         per_pos_file.close();
     }
 }

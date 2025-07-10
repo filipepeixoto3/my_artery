@@ -8,10 +8,16 @@
 #define ARTERY_CPSERVICE_H_V08YXH9S
 
 #include "artery/application/ItsG5BaseService.h"
-#include "artery/application/json.hpp"
-#include "artery/application/VehicleKinematics.h"
 #include "artery/utility/Channel.h"
 #include "artery/utility/Geometry.h"
+#include <vanetza/asn1/cpm.hpp>
+#include <vanetza/btp/data_interface.hpp>
+#include <vanetza/units/angle.hpp>
+#include <vanetza/units/velocity.hpp>
+#include <omnetpp/simtime.h>
+
+#include "artery/application/json.hpp"
+#include "artery/application/VehicleKinematics.h"
 
 #include "artery/traci/MobilityBase.h"
 #include "artery/traci/Controller.h"
@@ -26,11 +32,6 @@
 #include <omnetpp/ccanvas.h>
 #include <omnetpp/clistener.h>
 #include <omnetpp/csimplemodule.h>
-#include <omnetpp/simtime.h>
-#include <vanetza/asn1/cpm.hpp>
-#include <vanetza/btp/data_interface.hpp>
-#include <vanetza/units/angle.hpp>
-#include <vanetza/units/velocity.hpp>
 #include <veins/base/modules/BaseMobility.h>
 #include <zmq.hpp>
 
@@ -73,7 +74,7 @@ typedef struct {
     uint16_t detection_delta_time;
     double depth;
     omnetpp::cFigure::Point detection_coord;
-
+    int repeat_count;
     omnetpp::cLineFigure* line1;
     omnetpp::cLineFigure* line2;
     omnetpp::cArcFigure* arc;
@@ -127,8 +128,6 @@ private:
     const Timer* mTimer = nullptr;
     LocalDynamicMap* mLocalDynamicMap = nullptr;
     
-    traci::Boundary m_boundary;
-
     omnetpp::SimTime mGenCpmMin;
     omnetpp::SimTime mGenCpmMax;
     omnetpp::SimTime mGenCpm;
@@ -143,12 +142,15 @@ private:
     vanetza::units::Velocity mSpeedDelta;
     bool mDccRestriction;
     bool mFixedRate;
+
     omnetpp::cCanvas* canvas = nullptr;
     omnetpp::cGroupFigure* detections = nullptr;
     omnetpp::cGroupFigure* rings = nullptr;
     omnetpp::cFigure::Point detection_pos;
     omnetpp::cFigure::Point sensor_pos;
     std::map<std::string, int> numSamplesPerSensor;
+
+    traci::Boundary m_boundary;
 
 	std::map<int, uss_setup> uss_setups;
     std::map<int, uss_value> detections_map;
@@ -167,7 +169,6 @@ private:
     double vehicle_angle;
     omnetpp::cFigure::Point cur_pos_center;
 
-    int repeted_detections[12];
     omnetpp::cFigure::Point static_object[12];
     
     std::list<Identifier_t> active_obj_ids;
@@ -178,14 +179,14 @@ private:
 
     std::ofstream detection_file; 
     std::ofstream tracks_file; 
+    std::ofstream cpms_file; 
 
 
-    void receiveFromCarla();
     void updateEveryTimestamp();
+    void receiveFromCarla();
     void storeDetections(int role_name, double initial_timestamp, uint16_t detection_delta_time, double depth);
-    omnetpp::cFigure::Point findPosition(omnetpp::cFigure::Point cpc, omnetpp::cFigure::Point A, omnetpp::cFigure::Point B, double d_A, double d_B, omnetpp::cFigure::Point C, omnetpp::cFigure::Point D);
-
-    void processDetections();
+    //omnetpp::cFigure::Point findPosition(omnetpp::cFigure::Point cpc, omnetpp::cFigure::Point A, omnetpp::cFigure::Point B, double d_A, double d_B, omnetpp::cFigure::Point C, omnetpp::cFigure::Point D);
+    void determineObjects();
     void multiObjectTracking();
 
     std::vector<int> optimal_assignment(const std::vector<std::vector<double>>& cost_matrix);
