@@ -3,8 +3,9 @@
 
     <input>
         <net-file value="net/Town05_parking.net.xml"/>
-	    <route-files value="carlavtypes.rou.xml,rou/vehicles.rou.xml,rou/pedestrians.rou.xml"/>
-	    <additional-files value="poly/Town05_new.poly.xml"/>
+	    <!-- <route-files value="carlavtypes.rou.xml,rou/test4/vehicles.rou.xml,rou/pedestrians.rou.xml"/> -->
+	    <route-files value="carlavtypes.rou.xml,rou/Town05.rou.xml"/>
+        <additional-files value="poly/Town05_new.poly.xml"/>
     </input>
 
     <!-- <processing>

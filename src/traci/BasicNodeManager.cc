@@ -79,9 +79,9 @@ void BasicNodeManager::initialize()
     m_destroy_vehicles_on_crash = par("destroyVehiclesOnCrash");
     m_ignore_persons = par("ignorePersons");
     // add by lip
-    canvas = getSimulation()->getModuleByPath("World")->getCanvas();
-    draw_figures = new cGroupFigure();
-    canvas->addFigure(draw_figures);
+    // canvas = getSimulation()->getModuleByPath("World")->getCanvas();
+    // draw_figures = new cGroupFigure();
+    // canvas->addFigure(draw_figures);
     // remove("persons_positions.csv");
     // per_pos_file.open("persons_positions.csv" , std::ios_base::app);
     // per_pos_file << "timestamp,person_id,x_gt,y_gt" << endl;
@@ -96,7 +96,7 @@ void BasicNodeManager::finish()
 {
     unsubscribeTraCI();
     cSimpleModule::finish();
-    draw_figures->removeFromParent();
+    // draw_figures->removeFromParent();
 }
 
 void BasicNodeManager::traciInit()
@@ -127,9 +127,9 @@ void BasicNodeManager::traciInit()
 
 void BasicNodeManager::traciStep()
 {
-    int x = draw_figures->getNumFigures();
-    for (int i = x - 1; i >= 0; i--)
-        draw_figures->removeFigure(i);
+    // int x = draw_figures->getNumFigures();
+    // for (int i = x - 1; i >= 0; i--)
+    //     draw_figures->removeFigure(i);
     processVehicles();
     if (!m_ignore_persons) {
         processPersons();
@@ -194,8 +194,8 @@ void BasicNodeManager::addVehicle(const std::string& id)
         m_vehicles[id] = nullptr;
     }
     
-    std::string file_name = id + "_sensor_positions.csv";
-    remove(file_name.c_str());
+    //std::string file_name = id + "_sensor_positions.csv";
+    //remove(file_name.c_str());
 }
 
 void BasicNodeManager::removeVehicle(const std::string& id)
@@ -240,15 +240,15 @@ void BasicNodeManager::updateVehicle(const std::string& id, VehicleSink* sink)
 
 
         // DRAW VEHICLE
-        auto rectangle = new cRectangleFigure();
-        rectangle->setBounds(cFigure::Rectangle(cur_pos_center.x, cur_pos_center.y, vehicle_width, vehicle_length));
-        rectangle->setPosition(cur_pos_center, cFigure::ANCHOR_CENTER);
-        rectangle->rotate(-vehicle_angle + PI / 2, cur_pos_center);
-        rectangle->setFilled(true);
-        rectangle->setFillColor(vehicle_color);
-        // rectangle->setFillColor("RED");
-        rectangle->setZIndex(2.0);
-        draw_figures->addFigure(rectangle);
+        // auto rectangle = new cRectangleFigure();
+        // rectangle->setBounds(cFigure::Rectangle(cur_pos_center.x, cur_pos_center.y, vehicle_width, vehicle_length));
+        // rectangle->setPosition(cur_pos_center, cFigure::ANCHOR_CENTER);
+        // rectangle->rotate(-vehicle_angle + PI / 2, cur_pos_center);
+        // rectangle->setFilled(true);
+        // rectangle->setFillColor(vehicle_color);
+        // // rectangle->setFillColor("RED");
+        // rectangle->setZIndex(2.0);
+        // draw_figures->addFigure(rectangle);
 
         std::map<int, uss_setup> uss_setups;
 
@@ -267,11 +267,11 @@ void BasicNodeManager::updateVehicle(const std::string& id, VehicleSink* sink)
             uss_setups[11] = {78 - 180, -vehicle_length / 2 - 0.1, -5 * vehicle_width / 12, 0.5, 0, 0, 0, omnetpp::cFigure::Point(0, 0)};
 
 
-            std::string file_name = id + "_sensor_positions.csv";
-            remove(file_name.c_str());
-            car_pos_file.open(file_name , std::ios_base::app);
-            car_pos_file << "sensor_id,x0,y0,x1,y1,x2,y2" << endl;
-            car_pos_file.close();
+            // std::string file_name = id + "_sensor_positions.csv";
+            // remove(file_name.c_str());
+            // car_pos_file.open(file_name , std::ios_base::app);
+            // car_pos_file << "sensor_id,x0,y0,x1,y1,x2,y2" << endl;
+            // car_pos_file.close();
 
 
             for (auto it = uss_setups.begin(); it != uss_setups.end(); ++it) {
@@ -293,32 +293,32 @@ void BasicNodeManager::updateVehicle(const std::string& id, VehicleSink* sink)
                     value.norm_detection_angle -= 2 * PI;
                 
                 omnetpp::cFigure::Point cur_sensor_pos = cur_pos_center + value.sensor_pos;
-                auto sensor_rectangle = new cRectangleFigure();
-                sensor_rectangle->setBounds(cFigure::Rectangle(cur_sensor_pos.x, cur_sensor_pos.y, 0.2, 0.2));
-                sensor_rectangle->setPosition(cur_sensor_pos, cFigure::ANCHOR_CENTER);
-                sensor_rectangle->rotate(-vehicle_angle + PI / 2, cur_sensor_pos);
-                sensor_rectangle->setFilled(true);
-                sensor_rectangle->setFillColor("GRAY");
-                draw_figures->addFigure(sensor_rectangle);
+                // auto sensor_rectangle = new cRectangleFigure();
+                // sensor_rectangle->setBounds(cFigure::Rectangle(cur_sensor_pos.x, cur_sensor_pos.y, 0.2, 0.2));
+                // sensor_rectangle->setPosition(cur_sensor_pos, cFigure::ANCHOR_CENTER);
+                // sensor_rectangle->rotate(-vehicle_angle + PI / 2, cur_sensor_pos);
+                // sensor_rectangle->setFilled(true);
+                // sensor_rectangle->setFillColor("GRAY");
+                // draw_figures->addFigure(sensor_rectangle);
 
-                auto cone = new cPieSliceFigure();
-                cone->setBounds(cFigure::Rectangle(cur_sensor_pos.x, cur_sensor_pos.y, 11, 11));
-                cone->setPosition(cur_sensor_pos, cFigure::ANCHOR_CENTER);
-                cone->setStartAngle(value.norm_detection_angle + 15 * (PI / 180) + PI);
-                cone->setEndAngle(value.norm_detection_angle - 15 * (PI / 180) + PI);
-                cone->setFilled(true);
-                cone->setFillOpacity(0.01);
+                // auto cone = new cPieSliceFigure();
+                // cone->setBounds(cFigure::Rectangle(cur_sensor_pos.x, cur_sensor_pos.y, 11, 11));
+                // cone->setPosition(cur_sensor_pos, cFigure::ANCHOR_CENTER);
+                // cone->setStartAngle(value.norm_detection_angle + 15 * (PI / 180) + PI);
+                // cone->setEndAngle(value.norm_detection_angle - 15 * (PI / 180) + PI);
+                // cone->setFilled(true);
+                // cone->setFillOpacity(0.01);
 
-                if (key % 2 == 0) {
-                    cone->setLineColor("GREEN");
-                    cone->setLineOpacity(0.3);
-                    cone->setFillColor("GREEN");
-                } else {
-                    cone->setLineColor("BLUE");
-                    cone->setLineOpacity(0.3);
-                    cone->setFillColor("BLUE");
-                }
-                draw_figures->addFigure(cone);
+                // if (key % 2 == 0) {
+                //     cone->setLineColor("GREEN");
+                //     cone->setLineOpacity(0.3);
+                //     cone->setFillColor("GREEN");
+                // } else {
+                //     cone->setLineColor("BLUE");
+                //     cone->setLineOpacity(0.3);
+                //     cone->setFillColor("BLUE");
+                // }
+                // draw_figures->addFigure(cone);
 
                 
                 omnetpp::cFigure::Point corner1 =
@@ -330,19 +330,19 @@ void BasicNodeManager::updateVehicle(const std::string& id, VehicleSink* sink)
                 omnetpp::cFigure::Point coord_corner2 = cur_pos_center + value.sensor_pos + corner2;
 
 
-                if (vehicle->get<libsumo::VAR_SPEED>() == 0){ 
-                    std::string file_name = id + "_sensor_positions.csv";
-                    car_pos_file.open(file_name , std::ios_base::app);
-                    car_pos_file
-                    << key << ","
-                    << cur_sensor_pos.x << "," 
-                    << cur_sensor_pos.y << "," 
-                    << coord_corner1.x << "," 
-                    << coord_corner1.y << "," 
-                    << coord_corner2.x << "," 
-                    << coord_corner2.y << endl;
-                    car_pos_file.close();
-                }
+                // if (vehicle->get<libsumo::VAR_SPEED>() == 0){ 
+                //     std::string file_name = id + "_sensor_positions.csv";
+                //     car_pos_file.open(file_name , std::ios_base::app);
+                //     car_pos_file
+                //     << key << ","
+                //     << cur_sensor_pos.x << "," 
+                //     << cur_sensor_pos.y << "," 
+                //     << coord_corner1.x << "," 
+                //     << coord_corner1.y << "," 
+                //     << coord_corner2.x << "," 
+                //     << coord_corner2.y << endl;
+                //     car_pos_file.close();
+                // }
                 
 
                 //DEBUG
@@ -446,15 +446,15 @@ void BasicNodeManager::updatePerson(const std::string& id, PersonSink* sink)
         omnetpp::cFigure::Point cur_pos_center =
             omnetpp::cFigure::Point(position.x.value() - cos(person_angle) * person_length / 2, position.y.value() + sin(person_angle) * person_length / 2);
 
-        auto rectangle = new cRectangleFigure();
-        rectangle->setBounds(cFigure::Rectangle(cur_pos_center.x, cur_pos_center.y, person_width, person_length));
-        rectangle->setPosition(cur_pos_center, cFigure::ANCHOR_CENTER);
-        rectangle->rotate(-person_angle + PI / 2, cur_pos_center);
-        rectangle->setFilled(true);
-        rectangle->setFillOpacity(0.05);
-        rectangle->setFillColor("GRAY");
-        rectangle->setZIndex(2.0);
-        draw_figures->addFigure(rectangle);
+        // auto rectangle = new cRectangleFigure();
+        // rectangle->setBounds(cFigure::Rectangle(cur_pos_center.x, cur_pos_center.y, person_width, person_length));
+        // rectangle->setPosition(cur_pos_center, cFigure::ANCHOR_CENTER);
+        // rectangle->rotate(-person_angle + PI / 2, cur_pos_center);
+        // rectangle->setFilled(true);
+        // rectangle->setFillOpacity(0.05);
+        // rectangle->setFillColor("GRAY");
+        // rectangle->setZIndex(2.0);
+        // draw_figures->addFigure(rectangle);
 
         // auto currTime = m_api->simulation.getCurrentTime();
         auto currTime = omnetpp::simTime();       
@@ -479,9 +479,9 @@ void BasicNodeManager::updatePerson(const std::string& id, PersonSink* sink)
         //per_pos_file << currTime << "," << id << ","  << position.x.value() << "," << position.y.value() << endl;
         //per_pos_file.close();
         std::string file_name = id + "_positions.csv";
-        per_pos_file.open(file_name , std::ios_base::app);
-        per_pos_file << currTime << ","  << position.x.value() << "," << position.y.value() << endl;
-        per_pos_file.close();
+        person_pos_file.open(file_name , std::ios_base::app);
+        person_pos_file << currTime << ","  << position.x.value() << "," << position.y.value() << endl;
+        person_pos_file.close();
     }
 }
 

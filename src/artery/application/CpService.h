@@ -40,9 +40,9 @@
 #include <map>
 #include <memory>
 #include <string>
-#include <unordered_map>
 #include <fstream>
 #include <sstream>
+#include <random>
 
 
 
@@ -148,7 +148,6 @@ private:
     omnetpp::cGroupFigure* rings = nullptr;
     omnetpp::cFigure::Point detection_pos;
     omnetpp::cFigure::Point sensor_pos;
-    std::map<std::string, int> numSamplesPerSensor;
 
     traci::Boundary m_boundary;
 
@@ -171,7 +170,7 @@ private:
 
     omnetpp::cFigure::Point static_object[12];
     
-    std::list<Identifier_t> active_obj_ids;
+    std::list<Identifier_t> active_tracks_ids;
     std::string protocol;
     std::string host;
     zmq::socket_t socket;
@@ -180,6 +179,11 @@ private:
     std::ofstream detection_file; 
     std::ofstream tracks_file; 
     std::ofstream cpms_file; 
+    std::mt19937 gen;                           // Random number engine
+    std::uniform_int_distribution<> distrib;    // Distribution for IDs
+    // std::random_device rd;
+    // std::mt19937 gen(rd());
+    // std::uniform_int_distribution<> distrib(0, 255);
 
 
     void updateEveryTimestamp();
@@ -190,15 +194,14 @@ private:
     void multiObjectTracking();
 
     std::vector<int> optimal_assignment(const std::vector<std::vector<double>>& cost_matrix);
-
     // std::vector<std::vector<double>> generate_cost_matrix(double distance_weight, double direction_weight);
 
     std::pair<std::vector<std::vector<double>>, std::vector<std::vector<double>>> generate_cost_matrices();
 
 };
 
-vanetza::asn1::Cpm createCollectivePerceptionMessage(const VehicleDataProvider& vdp, uint16_t genDeltaTime, const VehicleController& vc, std::map<int, uss_setup> us,std::map<int, uss_value> dm, std::map<int, track_info> tm, omnetpp::cGroupFigure& det, omnetpp::cFigure::Point cpc);
+// vanetza::asn1::Cpm createCollectivePerceptionMessage(const VehicleDataProvider& vdp, uint16_t genDeltaTime, const VehicleController& vc, std::map<int, uss_setup> us,std::map<int, uss_value> dm, std::map<int, track_info> tm, omnetpp::cGroupFigure& det, omnetpp::cFigure::Point cpc, std::vector<int> at);
+vanetza::asn1::Cpm createCollectivePerceptionMessage(const VehicleDataProvider& vdp, uint16_t genDeltaTime, const VehicleController& vc, std::map<int, uss_setup> us, std::map<int, uss_value> dm, std::map<int, track_info> tm,omnetpp::cGroupFigure& det, omnetpp::cFigure::Point cpc);
 
 }  // namespace artery
-
 #endif /* ARTERY_CpSERVICE_H_V08YXH9S */
